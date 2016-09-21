@@ -30,3 +30,7 @@ Here are the instructions:
     <pre>![alternative text](URL)</pre>
 
 See the example [here](https://gitlab.computing.dcu.ie/sblott/2017-ca400-YOUR_NAME/raw/master/docs/blog/blog.md).
+
+## Instructions
+
+Once you've understood this sample, replace its text with your own blog.
