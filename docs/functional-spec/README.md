@@ -9,3 +9,5 @@ The first page of your functional specification should contain at least:
 - the type of document (e.g. *Functional Specification*)
 - your student number, and
 - the date you finished working on the document.
+
+*Do not place any other files in this directory.*
