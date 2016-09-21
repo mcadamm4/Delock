@@ -10,7 +10,9 @@ The blog is written in [markdown](https://github.com/adam-p/markdown-here/wiki/M
 
 ## My Second Blog Entry
 
-This week, I learned how to include images in my blog.
+This week, I learned how to include
+[images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
+in my blog.
 
-
+![cat](https://gitlab.computing.dcu.ie/sblott/2017-ca400-YOUR_NAME/raw/master/docs/blog/images/cat.jpg)
 
