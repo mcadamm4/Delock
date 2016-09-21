@@ -27,6 +27,6 @@ Here are the instructions:
 
 - Add your image to this document using the following format:
 
-    ![alternative text](URL)
+    <pre>![alternative text](URL)</pre>
 
 See the example [here](https://gitlab.computing.dcu.ie/sblott/2017-ca400-YOUR_NAME/raw/master/docs/blog/blog.md).
