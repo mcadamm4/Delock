@@ -18,7 +18,7 @@ in my blog.
 
 Here are the instructions:
 
-- Add the image to your repo (probably using the +images+ sub-directory here).
+- Add the image to your repo (probably using the `images` sub-directory here).
   The cat example above is in `./images/cat.jpg`.
 
 - Commit that and push it to your repo.
