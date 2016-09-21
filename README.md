@@ -24,16 +24,16 @@ his repo as:
  2017-ca400-sblott
 
 You can rename your repo by selecting *Edit Project* from the drop-down menu
-(with a gear icon) on the top right of the project's home page.  Change the
+(with a gear icon) on the top right of your project's home page.  Change the
 *Project name* field.
 
 You should also update the *Project description*.
 
 3 - This directory has two sub-directories.
 
-  All of your source code should be placed in the `src` sub-directory.
+- All of your source code should be placed in the `src` sub-directory.
 
-  All of your documentation should be placed in the `docs` sub-directory.
+- All of your documentation should be placed in the `docs` sub-directory.
 
 4 - There is further important documentation in the `docs` directory.  Read that next.
 
