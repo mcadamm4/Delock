@@ -14,9 +14,9 @@ You *must* do the following:
 
 2 - Rename your fork using the format
 
-    2017-ca400-YOUR_NAME
+    2017-ca400-USERNAME
 
-replacing `YOUR_NAME` with your School of Computing login name.
+replacing `USERNAME` with your School of Computing login name.
 
 For example, if Stephen Blott were to be doing a fourth-year project, he would rename
 his repo as:
