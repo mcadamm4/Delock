@@ -32,6 +32,41 @@ Here are the instructions:
 
 See the example [here](https://gitlab.computing.dcu.ie/sblott/2017-ca400-YOUR_NAME/raw/master/docs/blog/blog.md).
 
+## Including Code
+
+Raw text:
+```
+Mary had a little lamb,
+it's fleece was white as snow.
+```
+
+Syntax highlighting is also possible.
+
+Python example:
+```python
+i = 0
+while i < len(s):
+   # So something.
+   i = i + 1
+```
+
+```java
+for (i=0; i<s.length(); i+=1) {
+   // Do something.
+}
+
+while i < s.length
+   # So something.
+   i = i + 1
+```
+
+```coffeescript
+i = 0
+while i < s.length
+   # So something.
+   i = i + 1
+```
+
 ## Instructions
 
 Once you've understood this sample, replace its text with your own blog.
