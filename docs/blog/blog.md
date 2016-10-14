@@ -32,6 +32,8 @@ Here are the instructions:
 
 See the example [here](https://gitlab.computing.dcu.ie/sblott/2017-ca400-YOUR_NAME/raw/master/docs/blog/blog.md).
 
+You can also mention other users (like me: @sblott).
+
 ## Including Code
 
 Raw text:
@@ -68,5 +70,3 @@ while i < s.length
 ## Instructions
 
 Once you've understood this sample, replace it with your own blog.
-
-Test: mention @sblott.
