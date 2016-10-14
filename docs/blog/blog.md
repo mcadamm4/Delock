@@ -68,3 +68,5 @@ while i < s.length
 ## Instructions
 
 Once you've understood this sample, replace it with your own blog.
+
+Test: mention @sblott.
