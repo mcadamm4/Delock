@@ -40,9 +40,9 @@ Mary had a little lamb,
 it's fleece was white as snow.
 ```
 
-Syntax highlighting is also possible.
+Syntax highlighting is also possible; for example...
 
-Python example:
+Python:
 ```python
 i = 0
 while i < len(s):
@@ -50,16 +50,14 @@ while i < len(s):
    i = i + 1
 ```
 
+Java:
 ```java
 for (i=0; i<s.length(); i+=1) {
    // Do something.
 }
-
-while i < s.length
-   # So something.
-   i = i + 1
 ```
 
+Coffeescript:
 ```coffeescript
 i = 0
 while i < s.length
@@ -69,4 +67,4 @@ while i < s.length
 
 ## Instructions
 
-Once you've understood this sample, replace its text with your own blog.
+Once you've understood this sample, replace it with your own blog.
