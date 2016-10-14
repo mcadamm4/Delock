@@ -40,3 +40,12 @@ You should also update the *Project description*.
 When you are have followed all of these instructions and are sure that you
 understand what is expected, you may replace the contents of this file with a
 brief description of your project (two or three paragraphs).
+
+## Additional Resources
+
+- Git [cheat sheet](/sblott/local-gitlab-documentation/blob/master/cheat-sheet.md)
+- Gitlab [CI environment](/sblott/docker-ci-environment) and it's [available software](/sblott/docker-ci-environment/blob/master/Dockerfile)
+- Example projects with CI configured:
+   * [Python](/sblott/test-project-python)
+   * [Java](/sblott/test-project-java)
+   * [MySql](/sblott/test-project-mysql)
