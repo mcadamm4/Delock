@@ -15,7 +15,7 @@ This week, I learned how to include
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
 
-![cat](https://gitlab.computing.dcu.ie/sblott/2017-ca400-YOUR_NAME/raw/master/docs/blog/images/cat.jpg)
+![cat](https://gitlab.computing.dcu.ie/sblott/2018-ca400-XXXX/raw/master/docs/blog/images/cat.jpg)
 
 Here are the instructions:
 
@@ -30,7 +30,7 @@ Here are the instructions:
 
     <pre>![alternative text](URL)</pre>
 
-See the example [here](https://gitlab.computing.dcu.ie/sblott/2017-ca400-YOUR_NAME/raw/master/docs/blog/blog.md).
+See the example [here](https://gitlab.computing.dcu.ie/sblott/2018-ca400-XXXX/raw/master/docs/blog/blog.md).
 
 You can also mention other users (like me: @sblott).
 

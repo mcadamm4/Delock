@@ -14,18 +14,18 @@ You *must* do the following:
 
 2 - Rename your fork using the format
 
-    2017-ca400-USERNAME
+    2018-ca400-USERNAME
 
 replacing `USERNAME` with your School of Computing login name.
 
 For example, if Stephen Blott were to be doing a fourth-year project, he would rename
 his repo as:
 
- 2017-ca400-sblott
+ 2018-ca400-sblott
 
 You can rename your repo by selecting *Edit Project* from the drop-down menu
 (with a gear icon) on the top right of your project's home page.  Change the
-*Project name* field.
+*Project name* field **and** the *Path*.
 
 You should also update the *Project description*.
 
