@@ -10,4 +10,4 @@ Instructions:
 4. `git commit -a`, `git push`.
 5. Using incognito mode on your browser, verify that the video is indeed accessible to anybody with the link.
 
-Remember that your video may not be more than 5 minutes long - if it is, you can assume that the examiners will not review any more than the first 5 minutes of your video unless you have agreed in advance that you require more than 5 minutes for your video.   
+Remember that ** your video duration is limited to an maximum of 5 minutes **   
