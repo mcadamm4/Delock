@@ -35,7 +35,7 @@ You should also update the *Project description*.
 
 - All of your documentation should be placed in the `docs` sub-directory.
 
-- Your project blog should be places in the `blog` sub-directory. 
+- Your project blog should be placed in the `blog` sub-directory. 
 
 
 4 - There is further important documentation in the `docs` directory.  Read that next.
