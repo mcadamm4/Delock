@@ -12,11 +12,11 @@ You *must* do the following:
 
 1 - Fork this repo.
 
-2 - Rename your fork using the format
+2 - Rename your fork using the format (all lower case letters)
 
-    2018-ca400-USERNAME
+    2018-ca400-username
 
-replacing `USERNAME` with your School of Computing login name.
+replacing `username` with your School of Computing login name.
 
 For example, if Stephen Blott were to be doing a fourth-year project, he would rename
 his repo as:
@@ -34,6 +34,9 @@ You should also update the *Project description*.
 - All of your source code should be placed in the `src` sub-directory.
 
 - All of your documentation should be placed in the `docs` sub-directory.
+
+- Your project blog should be places in the `blog` sub-directory. 
+
 
 4 - There is further important documentation in the `docs` directory.  Read that next.
 
