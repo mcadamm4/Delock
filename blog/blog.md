@@ -1,0 +1,1 @@
+Add your blog entries to this file and remember to commit new entries each time you make and update.
