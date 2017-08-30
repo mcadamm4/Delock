@@ -12,4 +12,6 @@ The first page of each document should contain at least:
 
 In addition, the file names you choose to use should make clear what the document content is.
 
+**The final version of your documents should be converted to PDF and stored in this same directory**
+
 *Do not place any other files in this directory.*
