@@ -15,32 +15,48 @@ Project Supervisor Name
 
 **General area covered by project**
 
-My proposal is a take-away delivery app, something like already exists e.g
-JustEat. The app would be used by individuals and groups to order food and have
-it delivered to their location, payment can also be handles within the app.
+My proposal is a take-away delivery app, something like what already exists for
+example JustEat. The app would allow for group payments and would have a feature
+that matches customers allowing people to split meal deals with others near
+them.
 
 **Background**
 
-The idea for the app stems from my use of JustEat and the lack of features to
-cater for group, one person may order everything but they will also then have to
-pay for everything and this can get messy when trying to figure out who owes
-what.
+The idea for the app stems from my use of the JustEat app and the lack of
+features to cater for group, one person may order everything but they will also
+then have to pay for everything and this can get messy when trying to figure out
+who owes what.
 
 **Achievements**
 
 The app would be aimed primarily at students as they are most likely to be
-ordering take-away food. The unique selling points of my app versus the
-mainstream ones already popular would be the inclusion of group wallets and the
-possibility of an Uber like real time tracking system that would allow a driver
-to see your exact location and vice versa. The latter would be a useful feature
-if you were abroad or if you are generally unfamiliar with the area.
+
+ordering take-away food.
+
+The unique selling points of my app versus the mainstream competition already
+popular would be the inclusion of group wallets and the possibility of an Uber
+like real time tracking system that would allow a driver to see your exact
+location and vice versa.
+
+The latter would be a useful feature if you were abroad or if you are generally
+unfamiliar with the area.
+
+Other features include a matching system to allow strangers to get the best
+value for their money by splitting meal deals with others.
+
+The app could potentially harness blockchain for the payment system, this would
+ultimately speed up payments and make the process more secure as well as letting
+the app hold a detailed organised ledger of historical transactions.
 
 **Justification**
 
-This app would be an improvement upon existing similar apps and would allow
-greater ease for both customers and the delivery drivers. Speeding up both the
-ordering and delivery process by providing more detailed and accurate
-information.
+This app would be an improvement upon existing apps providing a similar service
+and would allow greater ease of communication between customers and business.
+Speeding up both the ordering and delivery process by providing more detailed
+and accurate information in real-time. The ability to split meal deals would be
+a useful feature for college students living on a budget and having a dense
+population of students nearby would make the meal deal splitting system
+effective.
 
 **Programming Languages**
 
@@ -49,6 +65,7 @@ application which I would most likely be built using the MEAN stack i.e.
 MongoDB, ExpressJS, AngularJS & NodeJS
 
 In terms of the location system, the Uber API should have the features needed to
+
 implement this.
 
 **Proposal Guidelines**
