@@ -15,7 +15,6 @@ Project Supervisor Name
 
 **General area covered by project**
 
-<<<<<<< HEAD
 My proposal is for a smart lock system based on the Ethereum platform. The
 system would allow the renting and sharing of goods and services which were
 traditionally very hard to monetise effectively. The main implementation would
@@ -30,17 +29,6 @@ working on implementing a blockchain based system to allow owners of autonomous
 cars to send their cars out at night while they were sleeping to act as taxis
 for others, basically earning a person money as they sleep. This is a phenomenal
 idea so I wanted to apply it to other areas.
-=======
-My proposal is a take-away delivery app. The app would incorporate real-time maps for customers and delivery drivers, group payment facilities and 
-possibly a blockchain based payment system.
-
-**Background**
-
-The idea for the app stems from my use of the JustEat app and the lack of
-features to cater for groups, one person may order everything but they will also
-then have to pay for everything and this can get messy when trying to figure out
-who owes what. 
->>>>>>> 0ccf19ccdd21d1118e29e5f1ee9966ea5be3bd6d
 
 **Achievements**
 
@@ -57,7 +45,6 @@ and close the lock as often as they want before eventually returning the item.
 When they return the item, another transaction is recorded and the users deposit
 is returned to them minus the rental cost.
 
-<<<<<<< HEAD
 The owner then receives their payment from the user.
 
 **Justification**
@@ -98,41 +85,6 @@ Devices for locks i.e. one of the following Arduino, Samsung Artik or Intel
 Edison.
 
 Ethereum blockchain platform
-=======
-A payment system based on blockchain would make the app more reliable, secure and
-faster.
-
-Other features include a matching system to allow strangers to get the best
-value for their money by splitting meal deals with others. People would have to be 
-within a certain radius of eachother to match up and possibly meet at an agreed location.
-
-**Justification**
-
-This app would be an improvement upon existing apps providing a similar service
-and would allow greater ease of communication between customers and business.
-Speeding up both the ordering and delivery process by providing more detailed
-and accurate information in real-time. 
-The blackchain payments would be more secure and faster than conventional methods and 
-allow for a detailed and immutable record of transactions to be stored.
-The ability to split meal deals would be a useful feature for college students living on a budget and having a dense
-population of students nearby would make the meal deal splitting system
-effective.
-
-**Programming Languages**
-
-CUustomers could interact with the system via an android app or a web app. The android app would be built using java.
-The web app would use the MEAN stack and both interfaces can use the same back-end.
-
-The MEAN stack includes MongoDB, ExpressJS, AngularJS and NodeJS.
-
-Business's would have a dedicated app or web app of their own showing orders and locations of their drivers etc.
-
-In terms of the location system I believe the Uber API can provide this functionality. The blockchain system would
-most likely use the Ethereum platform.
-
-
-
->>>>>>> 0ccf19ccdd21d1118e29e5f1ee9966ea5be3bd6d
 
 **Proposal Guidelines**
 
