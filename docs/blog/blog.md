@@ -1,13 +1,15 @@
-# Blog: MY-PROJECT-TITLE
+# Blog: Delock
 
-**MY-NAME**
+**Mark McAdam**
 
-## My First Blog Entry
+## Monday 13-11-2017
 
-This is my first blog entry.
+I had my first meeting with my supervisor David Sinclair last week on Tuesday the 7th. Since then I have written a first draft of 
+my Functional Specification, I have another meeting with David tomorrow in which we will review the draft.
+
 
 The blog is written in [markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
-Markdown is a simple text-based mark-up language.
+
 
 ## My Second Blog Entry
 
