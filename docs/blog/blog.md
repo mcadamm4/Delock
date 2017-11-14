@@ -11,9 +11,9 @@ I had my first meeting with my supervisor David Sinclair last week on Tuesday th
 I had my second meeting with David today, in the run up to this meeting I was working on the Functional Spec and created a number of detailed Use cases. This helped me emmensly in that I now have a much clearer idea of how the system will function and what I will need to do to implement it.
 
 At the moment, I feel the best stack for developing the DApp will be:
-1. ==Web3j== (Android client for communicating with the blockchain)
-2. ==Truffle== (testing smart contracts)
-3. ==Infura==(Will host a network of nodes that will act as my blockchain network)
+1. Web3j (Android client for communicating with the blockchain)
+2. Truffle (testing smart contracts)
+3. Infura (Will host a network of nodes that will act as my blockchain network)
 
 ##### Done
 ~~Setup Infura test network~~
