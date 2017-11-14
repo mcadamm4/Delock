@@ -1,17 +1,19 @@
-# <span style="color:grey">Delock Blog</span>
+# Delock Blog
 
-## <span style="color:#f03c15"> Monday November 13, 2017</span>
+**Mark McAdam**
+
+## Monday November 13, 2017
 
 I had my first meeting with my supervisor David Sinclair last week on Tuesday the 7th. Since then I have written a first draft of my Functional Specification, I have another meeting with David tomorrow in which we will review the draft.
 
-## <span style="color:#f03c15">Tuesday November 14, 2017 4:30 PM</span>
+## Tuesday November 14, 2017 4:30 PM
 
 I had my second meeting with David today, in the run up to this meeting I was working on the Functional Spec and created a number of detailed Use cases. This helped me emmensly in that I now have a much clearer idea of how the system will function and what I will need to do to implement it.
 
 At the moment, I feel the best stack for developing the DApp will be:
-1. == Web3j == (Android client for communicating with the blockchain)
-2. == Truffle == (testing smart contracts)
-3. == Infura == (Will host a network of nodes that will act as my blockchain network)
+1. ==Web3j== (Android client for communicating with the blockchain)
+2. ==Truffle== (testing smart contracts)
+3. ==Infura==(Will host a network of nodes that will act as my blockchain network)
 
 ##### Done
 ~~Setup Infura test network~~
@@ -20,19 +22,19 @@ At the moment, I feel the best stack for developing the DApp will be:
 - Complete full draft of Functional Spec
 - Download and learn how to use Web3j
 
-## <span style="color:#f03c15">... </span>
+## ....
 ##### Done
 ##### To-Do
-## <span style="color:#f03c15">... </span>
+## ....
 ##### Done
 ##### To-Do
-## <span style="color:#f03c15">... </span>
+## ....
 ##### Done
 ##### To-Do
-## <span style="color:#f03c15">... </span>
+## ....
 ##### Done
 ##### To-Do
-## <span style="color:#f03c15">... </span>
+## ....
 ##### Done
 ##### To-Do
 
