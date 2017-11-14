@@ -1,10 +1,10 @@
-#Delock Blog
+# Delock Blog
 
-##Monday November 13, 2017
+## Monday November 13, 2017
 
 I had my first meeting with my supervisor David Sinclair last week on Tuesday the 7th. Since then I have written a first draft of my Functional Specification, I have another meeting with David tomorrow in which we will review the draft.
 
-##Tuesday November 14, 2017 4:30 PM
+## Tuesday November 14, 2017 4:30 PM
 
 I had my second meeting with David today, in the run up to this meeting I was working on the Functional Spec and created a number of detailed Use cases. This helped me emmensly in that I now have a much clearer idea of how the system will function and what I will need to do to implement it.
 
@@ -20,19 +20,19 @@ At the moment, I feel the best stack for developing the DApp will be:
 - Complete full draft of Functional Spec
 - Download and learn how to use Web3j
 
-##...
+## ...
 ##### Done
 ##### To-Do
-##....
+## ....
 ##### Done
 ##### To-Do
-##...
+## ...
 ##### Done
 ##### To-Do
-##....
+## ....
 ##### Done
 ##### To-Do
-##...
+## ...
 ##### Done
 ##### To-Do
 
