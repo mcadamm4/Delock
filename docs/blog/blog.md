@@ -22,9 +22,19 @@ At the moment, I feel the best stack for developing the DApp will be:
 - Complete full draft of Functional Spec
 - Download and learn how to use Web3j
 
-## ....
+## Friday November 17, 2017 6:49 PM
+I spent this week working on a draft of the Functional Specification, I have the majority of the work done on the spec and it will just be a matter of cleaning it up and refining my diagrams next week. I also found he Uport library, it seems like it could be a good option for handling user authentication within the application. I will look into this further next week.
+Drafted sketches of some spec diagrams:
+![specDiagram1](https://gitlab.computing.dcu.ie/mcadamm4/2018-ca400-mcadamm4/tree/master/docs/blog/images/specDiagram1.jpg)
+![specDiagram2](https://gitlab.computing.dcu.ie/mcadamm4/2018-ca400-mcadamm4/tree/master/docs/blog/images/specDiagram2.jpg)
+![specDiagram3](https://gitlab.computing.dcu.ie/mcadamm4/2018-ca400-mcadamm4/tree/master/docs/blog/images/specDiagram3.jpg)
+
 ##### Done
+~~Complete first draft of Specification~~
 ##### To-Do
+- Refine Functional Specifiacction (due next Friday)
+- Investigate Uport and Web3j
+
 ## ....
 ##### Done
 ##### To-Do
