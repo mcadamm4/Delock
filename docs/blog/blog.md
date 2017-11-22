@@ -36,9 +36,15 @@ Drafted sketches of some spec diagrams:
 - Refine Functional Specifiacction (due next Friday)
 - Investigate Uport and Web3j
 
-## ....
+## Wednesday November 22, 2017 11:20 PM
+I met with my supervisor yesterday to review the Functional spec, he was happy except I was missing hardware requirements. I finished work on the spec today by completing the schedule, high level design and fixing all the formatting.
+
 ##### Done
+~~Functional Spec~~
 ##### To-Do
+- Have hardware in hand for beginning of next semester
+- Complete tutorials over the break to learn solidity and hooking an app to a blockchain network.
+
 ## ....
 ##### Done
 ##### To-Do
