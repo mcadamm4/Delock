@@ -72,14 +72,6 @@ I have also found an online book being developed by the Ethereum community on gi
 ---
 
 
-## ....
-##### Done
-##### To-Do
-## ....
-##### Done
-##### To-Do
-
-
 This week, I learned how to include
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
