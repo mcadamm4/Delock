@@ -54,7 +54,12 @@ I met with my supervisor yesterday to review the Functional spec, he was happy e
 ---
 
 ## `Friday December 15th 2017`
+
 This last few weeks I have been very busy with assignments and have been researching what type of hardware I will need. Hoping to order soon so I will have it for the end of January.
+
+I have also found an online book being developed by the Ethereum community on github as a comprehensive knowledge base for developing with Ethereum and have begun reading it. I will read this over the Christmas period.
+
+[Ethereum Builder's Guide](https://ethereumbuilders.gitbooks.io/guide/content/en/index.html)
 
 ---
 
