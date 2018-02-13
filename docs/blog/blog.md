@@ -18,7 +18,7 @@ At the moment, I feel the best stack for developing the DApp will be:
 
 ### `Done`
 
-~~Setup Infura test network~~
+- ~~Setup Infura test network~~
 
 ### `To-Do`
 
@@ -38,7 +38,8 @@ Drafted sketches of some spec diagrams:
 
 ### `Done`
 
-~~Complete first draft of Specification~~
+- ~~Complete first draft of Specification~~
+
 ### `To-Do`
 
 - Refine Functional Specifiacction (due next Friday)
@@ -52,7 +53,7 @@ I met with my supervisor yesterday to review the Functional spec, he was happy e
 
 ### `Done`
 
-~~Functional Spec~~
+- ~~Functional Spec~~
 
 ### `To-Do`
 
@@ -70,6 +71,39 @@ I have also found an online book being developed by the Ethereum community on gi
 [Ethereum Builder's Guide](https://ethereumbuilders.gitbooks.io/guide/content/en/index.html)
 
 ---
+
+##`Tuesday February 13th 2018`
+
+Over the break I ordered and received all of the parts I need to make the locking mechanism including a "Keyduino" which is a specialized Arduino Leonardo with NFC built in. I also pracitced some React Native by building an app.
+
+### `Done`
+
+- ~~Get parts~~
+
+### `To-Do`
+
+- Build react native application connected to Ethereum network
+- Build Android application to communicate with Arduino
+- Integrate these two applications into one
+
+---
+
+##`.... 2018`
+
+
+
+
+---
+
+
+---
+
+
+---
+
+
+---
+
 
 
 This week, I learned how to include
