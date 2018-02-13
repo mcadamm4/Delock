@@ -72,7 +72,7 @@ I have also found an online book being developed by the Ethereum community on gi
 
 ---
 
-##`Tuesday February 13th 2018`
+## `Tuesday February 13th 2018`
 
 Over the break I ordered and received all of the parts I need to make the locking mechanism including a "Keyduino" which is a specialized Arduino Leonardo with NFC built in. I also pracitced some React Native by building an app.
 
@@ -88,7 +88,7 @@ Over the break I ordered and received all of the parts I need to make the lockin
 
 ---
 
-##`.... 2018`
+## `.... 2018`
 
 
 
