@@ -88,6 +88,24 @@ Over the break I ordered and received all of the parts I need to make the lockin
 
 ---
 
+## `Wednesday February 22nd 2018`
+
+So far I have built a simple application that uses the "Ethereum Android" wallet to connect to the ethereum blockchain behind the scenes. Seperate to that I have a simple React native application that shows listings for houses. My next step will be to try and integrate the functionality of both of these applications. 
+
+I have also been thinking about using Firebase for storing details about listings and other things rather than IPFS.
+
+### `Done`
+
+- ~~Build react native application~~ 
+- ~~Build app connected to Ethereum network~~
+
+### `To-Do`
+- Integrate react native app with ethereum app
+- Research UPort for authentication if needed
+- Research Firebase for use as storage rather than IPFS
+- Integrate these two applications into one
+
+
 ## `.... 2018`
 
 
