@@ -106,7 +106,19 @@ I have also been thinking about using Firebase for storing details about listing
 - Integrate these two applications into one
 
 
-## `.... 2018`
+## `Sunday March 4th`
+Over the last week and a half, I was considerng making a lot of design changes which I unfortunelty forgot to document here. The basic problem was doubt about handling of user accounts thorugh the Ethereum Android wallet, I was planning on switching to the UPort framework and instead of having NFC enabled arduinos tht would unlock the items there would be a QR code stciker and when scanned with your phoned camera would provide you with a pin for unlocking the item.
+The QR code part would work but UPort would not ork with mobile.
+
+I ruled out these changes and carried on with my original design, hwoever I have decided not to use React Native as the workload and learning needed integrate Native Java code required for Ethereum Android with React Natives Javascript outweighs the benefit of using the frameowkr, seeing as I wont be targeting IOS I can focus on developing primarily for android.
+
+From now on I will have more frequent and less verbose blogs documenting more granular decisions, at the moment I have a native android application that uses the Ethereum Android library to communicate with Ethereum through the Ethereum Android application.
+
+I am now researching integration of IPFS, I cannot use Firebase as previously mentioned as this is at odds with the goal of totl decentralization.
+
+I have also started developing a testing plan.
+
+
 
 
 

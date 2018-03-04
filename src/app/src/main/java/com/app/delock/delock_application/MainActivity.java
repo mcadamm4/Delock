@@ -1,10 +1,12 @@
 package com.app.delock.delock_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         initialize();
+        setContentView(R.layout.activity_main);
     }
 
     private void initialize() {
@@ -68,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.ethereum_ethereum_not_installed, Toast.LENGTH_LONG).show();
             finish();
         }
+    }
+
+    public void openSettings(View view){
+        Intent myIntent = new Intent(this, SettingsActivity.class);
+        startActivity(myIntent);
     }
 
 }
