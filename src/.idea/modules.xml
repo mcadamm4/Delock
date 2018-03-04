@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ethereum-android-lib-master/ethereum-android-lib-master.iml" filepath="$PROJECT_DIR$/ethereum-android-lib-master/ethereum-android-lib-master.iml" />
-      <module fileurl="file://C:\Users\Marky\Documents\CA400\2018-ca400-mcadamm4\src\ethereum-android-lib-master\ethereum-android-lib-master.iml" filepath="C:\Users\Marky\Documents\CA400\2018-ca400-mcadamm4\src\ethereum-android-lib-master\ethereum-android-lib-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/src.iml" filepath="$PROJECT_DIR$/src.iml" />
     </modules>
   </component>
