@@ -1,7 +1,7 @@
 # Add files names (and patterns) you want git to ignore here.
 
 # Ignore java .class files.
-*.java
+*.class
 
 # Ignore compiled C/C++ files.
 *.o
