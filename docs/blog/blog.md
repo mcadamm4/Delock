@@ -119,6 +119,11 @@ I am now researching integration of IPFS, I cannot use Firebase as previously me
 I have also started developing a testing plan.
 
 
+## `Continuation`
+I have been researching how I can identify users of the system. The technology does not yet exist to have a decentralized ID validation system whereby ID's would exist as contracts on the blockchain and could be used as a source of truth for a persons identity. Delock needs to validate a persons identity to deter robberies and fake account creation, we need to be able to concretely associate a person with an Ethereum Address.
+
+I will look into integrating this feature using a regular api and put on record that the idea is for the system to move to a decentralized method of ID verification in the future when the software exists.
+
 
 
 
