@@ -1,1 +1,1 @@
-include ':app', ':ethereum-android-lib-master'
+include ':app'
