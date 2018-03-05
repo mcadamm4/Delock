@@ -124,8 +124,12 @@ I have been researching how I can identify users of the system. The technology d
 
 I will look into integrating this feature using a regular api and put on record that the idea is for the system to move to a decentralized method of ID verification in the future when the software exists.
 
+## `Monday March 5th`
+I have been grappling with understanding why so many Dapps launched their own unique ERC20 tokens as opposed to just using Ether (The currency used to run the etehereum network). The thing is that they cannot charge fees on ether and after some research I have found that I will not require such a token as it is merely a means by which project developers introduce fees that are then used to further fund the project development. This was something I had thought would be very problematic for me and I am relived to find it does not apply.
 
+I have also begun drafting the smart contracts for Userrs and Listings in order to see what functionality will need to be implemennted. I intend to draw up more formal diagrams in the near future.
 
+In terms of ID verification I cannot find a non-enterprise level API, I may have to leave this unimplemented and just say that it would be implemented in the future when the tech is there to integrate. Not having this leaves a the application open to fraud by users creating throwaway ethereum addresses I believe.
 
 
 ---
