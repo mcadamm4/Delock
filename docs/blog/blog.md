@@ -105,7 +105,7 @@ I have also been thinking about using Firebase for storing details about listing
 - Research Firebase for use as storage rather than IPFS
 - Integrate these two applications into one
 
-
+---
 ## `Sunday March 4th`
 Over the last week and a half, I was considerng making a lot of design changes which I unfortunelty forgot to document here. The basic problem was doubt about handling of user accounts thorugh the Ethereum Android wallet, I was planning on switching to the UPort framework and instead of having NFC enabled arduinos tht would unlock the items there would be a QR code stciker and when scanned with your phoned camera would provide you with a pin for unlocking the item.
 The QR code part would work but UPort would not ork with mobile.
@@ -118,12 +118,13 @@ I am now researching integration of IPFS, I cannot use Firebase as previously me
 
 I have also started developing a testing plan.
 
-
+---
 ## `Continuation`
 I have been researching how I can identify users of the system. The technology does not yet exist to have a decentralized ID validation system whereby ID's would exist as contracts on the blockchain and could be used as a source of truth for a persons identity. Delock needs to validate a persons identity to deter robberies and fake account creation, we need to be able to concretely associate a person with an Ethereum Address.
 
 I will look into integrating this feature using a regular api and put on record that the idea is for the system to move to a decentralized method of ID verification in the future when the software exists.
 
+---
 ## `Monday March 5th`
 I have been grappling with understanding why so many Dapps launched their own unique ERC20 tokens as opposed to just using Ether (The currency used to run the etehereum network). The thing is that they cannot charge fees on ether and after some research I have found that I will not require such a token as it is merely a means by which project developers introduce fees that are then used to further fund the project development. This was something I had thought would be very problematic for me and I am relived to find it does not apply.
 
@@ -131,21 +132,14 @@ I have also begun drafting the smart contracts for Userrs and Listings in order 
 
 In terms of ID verification I cannot find a non-enterprise level API, I may have to leave this unimplemented and just say that it would be implemented in the future when the tech is there to integrate. Not having this leaves a the application open to fraud by users creating throwaway ethereum addresses I believe.
 
+---
+
+## `Thursday March 16th`
+
+I have been tried to make a start on the hardware side of things, at the moment I have a seperate (test app) running on my phone which is able to successfully talk to the arduino and send information. I also have created a barebones UI for the delock app using a card view structure, I decided to do some work on the UI as I really wanted to see some tangible progress. Over the next week I will work on integrating the NFC functionality into the delock app.
 
 ---
 
-
----
-
-
----
-
-
----
-
-
-
-This week, I learned how to include
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
 

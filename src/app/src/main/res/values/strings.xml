@@ -6,6 +6,15 @@
     <string name="ethereum_ethereum_not_installed">You  need to install Ethereum Android first</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string name="action_settings">Settings</string>
+    <string name="action_add_favourite">Add to Favourites</string>
+
+    <!--DEMO STRINGS - Remove these before commit -->
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">Delock</string>
+    <string name="backdrop_subtitle">A p2p rental system</string>
+    <!--///////////////////-->
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
