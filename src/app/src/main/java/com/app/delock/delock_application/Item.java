@@ -30,7 +30,7 @@ public class Item {
         return itemCost;
     }
 
-    public void setNumOfSongs(int itemCost) {
+    public void setItemCost(int itemCost) {
         this.itemCost = itemCost;
     }
 
