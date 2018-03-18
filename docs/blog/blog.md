@@ -145,7 +145,14 @@ St.Patricks day was very cold but still great. Continuing on with my work on the
 
 I hope to have the MVP structure set up today and can then work on getting the NFC functionality in.
 
+### Reading: https://antonioleiva.com/mvp-android/
 
+
+---
+
+
+---
+---
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
 
