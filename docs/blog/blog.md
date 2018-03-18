@@ -140,6 +140,12 @@ I have been tried to make a start on the hardware side of things, at the moment 
 
 ---
 
+## `Sunday March 18th`
+St.Patricks day was very cold but still great. Continuing on with my work on the UI I have decided to take a step backwards and look at implmenting a MVP (Model, View, Presenter) type architecture so as to aid maintainabiliy, extensibility and seperation of concerns between activites. If I can manage this it should make life a lot easier down the road. In addition to this I have found a brilliant open source collection of android UI design examples which should speed up my UI/UX design and implementation significantly.
+
+I hope to have the MVP structure set up today and can then work on getting the NFC functionality in.
+
+
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
 
