@@ -14,22 +14,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.delock.delock_application.R;
+import com.app.delock.delock_application.browse.FilterHelper;
 import com.bumptech.glide.Glide;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 //An adapter is responisble for taking data and making it into a view
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> implements Filterable {
 
     private Context mContext;
-    private List<Item> itemsList;
+    private ArrayList<Item> itemsList;
     private ItemsAdapterListener listener;
 
     //Define data
@@ -49,7 +53,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
 
     //Constructor
-    public ItemsAdapter(Context mContext, List<Item> itemsList, ItemsAdapterListener listener) {
+    public ItemsAdapter(Context mContext, ArrayList<Item> itemsList, ItemsAdapterListener listener) {
         this.mContext = mContext;
         this.itemsList = itemsList;
         this.listener = listener;
@@ -154,5 +158,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         void onPlayNextSelected(int position);
 
         void onCardSelected(int position, ImageView thumbnail);
+    }
+
+    public void setItemsList(ArrayList<Item> filteredItems)
+    {
+        this.itemsList=filteredItems;
+    }
+
+    public Filter getFilter() {
+        return FilterHelper.newInstance(itemsList,this);
     }
 }

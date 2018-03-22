@@ -23,7 +23,6 @@ public class ItemActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
-        Log.d(TAG, "onCreate: started.");
         Intent intent = getIntent();
         Item item= (Item) intent.getSerializableExtra("Item");
 
