@@ -38,7 +38,7 @@ android:layout_height="wrap_content">
             android:textSize="@dimen/item_title" />
 
         <TextView
-            android:id="@+id/count"
+            android:id="@+id/cost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"

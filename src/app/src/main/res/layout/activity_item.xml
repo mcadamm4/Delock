@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Chose a linear layout hear beacause widgets will be staked vertically-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    tools:ignore="ExtraText">
+    <!--Leave at zero as weight will determine height-->
+    <!--This means that the image will occupy 70% of the height of the screen-->
+    <ImageView
+        android:id="@+id/image"
+        android:contentDescription="@string/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:ignore="Suspicious0dp"
+        android:layout_weight="70"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Vintage Bicycle"
+        android:textSize="20sp"
+        android:textColor="#000"/>
+</LinearLayout>

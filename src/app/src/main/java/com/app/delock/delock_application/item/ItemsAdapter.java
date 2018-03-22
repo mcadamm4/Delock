@@ -1,10 +1,11 @@
-package com.app.delock.delock_application;
+package com.app.delock.delock_application.item;
 
 /**
  * Created by Marky on 15/03/2018.
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.delock.delock_application.R;
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.List;
+
+//An adapter is responisble for taking data and making it into a view
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
 
@@ -27,22 +32,23 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     private List<Item> itemsList;
     private ItemsAdapterListener listener;
 
+    //Define data
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count;
+        public TextView title, cost;
         public ImageView thumbnail, overflow;
         public CardView cardView;
 
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
-            count = view.findViewById(R.id.count);
+            cost = view.findViewById(R.id.cost);
             thumbnail = view.findViewById(R.id.thumbnail);
             overflow = view.findViewById(R.id.overflow);
             cardView = view.findViewById(R.id.card_view);
         }
     }
 
-
+    //Constructor
     public ItemsAdapter(Context mContext, List<Item> itemsList, ItemsAdapterListener listener) {
         this.mContext = mContext;
         this.itemsList = itemsList;
@@ -59,11 +65,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Item item = itemsList.get(position);
+        final Item item = itemsList.get(position);
         holder.title.setText(item.getName());
-        holder.count.setText("€" + item.getItemCost());
+        holder.cost.setText("€" + item.getItemCost() + " hr");
 
-        // loading item cover using Glide library
+        // loading item image using Glide library
         Glide.with(mContext).load(item.getThumbnail()).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
@@ -72,17 +78,28 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 showPopupMenu(holder.overflow, position);
             }
         });
+
+        //Set click listener on card and execute onCardSelected method when clicked
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onCardSelected(position, holder.thumbnail);
+                Toast.makeText(mContext, "You clicked the card of " + item.getName(), Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(mContext, ItemActivity.class);
+                intent.putExtra("Item", (Serializable) item);
+                mContext.startActivity(intent);
+                // listener.onCardSelected(position, holder.thumbnail);
             }
         });
-
+        //Set click thumbnail on card and execute onCardSelected method when clicked
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onCardSelected(position, holder.thumbnail);
+                Toast.makeText(mContext, "You clicked the Thumbnail of " + item.getName(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mContext, ItemActivity.class);
+                intent.putExtra("Item", (Serializable) item);
+                mContext.startActivity(intent);
+                // listener.onCardSelected(position, holder.thumbnail);
             }
         });
 
@@ -115,10 +132,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favourite:
-                    listener.onAddToFavoriteSelected(position);
+//                    listener.onAddToFavoriteSelected(position);
                     return true;
                 case R.id.action_play_next:
-                    listener.onPlayNextSelected(position);
+//                    listener.onPlayNextSelected(position);
                     return true;
                 default:
             }

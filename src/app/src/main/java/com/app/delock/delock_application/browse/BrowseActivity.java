@@ -1,4 +1,4 @@
-package com.app.delock.delock_application;
+package com.app.delock.delock_application.browse;
 
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -24,12 +24,16 @@ import java.util.List;
 import java.util.ArrayList;
 import android.util.TypedValue;
 
+import com.app.delock.delock_application.item.Item;
+import com.app.delock.delock_application.item.ItemsAdapter;
+import com.app.delock.delock_application.R;
+import com.app.delock.delock_application.settings.SettingsActivity;
 import com.bumptech.glide.Glide;
 import de.petendi.ethereum.android.EthereumAndroid;
 import de.petendi.ethereum.android.EthereumAndroidFactory;
 import de.petendi.ethereum.android.EthereumNotInstalledException;
 
-public class MainActivity extends AppCompatActivity {
+public class BrowseActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ItemsAdapter adapter;
@@ -42,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_browse);
 
         try {
-            Glide.with(this).load(R.drawable.vintage_bicycle).into((ImageView) findViewById(R.id.backdrop));
+            Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
             
             Field devField = EthereumAndroidFactory.class.getDeclaredField("DEV");
             devField.setAccessible(true);
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initialize();
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_browse);
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

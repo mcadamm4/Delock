@@ -1,10 +1,12 @@
-package com.app.delock.delock_application;
+package com.app.delock.delock_application.item;
+
+import java.io.Serializable;
 
 /**
  * Created by Marky on 15/03/2018.
  */
 
-public class Item {
+public class Item implements Serializable {
     private String name;
     private int itemCost;
     private int thumbnail;

@@ -1,4 +1,4 @@
-package com.app.delock.delock_application;
+package com.app.delock.delock_application.settings;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -18,6 +18,9 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
+import com.app.delock.delock_application.AppCompatPreferenceActivity;
+import com.app.delock.delock_application.R;
 
 import java.util.List;
 
