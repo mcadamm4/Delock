@@ -5,7 +5,10 @@ import android.graphics.Rect;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,21 +16,23 @@ import android.support.v7.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.util.TypedValue;
 
+import com.app.delock.delock_application.dashboard.DashboardActivity;
 import com.app.delock.delock_application.item.Item;
 import com.app.delock.delock_application.item.ItemsAdapter;
 import com.app.delock.delock_application.R;
 import com.app.delock.delock_application.maps.MapsActivity;
+import com.app.delock.delock_application.my_profile.MyProfileActivity;
 import com.app.delock.delock_application.settings.SettingsActivity;
-import com.bumptech.glide.Glide;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import de.petendi.ethereum.android.EthereumAndroid;
@@ -43,8 +48,11 @@ public class BrowseActivity extends AppCompatActivity {
     private ArrayList<Item> itemsList;
     private ItemsAdapter.ItemsAdapterListener listener;
 
-    private TextView mTextMessage;
     private EthereumAndroid ethereumAndroid;
+
+    public static final String case1 = "Browse";
+    public static final String case2 = "Dashboard";
+    public static final String case3 = "MyProfile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,43 +76,59 @@ public class BrowseActivity extends AppCompatActivity {
 
         //RECYCLER VIEW
         recyclerView = findViewById(R.id.recycler_view);
-
         itemsList = new ArrayList<>();
-
         //ADAPTER
         adapter = new ItemsAdapter(this, itemsList, listener);
-
         //RECYCLER VIEW
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
         //SEARCH BAR
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         searchBar.setHint("Search..");
         searchBar.setCardViewElevation(10);
-
         //SEARCH BAR TEXT CHANGE LISTENER
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //SEARCH FILTER
                 adapter.setItemsList(itemsList);
                 adapter.getFilter().filter(charSequence);
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
+        BottomNavigationView navMenu = findViewById(R.id.navigation);
+        navMenu.setSelectedItemId(R.id.navigation_home);
+        navMenu.setOnNavigationItemSelectedListener(
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    Intent intent;
+                    // set item as selected to persist highlight
+                    switch (menuItem.getItemId()) {
+                        case R.id.navigation_home:
+                            break;
+                        case R.id.navigation_dashboard:
+                            intent = new Intent(BrowseActivity.this, DashboardActivity.class);
+                            startActivity(intent);
+                            break;
+                        case R.id.navigation_myProfile:
+                            intent = new Intent(BrowseActivity.this, MyProfileActivity.class);
+                            startActivity(intent);
+                            break;
+                    }
+                    return true;
+                }
+            });
 
         //ACTION BUTTON
         actionButton = findViewById(R.id.actionButton);
@@ -191,6 +215,12 @@ public class BrowseActivity extends AppCompatActivity {
                 R.drawable.study,
                 R.drawable.four_bed_house,
                 R.drawable.motorbike};
+
+        HashMap<String,String> url_maps = new HashMap<String, String>();
+        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
+        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
+        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
 
         Item item = new Item("Vintage Bicycle", "Bicycle",  13, covers[0]);
         itemsList.add(item);

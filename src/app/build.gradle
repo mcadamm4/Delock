@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -30,12 +34,18 @@ dependencies {
     implementation 'de.petendi:ethereum-android-lib:0.2.1'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.mancj:MaterialSearchBar:0.7.6'
+    implementation 'org.web3j:core:3.3.1-android'
+    //Image Slider
+    implementation 'com.squareup.picasso:picasso:2.3.2'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
 }
+
+
 
 
 
