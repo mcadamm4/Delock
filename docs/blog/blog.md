@@ -149,6 +149,10 @@ I hope to have the MVP structure set up today and can then work on getting the N
 
 
 ---
+## `Thursday March 29th`
+I spent quite  bit of time trying to make the MVP structurer work but to no avail. I found it very hard to understand and quite different to MVC for web which I have a good bit of experience with, therefore I have scrapped that and in the time since my last blog I have implemented some basic NFC functionality and hooked up some more placeholder activity screens that need to be finished.
+
+Now that I know the NFC if working and I have a decent proportion of the UI in place I want to start work on the smart contracts and communication with Ethereum. From reading more into Ethereum Android it looks like I may have to stop using it in favour of creating my own wallet and communicating with the blockchain via Web3j as Ethereum Android does not facilitate the deployment of smart contracts which it a big part of the application.
 
 
 ---
