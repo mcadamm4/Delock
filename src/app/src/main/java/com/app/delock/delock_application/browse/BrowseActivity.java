@@ -1,43 +1,35 @@
 package com.app.delock.delock_application.browse;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.content.Intent;
 import android.os.Bundle;
-
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.util.TypedValue;
-
+import com.app.delock.delock_application.R;
 import com.app.delock.delock_application.dashboard.DashboardActivity;
 import com.app.delock.delock_application.item.Item;
 import com.app.delock.delock_application.item.ItemsAdapter;
-import com.app.delock.delock_application.R;
 import com.app.delock.delock_application.maps.MapsActivity;
 import com.app.delock.delock_application.my_profile.MyProfileActivity;
 import com.app.delock.delock_application.settings.SettingsActivity;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
-import de.petendi.ethereum.android.EthereumAndroid;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import de.petendi.ethereum.android.EthereumAndroidFactory;
-import de.petendi.ethereum.android.EthereumNotInstalledException;
 
 public class BrowseActivity extends AppCompatActivity {
 
@@ -47,8 +39,6 @@ public class BrowseActivity extends AppCompatActivity {
     FloatingActionButton actionButton;
     private ArrayList<Item> itemsList;
     private ItemsAdapter.ItemsAdapterListener listener;
-
-    private EthereumAndroid ethereumAndroid;
 
     public static final String case1 = "Browse";
     public static final String case2 = "Dashboard";
@@ -72,7 +62,7 @@ public class BrowseActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         //Check for android ethereum installation
-        ethereum_InstalledCheck();
+//        ethereum_InstalledCheck();
 
         //RECYCLER VIEW
         recyclerView = findViewById(R.id.recycler_view);
@@ -144,15 +134,15 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     // Init ethereum or warn if wallet not installed
-    private void ethereum_InstalledCheck() {
-        EthereumAndroidFactory ethereumAndroidFactory = new EthereumAndroidFactory(this);
-        try {
-            ethereumAndroid = ethereumAndroidFactory.create();
-        } catch (EthereumNotInstalledException e) {
-            Toast.makeText(this, R.string.ethereum_ethereum_not_installed, Toast.LENGTH_LONG).show();
-            finish();
-        }
-    }
+//    private void ethereum_InstalledCheck() {
+//        EthereumAndroidFactory ethereumAndroidFactory = new EthereumAndroidFactory(this);
+//        try {
+//            ethereumAndroid = ethereumAndroidFactory.create();
+//        } catch (EthereumNotInstalledException e) {
+//            Toast.makeText(this, R.string.ethereum_ethereum_not_installed, Toast.LENGTH_LONG).show();
+//            finish();
+//        }
+//    }
 
     //RecyclerView item decoration - give equal margin around grid item
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {

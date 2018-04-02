@@ -27,11 +27,6 @@ public class UnlockActivity extends NFCReaderSpeakerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unlock);
 
-
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        GlideDrawableImageViewTarget imageViewTarget= new GlideDrawableImageViewTarget(imageView);
-        Glide.with(this).load(R.drawable.waiting).into(imageViewTarget);
-
         this.prefs = getSharedPreferences("com.app.delock.delock_application", 0);
         this.prefs.edit().putString(this.passwordKey, "default_password").apply();
         this.password = this.prefs.getString(this.passwordKey, "default_password");

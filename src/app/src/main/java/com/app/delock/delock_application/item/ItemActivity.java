@@ -47,12 +47,9 @@ public class ItemActivity extends AppCompatActivity {
         itemCost.setText(String.valueOf("€" + item.getItemCost()));
 
         nfcButton = findViewById(R.id.nfcButton);
-        nfcButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ItemActivity.this, UnlockActivity.class);
-                startActivity(intent);
-            }
+        nfcButton.setOnClickListener(view -> {
+            Intent intent1 = new Intent(ItemActivity.this, UnlockActivity.class);
+            startActivity(intent1);
         });
     }
 
