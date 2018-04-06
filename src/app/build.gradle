@@ -45,6 +45,8 @@ dependencies {
     implementation 'com.squareup.okio:okio:1.14.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.github.ligi:KAXT:0.19'
+
 
     //Image Slider
     implementation 'com.squareup.picasso:picasso:2.3.2'

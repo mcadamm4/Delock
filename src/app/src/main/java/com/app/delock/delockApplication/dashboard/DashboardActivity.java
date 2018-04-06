@@ -16,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.app.delock.delockApplication.IPFSDaemon;
@@ -27,12 +26,15 @@ import com.app.delock.delockApplication.browse.BrowseActivity;
 import com.app.delock.delockApplication.my_profile.MyProfileActivity;
 
 import org.jetbrains.annotations.NotNull;
+import org.ligi.kaxt.ContextExtensionsKt;
 
 import java.util.HashMap;
 
 import io.ipfs.kotlin.IPFS;
 import io.ipfs.kotlin.model.VersionInfo;
 import kotlin.jvm.internal.Intrinsics;
+
+import static rx.schedulers.Schedulers.start;
 
 public class DashboardActivity extends AppCompatActivity {
     private final IPFSDaemon ipfsDaemon = new IPFSDaemon((Context)this);
@@ -63,7 +65,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         Button runDaemon = findViewById(R.id.runDaemon);
 
-        runDaemon.setOnClickListener(it -> {
+        runDaemon.setOnClickListener((View it) -> {
             DashboardActivity.this.startService(new Intent(DashboardActivity.this, IPFSDaemonService.class));
             Button daemonButton = (Button)DashboardActivity.this._$_findCachedViewById(R.id.runDaemon);
             Intrinsics.checkExpressionValueIsNotNull(daemonButton, "daemonButton");
@@ -80,18 +82,16 @@ public class DashboardActivity extends AppCompatActivity {
                 while(version == null) {
                     try {
                         version = DashboardActivity.this.getIpfs().getInfo().version();
-                    } catch (Exception e) {
-                        Toast.makeText(this.getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                    } catch (Exception ignored) {
+                        ;
                     }
                 }
-
                 DashboardActivity.this.runOnUiThread(() -> {
                     progressDialog.dismiss();
-                    Intent intent = new Intent(DashboardActivity.this, BrowseActivity.class);
-                    startActivity(intent);
+                    ContextExtensionsKt.startActivityFromClass(DashboardActivity.this, BrowseActivity.class);
                 });
             })).start();
-            DashboardActivity.this.refresh();
+        DashboardActivity.this.refresh();
         });
 //        ((Button)this._$_findCachedViewById(id.daemonStopButton)).setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
 //            public final void onClick(View it) {

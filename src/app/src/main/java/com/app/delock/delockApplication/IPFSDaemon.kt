@@ -43,7 +43,12 @@ class IPFSDaemon(val androidContext: Context) {
         val env = arrayOf("IPFS_PATH=" + getRepoPath().absoluteFile)
         val command = getBinaryFile().absolutePath + " " + cmd
 
-        return Runtime.getRuntime().exec(command, env)
+        try {
+            return Runtime.getRuntime().exec(command, env)
+        }
+        catch (e: Exception) {
+            throw e
+        }
     }
 
     private fun downloadFile(activity: Activity) {

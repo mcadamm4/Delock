@@ -35,7 +35,7 @@ class IPFSDaemonService : IntentService("IPFSDaemonService") {
             daemon = IPFSDaemon(baseContext).run("daemon")
             State.isDaemonRunning = true
             daemon!!.waitFor()
-        } catch (e: InterruptedException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
