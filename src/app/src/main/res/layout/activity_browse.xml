@@ -23,17 +23,44 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
+            android:elevation="5dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ImageView
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:src="@drawable/grey_logo" />
+                android:layout_weight="1"
+                android:text="Delock"
+                android:textAlignment="textStart"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textColor="@color/cardview_light_background" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/ipfs_status_disconnected"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="visible"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/disconnected"
+                app:lottie_scale="0.1"
+                android:paddingStart="85dp"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/ipfs_status_connected"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingStart="85dp"
+                android:visibility="invisible"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/connected"
+                app:lottie_scale="0.1" />
         </android.support.v7.widget.Toolbar>
 
         <com.mancj.materialsearchbar.MaterialSearchBar
@@ -65,7 +92,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:elevation="8dp"

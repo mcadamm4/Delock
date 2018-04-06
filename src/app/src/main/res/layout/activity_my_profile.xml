@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.delock.delock_application.my_profile.MyProfileActivity">
+    tools:context="com.app.delock.delockApplication.my_profile.MyProfileActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout3"
