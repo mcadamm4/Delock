@@ -1,9 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.app.delock.delock_application"
+        applicationId "com.app.delock.delockApplication"
         minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
@@ -21,6 +24,7 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
@@ -38,6 +42,9 @@ dependencies {
     implementation 'org.web3j:core:3.3.1-android'
     implementation 'com.github.ligi:ipfs-api-kotlin:0.11'
     implementation 'com.airbnb.android:lottie:2.5.1'
+    implementation 'com.squareup.okio:okio:1.14.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //Image Slider
     implementation 'com.squareup.picasso:picasso:2.3.2'
@@ -47,6 +54,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
 
 
