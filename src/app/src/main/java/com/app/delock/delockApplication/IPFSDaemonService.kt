@@ -8,6 +8,16 @@ import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import com.app.delock.delockApplication.dashboard.DashboardActivity
 
+/* 
+DISCLAIMER:
+    This code was written by Github user ligi for the IPFSDroid project
+    and was open-sourced to help promote mobile development with 
+    IPFS on the Android platform 
+
+    IPFSDroid Github - https://github.com/ligi/IPFSDroid
+    ligi Github - https://github.com/ligi/IPFSDroid/commits?author=ligi
+ */
+
 class IPFSDaemonService : IntentService("IPFSDaemonService") {
 
     private var nManager: NotificationManager? = null
@@ -34,7 +44,11 @@ class IPFSDaemonService : IntentService("IPFSDaemonService") {
         try {
             daemon = IPFSDaemon(baseContext).run("daemon")
             State.isDaemonRunning = true
-            daemon!!.waitFor()
+            (if (daemon != null)
+                daemon
+            else
+                throw NullPointerException("Expression 'daemon' must not be null")
+                    )!!.waitFor()
         } catch (e: Exception) {
             e.printStackTrace()
         }

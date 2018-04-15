@@ -6,7 +6,7 @@
 
     <!--Colors from card view tutorial-->
     <color name="colorPrimary">#f50057</color>
-    <color name="colorPrimaryDark">#F50057</color>
+    <color name="colorPrimaryDark">#f50057</color>
     <color name="colorAccent">#ff4081</color>
     <color name="viewBg">#f1f5f8</color>
     <color name="item_title">#262626</color>

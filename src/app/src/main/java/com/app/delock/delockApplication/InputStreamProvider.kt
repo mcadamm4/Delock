@@ -11,6 +11,16 @@ import java.io.InputStream
 import java.net.MalformedURLException
 import java.net.URL
 
+/* 
+DISCLAIMER:
+    This code was written by Github user ligi for the IPFSDroid project
+    and was open-sourced to help promote mobile development with 
+    IPFS on the Android platform 
+
+    IPFSDroid Github - https://github.com/ligi/IPFSDroid
+    ligi Github - https://github.com/ligi/IPFSDroid/commits?author=ligi
+ */
+
 object InputStreamProvider {
 
     class InputStreamWithSource(val source: String, val inputStream: InputStream)

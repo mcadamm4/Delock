@@ -154,6 +154,9 @@ I spent quite  bit of time trying to make the MVP structurer work but to no avai
 
 Now that I know the NFC if working and I have a decent proportion of the UI in place I want to start work on the smart contracts and communication with Ethereum. From reading more into Ethereum Android it looks like I may have to stop using it in favour of creating my own wallet and communicating with the blockchain via Web3j as Ethereum Android does not facilitate the deployment of smart contracts which it a big part of the application.
 
+---
+## `Sunday April 15th`
+Since last I have decided to stop using Ethereum-Android wallet as I belive I can implement the needed functionality using Web3j in my own application, I have also managed to implement an IPFS daemon that will communicate with IPFS which acts as my database for pushing and pulling data, I was able to do this by using some code from an open source project called IPFSDroid on github. My plan now is to start writing the smart contracts.
 
 ---
 ---

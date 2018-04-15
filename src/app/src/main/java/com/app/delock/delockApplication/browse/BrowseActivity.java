@@ -9,35 +9,35 @@ import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
+import com.andremion.floatingnavigationview.FloatingNavigationView;
 import com.app.delock.delockApplication.IPFSDaemon;
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.item.ItemsAdapter;
-import com.app.delock.delockApplication.maps.MapsActivity;
 import com.app.delock.delockApplication.my_profile.MyProfileActivity;
 import com.app.delock.delockApplication.settings.SettingsActivity;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import de.petendi.ethereum.android.EthereumAndroidFactory;
 
 import static android.widget.Toast.makeText;
 
@@ -48,15 +48,23 @@ public class BrowseActivity extends AppCompatActivity {
 
     private ItemsAdapter adapter;
     MaterialSearchBar searchBar;
-    FloatingActionButton actionButton;
+    private NavigationView navigationView;
+
     private ArrayList<Item> itemsList;
     private ItemsAdapter.ItemsAdapterListener listener;
-    LottieAnimationView disconnectedLottie, connectedLottie;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        assert actionbar != null;
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+
         SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = sharedPreferences.getBoolean("firstStart", true);
 
@@ -65,11 +73,42 @@ public class BrowseActivity extends AppCompatActivity {
             new AsyncDownloadTask().execute();
         }
 
-        disconnectedLottie = (LottieAnimationView) findViewById(R.id.ipfs_status_disconnected);
-        disconnectedLottie.setVisibility(View.INVISIBLE);
+        //DRAWER
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                menuItem -> {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
+                    // Add code here to update the UI based on the item selected
+                    // For example, swap UI fragments here
+                    return true;
+                });
+        mDrawerLayout.addDrawerListener(
+                new DrawerLayout.DrawerListener() {
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        // Respond when the drawer's position changes
+                    }
 
-        connectedLottie = (LottieAnimationView) findViewById(R.id.ipfs_status_connected);
-        connectedLottie.setVisibility(View.VISIBLE);
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        // Respond when the drawer is opened
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        // Respond when the drawer is closed
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        // Respond when the drawer motion state changes
+                    }
+                }
+        );
 
         //RECYCLER VIEW
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -103,6 +142,8 @@ public class BrowseActivity extends AppCompatActivity {
 
             }
         });
+
+        //BOTTOM NAVIGATION BAR
         BottomNavigationView navMenu = findViewById(R.id.navigation);
         navMenu.setSelectedItemId(R.id.navigation_home);
         navMenu.setOnNavigationItemSelectedListener(
@@ -125,13 +166,23 @@ public class BrowseActivity extends AppCompatActivity {
                 });
 
         //ACTION BUTTON
-        actionButton = findViewById(R.id.actionButton);
-        actionButton.setOnClickListener(view -> {
-            Intent intent = new Intent(BrowseActivity.this, MapsActivity.class);
-            startActivity(intent);
-        });
+//        actionButton = findViewById(R.id.actionButton);
+//        actionButton.setOnClickListener(view -> {
+//            Intent intent = new Intent(BrowseActivity.this, MapsActivity.class);
+//            startActivity(intent);
+//        });
         //SAMPLE ITEMS
         prepareItems();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //RecyclerView item decoration - give equal margin around grid item
