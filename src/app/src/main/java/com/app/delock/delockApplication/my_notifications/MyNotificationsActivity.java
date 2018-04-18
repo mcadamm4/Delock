@@ -1,13 +1,19 @@
-package com.app.delock.delockApplication.my_profile;
+package com.app.delock.delockApplication.my_notifications;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,59 +25,119 @@ import com.app.delock.delockApplication.dashboard.DashboardActivity;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
-public class MyProfileActivity extends AppCompatActivity {
+public class MyNotificationsActivity extends AppCompatActivity {
     String token = "kv4a42NG93ZwJ9h0lZqK";
     String url = "https://ropsten.infura.io/";
     TextView textView;
     ImageView imageView;
+    private DrawerLayout mDrawerLayout;
+    private String address;
     LottieAnimationView lottieAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+        setContentView(R.layout.activity_my_notifications);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        assert actionbar != null;
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
         imageView = findViewById(R.id.imageView);
 
         //Retrieve information from ethereum
-        new AsyncCaller().execute();
+        new AsyncInfo().execute();
 
+        //ADDRESS
+        SharedPreferences sharedPreferences = getSharedPreferences("prefs", 0);
+        address = sharedPreferences.getString("accountAddress", "No address found");
+
+        //DRAWER
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                (MenuItem menuItem) -> {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
+                    // Add code here to update the UI based on the item selected
+                    // For example, swap UI fragments here
+                    return true;
+                });
+        mDrawerLayout.addDrawerListener(
+                new DrawerLayout.DrawerListener() {
+                    @Override
+                    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                        // Respond when the drawer's position changes
+                        new AsyncCaller().execute();
+                    }
+
+                    @Override
+                    public void onDrawerOpened(@NonNull View drawerView) {
+                        // Respond when the drawer is opened
+                    }
+
+                    @Override
+                    public void onDrawerClosed(@NonNull View drawerView) {
+                        // Respond when the drawer is closed
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        // Respond when the drawer motion state changes
+                    }
+                }
+        );
         BottomNavigationView navMenu = findViewById(R.id.navigation);
-        navMenu.setSelectedItemId(R.id.navigation_myProfile);
+        navMenu.setSelectedItemId(R.id.navigation_notifications);
         navMenu.setOnNavigationItemSelectedListener(
                 menuItem -> {
                     Intent intent;
                     // set item as selected to persist highlight
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_home:
-                            intent = new Intent(MyProfileActivity.this, BrowseActivity.class);
+                            intent = new Intent(MyNotificationsActivity.this, BrowseActivity.class);
                             startActivity(intent);
                             break;
                         case R.id.navigation_dashboard:
-                            intent = new Intent(MyProfileActivity.this, DashboardActivity.class);
+                            intent = new Intent(MyNotificationsActivity.this, DashboardActivity.class);
                             startActivity(intent);
                             break;
-                        case R.id.navigation_myProfile:
+                        case R.id.navigation_notifications:
                             break;
                     }
                     return true;
                 });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @SuppressLint("StaticFieldLeak")
-    private class AsyncCaller extends AsyncTask<Void, Void, String[]>
+    private class AsyncInfo extends AsyncTask<Void, Void, String[]>
     {
-        ProgressDialog pdLoading = new ProgressDialog(MyProfileActivity.this);
         private Web3j web3;
         private Web3ClientVersion web3ClientVersion = null;
         private EthBlockNumber Web3BlockNumber = null;
@@ -79,14 +145,13 @@ public class MyProfileActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            /* this method will be running on UI thread */
             super.onPreExecute();
             lottieAnimation = findViewById(R.id.animation_view);
             lottieAnimation.setAnimation(R.raw.loading, LottieAnimationView.CacheStrategy.Strong);
-            /* this method will be running on UI thread */
         }
         @Override
         protected String[] doInBackground(Void... params) {
-
             //this method will be running on background thread so don't update UI frome here
             //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
             web3 = Web3jFactory.build(new HttpService(url + token));
@@ -132,6 +197,42 @@ public class MyProfileActivity extends AppCompatActivity {
             }
             assert Web3BlockNumber  != null;
             return Web3BlockNumber.getBlockNumber();
+        }
+    }
+
+
+    //GET ADDRESS BALANCE AND BLOCK NUMBER FROM WEB3J ASYNCHRONOUSLY
+    @SuppressLint("StaticFieldLeak")
+    private class AsyncCaller extends AsyncTask<Void, Void, String[]> {
+        private Web3j web3;
+
+        @Override
+        protected void onPreExecute() {
+            /* this method will be running on UI thread */
+            super.onPreExecute();
+            TextView address_value = findViewById(R.id.address_value);
+            address_value.setText(address);
+        }
+        @Override
+        protected String[] doInBackground(Void... params) {
+            //this method will be running on background thread so don't update UI frome here
+            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
+            web3 = Web3jFactory.build(new HttpService(url + token));
+            EthGetBalance ethGetBalance = null;
+            try {
+                ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+            assert ethGetBalance != null;
+            return new String[]{ethGetBalance.getBalance().toString()};
+        }
+        @Override
+        protected void onPostExecute(String[] result) {
+            super.onPostExecute(result);
+            //this method will be running on UI thread
+            TextView ether_balance = findViewById(R.id.ether_value);
+            ether_balance.setText(result[0]);
         }
     }
 

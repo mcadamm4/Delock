@@ -137,9 +137,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 case R.id.action_add_favourite:
 //                    listener.onAddToFavoriteSelected(position);
                     return true;
-                case R.id.action_play_next:
-//                    listener.onPlayNextSelected(position);
-                    return true;
                 default:
             }
             return false;
@@ -153,9 +150,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     public interface ItemsAdapterListener {
         void onAddToFavoriteSelected(int position);
-
-        void onPlayNextSelected(int position);
-
+        
         void onCardSelected(int position, ImageView thumbnail);
     }
 

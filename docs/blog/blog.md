@@ -160,6 +160,10 @@ Since last I have decided to stop using Ethereum-Android wallet as I belive I ca
 
 ---
 ---
+## `Tuesday April 18th`
+The app now has a pull out drawer for viewing user info and selecting a number of options such as settings and adding new items. Today I want to implement a local wallet using Web3j and hopefully get something done with the smart contracts. I am still figuring out how the contracts will work and co-operate.
+
+---
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
 

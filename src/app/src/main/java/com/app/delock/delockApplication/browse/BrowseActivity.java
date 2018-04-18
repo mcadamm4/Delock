@@ -1,16 +1,15 @@
 package com.app.delock.delockApplication.browse;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -24,31 +23,38 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
-import com.andremion.floatingnavigationview.FloatingNavigationView;
-import com.app.delock.delockApplication.IPFSDaemon;
 import com.app.delock.delockApplication.R;
+import com.app.delock.delockApplication.add_item.AddItemActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
+import com.app.delock.delockApplication.details.AccountDetailsActivity;
 import com.app.delock.delockApplication.item.Item;
+import com.app.delock.delockApplication.item.ItemActivity;
 import com.app.delock.delockApplication.item.ItemsAdapter;
-import com.app.delock.delockApplication.my_profile.MyProfileActivity;
+import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
 import com.app.delock.delockApplication.settings.SettingsActivity;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.http.HttpService;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static android.widget.Toast.makeText;
+import java.util.concurrent.ExecutionException;
 
 public class BrowseActivity extends AppCompatActivity {
-    //IPFS Init
-    IPFSDaemon daemon;
-    Activity activity = this;
+    //INFURA URL
+    String url = "https://ropsten.infura.io/";
+    String token = "kv4a42NG93ZwJ9h0lZqK";
 
+    String address = null;
     private ItemsAdapter adapter;
     MaterialSearchBar searchBar;
-    private NavigationView navigationView;
 
     private ArrayList<Item> itemsList;
     private ItemsAdapter.ItemsAdapterListener listener;
@@ -65,49 +71,68 @@ public class BrowseActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean firstStart = sharedPreferences.getBoolean("firstStart", true);
-
-        if(firstStart) {
-            daemon = new IPFSDaemon(this.getApplicationContext());
-            new AsyncDownloadTask().execute();
-        }
+        //ADDRESS
+        SharedPreferences sharedPreferences = getSharedPreferences("prefs", 0);
+        address = sharedPreferences.getString("accountAddress", "No address found");
 
         //DRAWER
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
-                menuItem -> {
-                    // set item as selected to persist highlight
-                    menuItem.setChecked(true);
-                    // close drawer when item is tapped
-                    mDrawerLayout.closeDrawers();
-                    // Add code here to update the UI based on the item selected
-                    // For example, swap UI fragments here
-                    return true;
-                });
-        mDrawerLayout.addDrawerListener(
-                new DrawerLayout.DrawerListener() {
-                    @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
-                    }
+            (MenuItem menuItem) -> {
+                // set item as selected to persist highlight
+                menuItem.setChecked(true);
+                // close drawer when item is tapped
+                mDrawerLayout.closeDrawers();
 
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        // Respond when the drawer is opened
+                Intent myIntent;
+                switch(menuItem.getItemId()) {
+                    case R.id.nav_identity:{
+//                      myIntent = new Intent(this, SettingsActivity.class);
+//                      startActivity(myIntent);
+                        break;
                     }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        // Respond when the drawer is closed
+                    case R.id.nav_add_item: {
+                        myIntent = new Intent(this, AddItemActivity.class);
+                        startActivity(myIntent);
+                        break;
                     }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-                        // Respond when the drawer motion state changes
+                    case R.id.nav_settings: {
+                        myIntent = new Intent(this, SettingsActivity.class);
+                        startActivity(myIntent);
+                        break;
                     }
                 }
+                return true;
+            });
+        mDrawerLayout.addDrawerListener(
+            new DrawerLayout.DrawerListener() {
+                @Override
+                public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                    // Respond when the drawer's position changes
+                    new AsyncCaller().execute();
+                }
+
+                @Override
+                public void onDrawerOpened(@NonNull View drawerView) {
+                    // Respond when the drawer is opened
+                    Button detailsButton = findViewById(R.id.tap_for_details);
+                    detailsButton.setOnClickListener(view -> {
+                        Intent intent1 = new Intent(BrowseActivity.this, AccountDetailsActivity.class);
+                        startActivity(intent1);
+                    });
+                }
+
+                @Override
+                public void onDrawerClosed(@NonNull View drawerView) {
+                    // Respond when the drawer is closed
+                }
+
+                @Override
+                public void onDrawerStateChanged(int newState) {
+                    // Respond when the drawer motion state changes
+                }
+            }
         );
 
         //RECYCLER VIEW
@@ -118,18 +143,17 @@ public class BrowseActivity extends AppCompatActivity {
         //RECYCLER VIEW
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         //SEARCH BAR
-        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
+        searchBar = findViewById(R.id.searchBar);
         searchBar.setHint("Search..");
         searchBar.setCardViewElevation(10);
         //SEARCH BAR TEXT CHANGE LISTENER
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -139,7 +163,6 @@ public class BrowseActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
@@ -157,8 +180,8 @@ public class BrowseActivity extends AppCompatActivity {
                             intent = new Intent(BrowseActivity.this, DashboardActivity.class);
                             startActivity(intent);
                             break;
-                        case R.id.navigation_myProfile:
-                            intent = new Intent(BrowseActivity.this, MyProfileActivity.class);
+                        case R.id.navigation_notifications:
+                            intent = new Intent(BrowseActivity.this, MyNotificationsActivity.class);
                             startActivity(intent);
                             break;
                     }
@@ -173,6 +196,11 @@ public class BrowseActivity extends AppCompatActivity {
 //        });
         //SAMPLE ITEMS
         prepareItems();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 
     @Override
@@ -191,7 +219,7 @@ public class BrowseActivity extends AppCompatActivity {
         private int spacing;
         private boolean includeEdge;
 
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge){
+        GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge){
             this.spanCount = spanCount;
             this.spacing = spacing;
             this.includeEdge = includeEdge;
@@ -220,49 +248,48 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     // Convert dp to pixels
-    private int dpToPx(int dp){
+    private int dpToPx(){
         Resources res = getResources();
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics()));
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, res.getDisplayMetrics()));
     }
 
-    //Open settings
-    public void openSettings(View view){
-        Intent myIntent = new Intent(this, SettingsActivity.class);
-        startActivity(myIntent);
-    }
-
+    //GET ADDRESS BALANCE AND BLOCK NUMBER FROM WEB3J ASYNCHRONOUSLY
     @SuppressLint("StaticFieldLeak")
-    private class AsyncDownloadTask extends AsyncTask<Void, Void, String[]>
-    {
+    private class AsyncCaller extends AsyncTask<Void, Void, String[]> {
+        private Web3j web3;
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
             /* this method will be running on UI thread */
-            Toast toast = makeText(activity, "Downloading...", Toast.LENGTH_LONG);
-            toast.show();
+            super.onPreExecute();
+            TextView address_value = findViewById(R.id.address_value);
+            address_value.setText(address);
         }
         @Override
         protected String[] doInBackground(Void... params) {
             //this method will be running on background thread so don't update UI frome here
             //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
-            String result = daemon.download(activity);
-            return new String[]{result};
+
+            web3 = Web3jFactory.build(new HttpService(url + token));
+            EthGetBalance ethGetBalance = null;
+            try {
+                ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+            assert ethGetBalance != null;
+            return new String[]{ethGetBalance.getBalance().toString()};
         }
 
         @Override
         protected void onPostExecute(String[] result) {
             super.onPostExecute(result);
             //this method will be running on UI thread
-            Toast toast = makeText(activity, result[0], Toast.LENGTH_LONG);
-            toast.show();
-
-            SharedPreferences sharedPreferences = getSharedPreferences("prefs", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("firstStart", false);
-            editor.apply();
+            TextView ether_balance = findViewById(R.id.ether_value);
+            ether_balance.setText(result[0]);
         }
     }
+
 
     //-----------------------------------------------------------------------------
     // -----------------------------------------------------------------------------
