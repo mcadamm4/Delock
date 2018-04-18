@@ -159,10 +159,19 @@ Now that I know the NFC if working and I have a decent proportion of the UI in p
 Since last I have decided to stop using Ethereum-Android wallet as I belive I can implement the needed functionality using Web3j in my own application, I have also managed to implement an IPFS daemon that will communicate with IPFS which acts as my database for pushing and pulling data, I was able to do this by using some code from an open source project called IPFSDroid on github. My plan now is to start writing the smart contracts.
 
 ---
----
 ## `Tuesday April 18th`
 The app now has a pull out drawer for viewing user info and selecting a number of options such as settings and adding new items. Today I want to implement a local wallet using Web3j and hopefully get something done with the smart contracts. I am still figuring out how the contracts will work and co-operate.
 
+---
+
+### `Continued...`
+I managed to get a basic wallet working today and transfered some test ether into it from my Metamask account.
+The app is showing the correct balance.
+In order to execute transactions from the app the wallet generation needs to be extended to use public/private key for signing transactions.
+I hope to get this done tonight or early tomorrow.
+
+---
+## `Next`
 ---
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.

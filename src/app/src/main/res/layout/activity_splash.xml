@@ -57,12 +57,12 @@
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         android:textColor="@color/cardview_light_background"
-        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.508" />
+        app:layout_constraintVertical_bias="0.17" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -81,29 +81,44 @@
 
     <Button
         android:id="@+id/confirmButton"
-        style="@android:style/Widget.Holo.Button.Inset"
-        android:layout_width="137dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="144dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="@color/cardview_dark_background"
         android:elevation="9dp"
-        android:text="@string/confirm"
+        android:text="@string/import_existing"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_input"
+        app:layout_constraintVertical_bias="0.011" />
 
-    <TextView
-        android:id="@+id/account_balance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/generateButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:background="@color/cardview_dark_background"
+        android:elevation="9dp"
+        android:text="@string/generate_new_address"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmButton" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmButton"
+        app:layout_constraintVertical_bias="0.392" />
 
 </android.support.constraint.ConstraintLayout>

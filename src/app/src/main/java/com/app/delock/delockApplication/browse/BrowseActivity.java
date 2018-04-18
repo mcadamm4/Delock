@@ -31,7 +31,6 @@ import com.app.delock.delockApplication.add_item.AddItemActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
 import com.app.delock.delockApplication.item.Item;
-import com.app.delock.delockApplication.item.ItemActivity;
 import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
 import com.app.delock.delockApplication.settings.SettingsActivity;
@@ -42,10 +41,15 @@ import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Convert;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+
+import static org.web3j.utils.Convert.Unit.ETHER;
 
 public class BrowseActivity extends AppCompatActivity {
     //INFURA URL
@@ -255,7 +259,7 @@ public class BrowseActivity extends AppCompatActivity {
 
     //GET ADDRESS BALANCE AND BLOCK NUMBER FROM WEB3J ASYNCHRONOUSLY
     @SuppressLint("StaticFieldLeak")
-    private class AsyncCaller extends AsyncTask<Void, Void, String[]> {
+    private class AsyncCaller extends AsyncTask<Void, BigDecimal, BigDecimal> {
         private Web3j web3;
 
         @Override
@@ -266,7 +270,7 @@ public class BrowseActivity extends AppCompatActivity {
             address_value.setText(address);
         }
         @Override
-        protected String[] doInBackground(Void... params) {
+        protected BigDecimal doInBackground(Void... params) {
             //this method will be running on background thread so don't update UI frome here
             //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
 
@@ -277,16 +281,18 @@ public class BrowseActivity extends AppCompatActivity {
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
+
             assert ethGetBalance != null;
-            return new String[]{ethGetBalance.getBalance().toString()};
+            BigInteger wei = ethGetBalance.getBalance();
+            return Convert.fromWei(wei.toString(), ETHER);
         }
 
         @Override
-        protected void onPostExecute(String[] result) {
+        protected void onPostExecute(BigDecimal result) {
             super.onPostExecute(result);
             //this method will be running on UI thread
             TextView ether_balance = findViewById(R.id.ether_value);
-            ether_balance.setText(result[0]);
+            ether_balance.setText(String.valueOf(result));
         }
     }
 

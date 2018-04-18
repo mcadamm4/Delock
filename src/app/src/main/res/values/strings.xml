@@ -119,4 +119,6 @@
     <string name="add_item">Add new item</string>
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_account_details">AccountDetailsActivity</string>
+    <string name="generate_new_address">Generate New Address</string>
+    <string name="import_existing">Import Existing</string>
 </resources>

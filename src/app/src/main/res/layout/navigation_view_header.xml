@@ -148,6 +148,6 @@
         app:layout_constraintStart_toEndOf="@+id/ether_value"
         app:layout_constraintTop_toBottomOf="@+id/account_balance"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/pink_ether" />
+        app:srcCompat="@drawable/pink_ether2" />
 
 </android.support.constraint.ConstraintLayout>
