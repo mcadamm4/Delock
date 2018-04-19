@@ -149,29 +149,41 @@ I hope to have the MVP structure set up today and can then work on getting the N
 
 
 ---
+
 ## `Thursday March 29th`
 I spent quite  bit of time trying to make the MVP structurer work but to no avail. I found it very hard to understand and quite different to MVC for web which I have a good bit of experience with, therefore I have scrapped that and in the time since my last blog I have implemented some basic NFC functionality and hooked up some more placeholder activity screens that need to be finished.
 
 Now that I know the NFC if working and I have a decent proportion of the UI in place I want to start work on the smart contracts and communication with Ethereum. From reading more into Ethereum Android it looks like I may have to stop using it in favour of creating my own wallet and communicating with the blockchain via Web3j as Ethereum Android does not facilitate the deployment of smart contracts which it a big part of the application.
 
 ---
+
 ## `Sunday April 15th`
+
 Since last I have decided to stop using Ethereum-Android wallet as I belive I can implement the needed functionality using Web3j in my own application, I have also managed to implement an IPFS daemon that will communicate with IPFS which acts as my database for pushing and pulling data, I was able to do this by using some code from an open source project called IPFSDroid on github. My plan now is to start writing the smart contracts.
 
 ---
-## `Tuesday April 18th`
+
+## `Tuesday April 17th`
+
 The app now has a pull out drawer for viewing user info and selecting a number of options such as settings and adding new items. Today I want to implement a local wallet using Web3j and hopefully get something done with the smart contracts. I am still figuring out how the contracts will work and co-operate.
 
 ---
 
-### `Continued...`
+## `Wednesday April 18th`
+
 I managed to get a basic wallet working today and transfered some test ether into it from my Metamask account.
 The app is showing the correct balance.
 In order to execute transactions from the app the wallet generation needs to be extended to use public/private key for signing transactions.
 I hope to get this done tonight or early tomorrow.
 
 ---
-## `Next`
+
+## `Thursday April 19th`
+
+The code for the Android screens/activities was getting very cluttered and I did not like the duplication of code across the screens. Therefore I spent some time last night and today cleaning this up and moving the AsyncTasks out of the Activity files. The tasks were also blocking eachother so I added a simple Util that extendsd AsyncTask and allows the threads to run in parallel on newer devices.
+
+I have started working on the base smart contract which will be extended by every item that a user adds as a listing. They will all have base functions in common such as Rent(), Return() etc.
+
 ---
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
