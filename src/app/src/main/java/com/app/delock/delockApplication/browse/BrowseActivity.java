@@ -2,10 +2,10 @@ package com.app.delock.delockApplication.browse;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -24,9 +24,10 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.app.delock.delockApplication.R;
+import com.app.delock.delockApplication.Utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.Utils.AsyncUtil;
 import com.app.delock.delockApplication.add_item.AddItemActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
@@ -36,27 +37,12 @@ import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity
 import com.app.delock.delockApplication.settings.SettingsActivity;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.Web3jFactory;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.http.HttpService;
-import org.web3j.utils.Convert;
+import org.web3j.utils.Async;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
-
-import static org.web3j.utils.Convert.Unit.ETHER;
 
 public class BrowseActivity extends AppCompatActivity {
-    //INFURA URL
-    String url = "https://ropsten.infura.io/";
-    String token = "kv4a42NG93ZwJ9h0lZqK";
-
-    String address = null;
     private ItemsAdapter adapter;
     MaterialSearchBar searchBar;
 
@@ -74,10 +60,6 @@ public class BrowseActivity extends AppCompatActivity {
         assert actionbar != null;
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-
-        //ADDRESS
-        SharedPreferences sharedPreferences = getSharedPreferences("prefs", 0);
-        address = sharedPreferences.getString("accountAddress", "No address found");
 
         //DRAWER
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -111,10 +93,11 @@ public class BrowseActivity extends AppCompatActivity {
             });
         mDrawerLayout.addDrawerListener(
             new DrawerLayout.DrawerListener() {
+                @SuppressLint("ObsoleteSdkInt")
                 @Override
                 public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                     // Respond when the drawer's position changes
-                    new AsyncCaller().execute();
+                    AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, getApplicationContext()));
                 }
 
                 @Override
@@ -256,46 +239,6 @@ public class BrowseActivity extends AppCompatActivity {
         Resources res = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, res.getDisplayMetrics()));
     }
-
-    //GET ADDRESS BALANCE AND BLOCK NUMBER FROM WEB3J ASYNCHRONOUSLY
-    @SuppressLint("StaticFieldLeak")
-    private class AsyncCaller extends AsyncTask<Void, BigDecimal, BigDecimal> {
-        private Web3j web3;
-
-        @Override
-        protected void onPreExecute() {
-            /* this method will be running on UI thread */
-            super.onPreExecute();
-            TextView address_value = findViewById(R.id.address_value);
-            address_value.setText(address);
-        }
-        @Override
-        protected BigDecimal doInBackground(Void... params) {
-            //this method will be running on background thread so don't update UI frome here
-            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
-
-            web3 = Web3jFactory.build(new HttpService(url + token));
-            EthGetBalance ethGetBalance = null;
-            try {
-                ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            assert ethGetBalance != null;
-            BigInteger wei = ethGetBalance.getBalance();
-            return Convert.fromWei(wei.toString(), ETHER);
-        }
-
-        @Override
-        protected void onPostExecute(BigDecimal result) {
-            super.onPostExecute(result);
-            //this method will be running on UI thread
-            TextView ether_balance = findViewById(R.id.ether_value);
-            ether_balance.setText(String.valueOf(result));
-        }
-    }
-
 
     //-----------------------------------------------------------------------------
     // -----------------------------------------------------------------------------

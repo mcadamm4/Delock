@@ -121,4 +121,8 @@
     <string name="title_activity_account_details">AccountDetailsActivity</string>
     <string name="generate_new_address">Generate New Address</string>
     <string name="import_existing">Import Existing</string>
+    <string name="generate_wallet">Generate Wallet</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="note_we_recommend_writing_down_your_password_on_paper_and_keeping_it_somewhere_safe_as_it_is_the_only_means_of_accessing_your_account">Note: We recommend writing down your password on paper and keeping it somewhere safe as it is the only means of accessing your account</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,10 +22,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.app.delock.delockApplication.R;
+import com.app.delock.delockApplication.Utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.Utils.AsyncUtil;
 import com.app.delock.delockApplication.browse.BrowseActivity;
+import com.app.delock.delockApplication.details.AccountDetailsActivity;
 import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
@@ -81,15 +86,21 @@ public class DashboardActivity extends AppCompatActivity {
                 });
         mDrawerLayout.addDrawerListener(
                 new DrawerLayout.DrawerListener() {
+                    @SuppressLint("ObsoleteSdkInt")
                     @Override
                     public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                         // Respond when the drawer's position changes
-                        new AsyncCaller().execute();
+                        AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, getApplicationContext()));
                     }
 
                     @Override
                     public void onDrawerOpened(@NonNull View drawerView) {
                         // Respond when the drawer is opened
+                        Button detailsButton = findViewById(R.id.tap_for_details);
+                        detailsButton.setOnClickListener(view -> {
+                            Intent intent1 = new Intent(DashboardActivity.this, AccountDetailsActivity.class);
+                            startActivity(intent1);
+                        });
                     }
 
                     @Override
@@ -150,42 +161,6 @@ public class DashboardActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    //GET ADDRESS BALANCE AND BLOCK NUMBER FROM WEB3J ASYNCHRONOUSLY
-    @SuppressLint("StaticFieldLeak")
-    private class AsyncCaller extends AsyncTask<Void, Void, String[]> {
-        private Web3j web3;
-
-        @Override
-        protected void onPreExecute() {
-            /* this method will be running on UI thread */
-            super.onPreExecute();
-            TextView address_value = findViewById(R.id.address_value);
-            address_value.setText(address);
-        }
-        @Override
-        protected String[] doInBackground(Void... params) {
-            //this method will be running on background thread so don't update UI frome here
-            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
-            web3 = Web3jFactory.build(new HttpService(url + token));
-            EthGetBalance ethGetBalance = null;
-            try {
-                ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-            assert ethGetBalance != null;
-            return new String[]{ethGetBalance.getBalance().toString()};
-        }
-        @Override
-        protected void onPostExecute(String[] result) {
-            super.onPostExecute(result);
-            //this method will be running on UI thread
-            TextView ether_balance = findViewById(R.id.ether_value);
-            ether_balance.setText(result[0]);
-        }
-    }
-
 
     //RecyclerView item decoration - give equal margin around grid item
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
