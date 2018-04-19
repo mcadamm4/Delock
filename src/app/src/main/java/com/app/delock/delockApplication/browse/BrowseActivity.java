@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -26,8 +24,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.delock.delockApplication.R;
-import com.app.delock.delockApplication.Utils.AsyncGetBalanceTask;
-import com.app.delock.delockApplication.Utils.AsyncUtil;
+import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.app.delock.delockApplication.add_item.AddItemActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
@@ -36,8 +34,6 @@ import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
 import com.app.delock.delockApplication.settings.SettingsActivity;
 import com.mancj.materialsearchbar.MaterialSearchBar;
-
-import org.web3j.utils.Async;
 
 import java.util.ArrayList;
 import java.util.HashMap;

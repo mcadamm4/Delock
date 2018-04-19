@@ -1,4 +1,4 @@
-package com.app.delock.delockApplication.Utils;
+package com.app.delock.delockApplication.utils;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;

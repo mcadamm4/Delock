@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,18 +21,16 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.app.delock.delockApplication.R;
-import com.app.delock.delockApplication.Utils.AsyncGetBalanceTask;
-import com.app.delock.delockApplication.Utils.AsyncUtil;
+import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.app.delock.delockApplication.browse.BrowseActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 

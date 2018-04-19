@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -23,26 +21,18 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.app.delock.delockApplication.R;
-import com.app.delock.delockApplication.Utils.AsyncGetBalanceTask;
-import com.app.delock.delockApplication.Utils.AsyncUtil;
+import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.app.delock.delockApplication.browse.BrowseActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
 import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
 
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.Web3jFactory;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.http.HttpService;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 public class DashboardActivity extends AppCompatActivity {
     //INFURA URL

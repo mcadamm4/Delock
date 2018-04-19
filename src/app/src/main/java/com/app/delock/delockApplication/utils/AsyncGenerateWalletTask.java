@@ -1,4 +1,4 @@
-package com.app.delock.delockApplication.Utils;
+package com.app.delock.delockApplication.utils;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
 
-import com.app.delock.delockApplication.IPFSDaemon;
 import com.app.delock.delockApplication.SplashActivity;
 
 import org.web3j.crypto.CipherException;

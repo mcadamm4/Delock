@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.delock.delockApplication.Utils.AsyncDownloadTask;
-import com.app.delock.delockApplication.Utils.AsyncGenerateWalletTask;
+import com.app.delock.delockApplication.utils.AsyncDownloadTask;
+import com.app.delock.delockApplication.utils.AsyncGenerateWalletTask;
 import com.app.delock.delockApplication.browse.BrowseActivity;
 
 import org.ligi.kaxt.ContextExtensionsKt;
