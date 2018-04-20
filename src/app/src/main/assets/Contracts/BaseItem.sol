@@ -15,8 +15,9 @@ contract BaseItem {
 
     //MODIFIERS -- Set requirements and permissions for function execution
     modifier onlyOwner(){
+        //The code of a function using a modifier is inserted at the underscores location
         require(msg.sender==owner);
-        _;
+        _; 
     }
     modifier onlyRenter(){
         require(msg.sender==renter);
@@ -48,15 +49,24 @@ contract BaseItem {
     function getCurrentRenter() isRented {
         return renter;
     }
+    function getCurrentCost(){
+        // (now - startTime) * pricePerHour
+        //pricePerHour * (now - (currentRentalStartDate + timeBlock)) / timeBlock;
+        return 0.1;
+    }
 
     //EVENTS
-        //Return()
-        //Unlock()?
-        //Lock()?
+    event rentItem(address indexed _renter);
+    event returnItem();
+    event unlockItem();
+    event lockItem();
 
-    constructor() {
+    constructor() public {
         owner = msg.sender;
     }
 
     //FUNCTIONS
+    function rent() public notRented {
+        require(msg.value>=0);
+    }
 }
