@@ -3,7 +3,6 @@ package com.app.delock.delockApplication.utils;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.Toast;
 
 import com.app.delock.delockApplication.SplashActivity;
@@ -27,13 +26,11 @@ import static android.widget.Toast.makeText;
 @SuppressLint("StaticFieldLeak")
 public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
 {
-    private final View view;
     private final SplashActivity splashActivity;
     private String password;
     private File path;
 
-    public AsyncGenerateWalletTask(View view, SplashActivity splashActivity, String password, File path){
-        this.view = view;
+    public AsyncGenerateWalletTask(SplashActivity splashActivity, String password, File path){
         this.splashActivity = splashActivity;
         this.password = password;
         this.path = path;
@@ -48,13 +45,11 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
     }
     @Override
     protected String[] doInBackground(Void... params) {
-        //this method will be running on background thread so don't update UI frome here
-        //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
-
+        //this method will be running on background thread so don't update UI frame here
+        //do your long running http tasks here,you don't want to pass argument and u can access the parent class' variable url over here
         String result = null;
-        String s = null;
         try {
-            s = WalletUtils.generateLightNewWalletFile(password, path);
+            String s = WalletUtils.generateLightNewWalletFile(password, path);
             Credentials cred = WalletUtils.loadCredentials(password, path+"/"+s);
             result = cred.getAddress();
         } catch (NoSuchAlgorithmException | NoSuchProviderException | CipherException | IOException | InvalidAlgorithmParameterException e) {

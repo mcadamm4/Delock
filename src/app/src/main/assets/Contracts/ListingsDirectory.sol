@@ -4,7 +4,7 @@ import "./ItemListing.sol";
 
 //Repository of all listings
 
-contract Listings {
+contract ListingsDirectory {
 
 // OWNER
     // Create listings

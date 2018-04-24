@@ -35,6 +35,8 @@ import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity
 import com.app.delock.delockApplication.settings.SettingsActivity;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import org.web3j.protocol.Web3j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

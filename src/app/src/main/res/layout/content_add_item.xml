@@ -8,4 +8,36 @@
     tools:context="com.app.delock.delockApplication.add_item.AddItemActivity"
     tools:showIn="@layout/activity_add_item">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="320dp">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/addImagesButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="23dp"
+                    android:clickable="true"
+                    app:backgroundTint="@color/searchBarCursorColor"
+                    app:elevation="@dimen/corner_radius_default"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/ic_control_point_white_24dp" />
+            </com.daimajia.slider.library.SliderLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

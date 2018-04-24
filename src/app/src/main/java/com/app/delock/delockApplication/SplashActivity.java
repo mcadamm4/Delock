@@ -48,10 +48,7 @@ public class SplashActivity extends AppCompatActivity {
             generateButton.setOnClickListener((View it) -> {
                 if(input1.compareTo(input2)==0){
                     //Take password and make new wallet
-                    new AsyncGenerateWalletTask(null, this, input1, path).execute();
-
-                    //....
-
+                    new AsyncGenerateWalletTask(this, input1, path).execute();
 
                     startIPFSDaemon();
                 } else {

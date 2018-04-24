@@ -9,4 +9,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Louvre.Light.DarkActionBar" parent="Louvre.Theme.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Louvre.Preview" parent="Louvre.Theme.Preview">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

@@ -185,6 +185,12 @@ The code for the Android screens/activities was getting very cluttered and I did
 I have started working on the base smart contract which will be extended by every item that a user adds as a listing. They will all have base functions in common such as Rent(), Return() etc.
 
 ---
+
+## `Tuesday April 24th`
+
+I am continuing work on the smart contracts today, using the Truffle test framework and testrpc as a mock network for deploying and testing the contracts locally. At the moment I have the Listings.sol contract well underway. It will handle the creation and mangement of all listings in the app.
+
+
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
 

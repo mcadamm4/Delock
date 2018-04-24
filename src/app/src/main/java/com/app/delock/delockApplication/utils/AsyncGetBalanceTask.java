@@ -56,6 +56,7 @@ public class AsyncGetBalanceTask extends AsyncTask<Void, BigDecimal, BigDecimal>
         //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
 
         Web3j web3 = Web3jFactory.build(new HttpService(url + token));
+
         EthGetBalance ethGetBalance = null;
         try {
             ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();

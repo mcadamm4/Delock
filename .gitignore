@@ -8,3 +8,17 @@
 
 # Ignore everything in the build directory.
 build/
+src/app/.project
+src/app/.settings/org.eclipse.buildship.core.prefs
+src/truffle/node*
+src/truffle/build
+src/truffle/misc
+src/bin
+bin
+src/.idea
+.vscode
+src/app/src/main/res/raw/favourite_star.zip
+src/app/src/main/res/drawable/mark.jpg
+src/app/src/main/assets/Contracts/SlockIt.sol
+src/.idea/misc.xml
+src/app/src/main/assets/Contracts/Rentable.sol

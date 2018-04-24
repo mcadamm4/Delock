@@ -1,8 +1,6 @@
-pragma solidity^0.4.18;
+pragma solidity^0.4.21;
 
-import "./RentalItem.sol";
-
-contract ItemListing is RentalItem {
+contract UserDirectory {
 
 // OWNER
     // Create listings
@@ -13,5 +11,4 @@ contract ItemListing is RentalItem {
     // Browse listing
     // Create bookings
     // Cancel bookings
-    
 }
