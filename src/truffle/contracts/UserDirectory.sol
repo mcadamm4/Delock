@@ -11,4 +11,11 @@ contract UserDirectory {
     // Browse listing
     // Create bookings
     // Cancel bookings
+    
+    address public owner;
+
+    function UserDirectory() public {
+        owner = msg.sender;
+    }
+
 }

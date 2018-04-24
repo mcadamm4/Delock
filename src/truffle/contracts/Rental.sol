@@ -1,7 +1,6 @@
 pragma solidity^0.4.21;
 
-contract BaseItem {
-
+contract Rental {
     address public owner;
     address public renter;
 
@@ -14,16 +13,15 @@ contract BaseItem {
     uint public startDateCurrentRental;
     uint public endDateCurrentRental;
 
-    function BaseItem(bytes32 _ipfsHash, uint _pricePerHour, uint _depositAmount) public {
+    function Rental(bytes32 _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
         owner = msg.sender;
         ipfsHash = _ipfsHash;
-        pricePerHour = _pricePerHour;
         depositAmount = _depositAmount;
+        pricePerHour = _pricePerHour;
     }
 
     //MODIFIERS -- Set requirements and permissions for function execution
     modifier onlyOwner(){
-        //The code of a function using a modifier is inserted at the underscores location
         require(msg.sender==owner);
         _;
     }
@@ -51,33 +49,14 @@ contract BaseItem {
       ipfsHash = _ipfsHash;
     }
 
-    //GETTERS
-    function getDepositAmount() public view returns (uint) {
-        return depositAmount;
-    }
-    function getPricePerHour() public view returns (uint) {
-        return pricePerHour;
-    }
-    function getIpfsHash() public view returns (bytes32) {
-      return ipfsHash;
-    }
-    function getCurrentRenter() public view isRented returns (address) {
-        return renter;
-    }
-    function getCurrentCost() public view returns (uint) {
-        // (now - startTime) * pricePerHour
-        //pricePerHour * (now - (currentRentalStartDate + timeBlock)) / timeBlock;
-        return pricePerHour;
-    }
-
     //EVENTS
     event rentItem(address indexed _renter);
     event returnItem();
-    event unlockItem();
-    event lockItem();
+    event unlockItem(); // ?
+    event lockItem(); // ?
 
     //FUNCTIONS
     function rent() public notRented payable {
-        require(msg.value>=0);
+        assert(msg.value > 0);
     }
 }

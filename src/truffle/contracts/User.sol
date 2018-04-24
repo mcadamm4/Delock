@@ -1,8 +1,10 @@
 pragma solidity^0.4.18;
 
-import "./RentalItem.sol";
+import "./UserDirectory.sol";
 
-contract ItemListing is RentalItem {
+//Repository of all listings
+
+contract User {
 
 // OWNER
     // Create listings
@@ -13,5 +15,11 @@ contract ItemListing is RentalItem {
     // Browse listing
     // Create bookings
     // Cancel bookings
+
+    address public owner;
     
+    function User() public {
+        owner = msg.sender;
+    }
+
 }
