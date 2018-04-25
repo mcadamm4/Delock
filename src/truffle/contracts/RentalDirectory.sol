@@ -2,13 +2,13 @@ pragma solidity^0.4.18;
 
 import "./Rental.sol";
 
-//Repository of all listings
+//Repository of all rentals
 
 contract RentalDirectory {
 
     //FIELDS
     address public owner;
-    ItemListing[] public listings;
+    Rental[] public rentals;
 
     //CONSTRUCTOR
     function RentalDirectory() public {
@@ -16,47 +16,47 @@ contract RentalDirectory {
     }
 
     //EVENTS
-    event NewItemListing(uint _index);
+    event event_NewRental(uint _index);
 
     //MODIFIERS
     modifier onlyOwner() {
         require(msg.sender==owner);
         _;
     }
-    modifier listingOwner(uint _index) {
-        require(msg.sender==listings[_index].owner());
+    modifier rentalOwner(uint _index) {
+        require(msg.sender==rentals[_index].owner());
         _;
     }
-    modifier listingExists(uint _index) {
-        require(_index < listings.length);
+    modifier rentalExists(uint _index) {
+        require(_index < rentals.length);
         _;
     }
 
     //FUNCTIONS
 
-    function numberOfListings() public constant returns (uint) {
-        return listings.length;
+    function createNewRental(bytes32 _ipfsHash, uint _deposit, uint _price) public returns(uint) {
+        rentals.push(new Rental(_ipfsHash, _deposit, _price));
+        emit event_NewRental(rentals.length-1);
+        return rentals.length;
     }
 
-    function getItemListing(uint _index) public constant returns (Listing, address, bytes32, uint, uint, bool) {
-        ItemListing listing = listings[_index];
-        return (listings, listing.owner(), listing.ipfsHash(), listing.depositPrice(), listing.price(), listing.isRented());
+    function numberOfRentals() public constant returns (uint) {
+        return rentals.length;
     }
 
-    function createNewListing(bytes32 ipfsHash, uint price, uint deposit) public returns(uint) {
-        listings.push(new ItemListing(msg.sender, _ipfsHash, _price, _deposit));
-        emit NewListing(listings.length-1);
-        return listings.length;
+    function getRental(uint _index) public constant returns (Rental) {
+        Rental rental = rentals[_index];
+        return rental;
     }
 
-    function deleteListing(uint _index) public listingOwner listingExists {
-        delete listings[_index];
+    function deleteRental(uint _index) public rentalOwner(_index) rentalExists(_index) {
+        delete rentals[_index];
     }
 
-    function updateListingDetails(uint _index, bytes32 _ipfsHash, uint _price, uint _deposit) public {
-        ItemListing listing = listings[_index];
-        listing.setIpfsHash(msg.sender, _ipfsHash);
-        listing.setPrice(msg.sender, _price);
-        listing.setDeposit(msg.sender, _deposit);
+    function updateRentalDetails(uint _index, bytes32 _ipfsHash, uint _deposit, uint _price) public {
+        Rental rental = rentals[_index];
+        rental.setIpfsHash(_ipfsHash);
+        rental.setPricePerHour(_price);
+        rental.setDepositAmount(_deposit);
     }
 }
