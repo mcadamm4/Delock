@@ -193,6 +193,19 @@ I have started working on the base smart contract which will be extended by ever
 
 I am continuing work on the smart contracts today, using the Truffle test framework and testRPC as a mock network for deploying and testing the contracts locally. At the moment I have the Listings.sol contract well underway. It will handle the creation and management of all listings in the app.
 
+---
+
+## `Wednesday April 25th`
+
+I have refactored the layout and naming of the contracts and am working on adding functionality. A problem I think I will encounter
+soon is the interaction of the different contracts with each-other when deployed. This will take a good bit of thought and time to make
+sure they are all being updated properly all while trying to use as few resources as possible as each call to a function will cost Gas (cost of execution).
+
+I have some basic functionality in the contracts so what I plan to do now is deploy them and see if I can call them from the mobile device. If this work properly then I can get back to building out the functionality of the contracts.
+
+In order to deploy the contracts from my laptop, I have started a go-ethereum node through which I can interact with the Ethereum blockchain and deploy the contracts. 
+
+---
 
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.

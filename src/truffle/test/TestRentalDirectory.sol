@@ -5,6 +5,7 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/RentalDirectory.sol";
 
 contract TestRentalDirectory {
+    
     function testCreateRental() public {
         RentalDirectory dir = new RentalDirectory();
         bytes32 ipfsHash = "Rental Hash";
@@ -58,6 +59,7 @@ contract TestRentalDirectory {
         Assert.equal(retrievedRental.depositAmount(), deposit, "Rental created with correct deposit");
         Assert.equal(retrievedRental.pricePerHour(), price, "Rental created with correct price");
     }
+
     function testUpdateRentalDetails() public {
         //Arrange
         RentalDirectory dir = new RentalDirectory();

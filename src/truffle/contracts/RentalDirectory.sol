@@ -1,6 +1,7 @@
 pragma solidity^0.4.18;
 
 import "./Rental.sol";
+import "./UserDirectory.sol";
 
 //Repository of all rentals
 
@@ -37,6 +38,11 @@ contract RentalDirectory {
     function createNewRental(bytes32 _ipfsHash, uint _deposit, uint _price) public returns(uint) {
         rentals.push(new Rental(_ipfsHash, _deposit, _price));
         emit event_NewRental(rentals.length-1);
+
+        // ....
+        // Have to add this new rental to Users list of owned rentals
+        // ....
+
         return rentals.length;
     }
 

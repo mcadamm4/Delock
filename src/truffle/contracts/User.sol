@@ -5,21 +5,34 @@ import "./UserDirectory.sol";
 //Repository of all listings
 
 contract User {
-
-// OWNER
-    // Create listings
-    // Update listings
-    // Delete listings
-
-// RENTER
-    // Browse listing
-    // Create bookings
-    // Cancel bookings
-
+    //FILEDS
     address public owner;
-    
-    function User() public {
+    bytes32 public ipfsHash;
+    address[] ownedRentals;
+    address[] renting;
+    address[] favorites;
+
+    function User(bytes32 _ipfsHash) public {
         owner = msg.sender;
+        ipfsHash = _ipfsHash;
+    }
+
+    //MODIFIERS
+    modifier onlyOwner() {
+        require(msg.sender==owner);
+        _;
+    }
+
+    //SETTERS
+    function setIpfsHash(bytes32 _ipfsHash) public { //onlyOwner
+        ipfsHash = _ipfsHash;
+    }
+
+    //EVENTS
+
+    //FUNCTIONS
+    function addNewOwnedRental() public onlyOwner {
+        /* ownedRentals.push(); */
     }
 
 }
