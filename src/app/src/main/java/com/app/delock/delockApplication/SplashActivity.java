@@ -42,18 +42,10 @@ public class SplashActivity extends AppCompatActivity {
             TextView confirmPasswordBox = findViewById(R.id.password_input2);
             Button generateButton = findViewById((R.id.generateButton));
 
-            String input1 = enterPasswordBox.getText().toString();
-            String input2 = confirmPasswordBox.getText().toString();
-
             generateButton.setOnClickListener((View it) -> {
-                if(input1.compareTo(input2)==0){
-                    //Take password and make new wallet
-                    new AsyncGenerateWalletTask(this, input1, path).execute();
-
-                    startIPFSDaemon();
-                } else {
-                    Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show();
-                }
+                String input1 = enterPasswordBox.getText().toString();
+                String input2 = confirmPasswordBox.getText().toString();
+                comparePasswords(input1, input2);
             });
         } else {
             //Hide items and start daemon
@@ -63,6 +55,16 @@ public class SplashActivity extends AppCompatActivity {
             findViewById(R.id.textView2).setVisibility(View.INVISIBLE);
             findViewById(R.id.animation_view).setVisibility(View.VISIBLE);
             startIPFSDaemon();
+        }
+    }
+
+    private void comparePasswords(String input1, String input2) {
+        if(input1.equals(input2)){
+            //Take password and make new wallet
+            new AsyncGenerateWalletTask(this, input1, path).execute();
+            startIPFSDaemon();
+        } else {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show();
         }
     }
 

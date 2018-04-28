@@ -1,6 +1,7 @@
 package com.app.delock.delockApplication.utils;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -39,23 +40,22 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-            /* this method will be running on UI thread */
         Toast toast = makeText(splashActivity, "Generating wallet..", Toast.LENGTH_LONG);
         toast.show();
     }
     @Override
     protected String[] doInBackground(Void... params) {
-        //this method will be running on background thread so don't update UI frame here
-        //do your long running http tasks here,you don't want to pass argument and u can access the parent class' variable url over here
         String result = null;
+        String walletPath = null;
         try {
             String s = WalletUtils.generateLightNewWalletFile(password, path);
-            Credentials cred = WalletUtils.loadCredentials(password, path+"/"+s);
+            walletPath = path.getPath()+"/"+s;
+            Credentials cred = WalletUtils.loadCredentials(password, walletPath);
             result = cred.getAddress();
         } catch (NoSuchAlgorithmException | NoSuchProviderException | CipherException | IOException | InvalidAlgorithmParameterException e) {
             e.printStackTrace();
         }
-        return new String[]{result};
+        return new String[]{result, walletPath};
     }
 
     @Override
@@ -63,12 +63,27 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
         super.onPostExecute(result);
         //this method will be running on UI thread
         saveAddress(result[0]);
+        savePassword(); //For dev convenience, remove this and prompt user every time in reality
+        saveWalletPath(result[1]);
     }
 
     private void saveAddress(String address) {
-        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences("prefs", 0);
+        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences("prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("accountAddress", address);
+        editor.apply();
+    }
+    //Remove this and prompt for user input in reality
+    private void savePassword() {
+        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Password", password);
+        editor.apply();
+    }
+    private void saveWalletPath(String walletPath) {
+        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Wallet_Path", walletPath);
         editor.apply();
     }
 }
