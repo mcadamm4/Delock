@@ -1,44 +1,57 @@
 package com.app.delock.delockApplication.add_item;
 
-import android.content.ContentResolver;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andremion.louvre.Louvre;
 import com.andremion.louvre.home.GalleryActivity;
 import com.app.delock.delockApplication.R;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.app.delock.delockApplication.smartcontract_wrappers.Rental;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
+import org.web3j.abi.datatypes.Address;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.Contract;
+import org.web3j.tx.ManagedTransaction;
+
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
-import static com.app.delock.delockApplication.R.*;
+import static com.app.delock.delockApplication.R.id;
+import static com.app.delock.delockApplication.R.layout;
+import static org.web3j.tx.Contract.GAS_LIMIT;
+import static org.web3j.tx.ManagedTransaction.GAS_PRICE;
 
 public class AddItemActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private static final int LOUVRE_REQUEST_CODE = 0;
     private List<Uri> mSelection;
     SliderLayout mSlider;
+    Rental newRental;
+    String token = "kv4a42NG93ZwJ9h0lZqK";
+    String url = "https://ropsten.infura.io/";
+    File path;
+    Web3j web3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,7 @@ public class AddItemActivity extends AppCompatActivity implements BaseSliderView
         setContentView(layout.activity_add_item);
         Toolbar toolbar = findViewById(id.toolbar);
         setSupportActionBar(toolbar);
+        path = this.getFilesDir();
 
         mSlider = findViewById(id.slider);
         //Set placeholder
@@ -62,9 +76,8 @@ public class AddItemActivity extends AppCompatActivity implements BaseSliderView
                 .setRequestCode(LOUVRE_REQUEST_CODE)
                 .open());
 
-        FloatingActionButton fab = findViewById(id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        FloatingActionButton confirm = findViewById(R.id.Confirm);
+        confirm.setOnClickListener(v -> new AsyncInfo().execute());
     }
 
     @Override
@@ -74,9 +87,9 @@ public class AddItemActivity extends AppCompatActivity implements BaseSliderView
             mSlider.removeAllSliders();
             mSelection = GalleryActivity.getSelection(data);
             Object[] selections = mSelection.toArray();
-            for(Object uri : selections){
+            for (Object uri : selections) {
                 Uri newUri = (Uri) uri;
-                TextSliderView  textSliderView = new TextSliderView(this);
+                TextSliderView textSliderView = new TextSliderView(this);
                 textSliderView.image(new File(newUri.getPath()))
                         .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                         .setOnSliderClickListener(this);
@@ -96,18 +109,61 @@ public class AddItemActivity extends AppCompatActivity implements BaseSliderView
         mSlider.stopAutoCycle();
         super.onStop();
     }
+
     //SLIDER METHODS
     @Override
     public void onSliderClick(BaseSliderView slider) {
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
 
     @Override
-    public void onPageSelected(int position) {}
+    public void onPageSelected(int position) {
+    }
 
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrollStateChanged(int state) {
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class AsyncInfo extends AsyncTask<Void, Void, String[]> {
+        private Web3j web3;
+        String newRentalAddress = null;
+
+        @Override
+        protected void onPreExecute() {
+            /* this method will be running on UI thread */
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String[] doInBackground(Void... params) {
+            web3 = Web3jFactory.build(new HttpService(url + token));
+            SharedPreferences sharedPreferences = AddItemActivity.this.getSharedPreferences("prefs", 0);
+            String walletPath = sharedPreferences.getString("Wallet_Path", "No address found");
+            String password = sharedPreferences.getString("Password", "No address found");
+            try {
+                Credentials cred = WalletUtils.loadCredentials(password, walletPath);
+                String ipfshash = "QmWmyoMoctfbAaiEs2G46gpeUmhqFRDW6KWo64y5r581Vz";
+                byte[] b = ipfshash.getBytes(Charset.forName("UTF-8"));
+                newRental = Rental.deploy(web3, cred, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT, null, 1, 1).send();
+                newRentalAddress = newRental.getContractAddress();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new String[]{newRentalAddress};
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            super.onPostExecute(result);
+            Toast toast = Toast.makeText(AddItemActivity.this, result[0], Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+    }
 }
+
 

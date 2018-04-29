@@ -1,7 +1,7 @@
 pragma solidity^0.4.18;
 
 import "./Rental.sol";
-import "./UserDirectory.sol";
+/* import "./UserDirectory.sol"; */
 
 //Repository of all rentals
 
