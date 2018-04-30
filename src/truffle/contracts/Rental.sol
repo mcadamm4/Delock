@@ -6,14 +6,14 @@ contract Rental {
 
     uint public depositAmount;
     uint public pricePerHour = 1;
-    bytes32 public ipfsHash;
+    string public ipfsHash;
 
     bool public currentlyRented;
 
     uint public startDateCurrentRental;
     uint public endDateCurrentRental;
 
-    function Rental(bytes32 _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
+    function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
         owner = msg.sender;
         ipfsHash = _ipfsHash;
         depositAmount = _depositAmount;
@@ -45,7 +45,7 @@ contract Rental {
     function setPricePerHour(uint _pricePerHour) public onlyOwner {
         pricePerHour = _pricePerHour;
     }
-    function setIpfsHash(bytes32 _ipfsHash) public onlyOwner {
+    function setIpfsHash(string _ipfsHash) public onlyOwner {
       ipfsHash = _ipfsHash;
     }
 

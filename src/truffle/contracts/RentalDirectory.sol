@@ -35,7 +35,7 @@ contract RentalDirectory {
 
     //FUNCTIONS
 
-    function createNewRental(bytes32 _ipfsHash, uint _deposit, uint _price) public returns(uint) {
+    function createNewRental(string _ipfsHash, uint _deposit, uint _price) public returns(uint) {
         rentals.push(new Rental(_ipfsHash, _deposit, _price));
         emit event_NewRental(rentals.length-1);
 
@@ -59,7 +59,7 @@ contract RentalDirectory {
         delete rentals[_index];
     }
 
-    function updateRentalDetails(uint _index, bytes32 _ipfsHash, uint _deposit, uint _price) public {
+    function updateRentalDetails(uint _index, string _ipfsHash, uint _deposit, uint _price) public {
         Rental rental = rentals[_index];
         rental.setIpfsHash(_ipfsHash);
         rental.setPricePerHour(_price);

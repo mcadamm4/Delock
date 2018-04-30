@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.app.delock.delockApplication.add_item.AddItemActivity"
-    tools:showIn="@layout/activity_add_item">
-
-    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/slider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="320dp">
 
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addImagesButton"
                 android:layout_width="match_parent"
-                android:layout_height="320dp">
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="23dp"
+                android:clickable="true"
+                app:backgroundTint="@color/searchBarCursorColor"
+                app:elevation="@dimen/corner_radius_default"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/ic_control_point_white_24dp"
+                android:focusable="true" />
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/addImagesButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginTop="23dp"
-                    android:clickable="true"
-                    app:backgroundTint="@color/searchBarCursorColor"
-                    app:elevation="@dimen/corner_radius_default"
-                    app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_control_point_white_24dp" />
-            </com.daimajia.slider.library.SliderLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/addImagesButton"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="40dp"
+                app:elevation="@dimen/corner_radius_default"
+                app:fabSize="normal"
+                app:srcCompat="@drawable/tick" />
 
-        </LinearLayout>
-    </ScrollView>
+        </com.daimajia.slider.library.SliderLayout>
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cardview_shadow_start_color"
+            android:descendantFocusability="beforeDescendants">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+</ScrollView>

@@ -33,7 +33,9 @@ import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.Contract;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
@@ -157,6 +159,7 @@ public class MyNotificationsActivity extends AppCompatActivity {
             super.onPreExecute();
             lottieAnimation = findViewById(R.id.animation_view);
             lottieAnimation.setAnimation(R.raw.loading, LottieAnimationView.CacheStrategy.Strong);
+//            myContract.setDeployedAddress("3", "0x0351fd78c0ecb443c6671b66a730372034b4faf9");
         }
         @Override
         protected String[] doInBackground(Void... params) {
@@ -166,14 +169,20 @@ public class MyNotificationsActivity extends AppCompatActivity {
             String clientVersion = getClientVersion();
             BigInteger gasPrice = getGasPrice();
             BigInteger blockNumber = getBlockNumber();
-            return new String[]{clientVersion, gasPrice.toString(), blockNumber.toString()};
+            Boolean valid = false;
+//            try {
+//                valid = myContract.isValid();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+            return new String[]{clientVersion, gasPrice.toString(), blockNumber.toString(), valid.toString()};
         }
 
         @Override
         protected void onPostExecute(String[] result) {
             super.onPostExecute(result);
             //this method will be running on UI thread
-            String response = ("Version:\n\t" + result[0] + "\n\nGas Price:\n\t" + result[1] +  "\n\nBlock:\n\t" + result[2]);
+            String response = ("Version:\n\t" + result[0] + "\n\nGas Price:\n\t" + result[1] +  "\n\nBlock:\n\t" + result[2]  +  "\n\nValid Contract:\n\t" + result[3]);
             textView = (TextView) findViewById(R.id.textView);
             textView.setText(response);
             lottieAnimation.setVisibility(View.INVISIBLE);
