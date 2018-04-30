@@ -207,6 +207,15 @@ In order to deploy the contracts from my laptop, I have started a go-ethereum no
 
 ---
 
+## `Sunday April 30th`
+
+Contracts can now be deployed frfom the app. Im am working on the add item screen. I need to gather the entered data into a JSON object and save it to IPFS, then deploy a rental contract. I also have to perform the "Lock Event" whereby the owner will set the lock via NFC and the contract will mark the item as available, at the time this is done the app will need to take the device location and save it to either IPFS or to the contract so that the item location is available to renters.
+
+In terms of schedule, I am behind by quite a bit but I feel that I will be able to get the important functionality working.
+
+---
+
+
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
 in my blog.
 

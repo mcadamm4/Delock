@@ -126,4 +126,23 @@
     <string name="enter_password">Enter Password</string>
     <string name="note_we_recommend_writing_down_your_password_on_paper_and_keeping_it_somewhere_safe_as_it_is_the_only_means_of_accessing_your_account">Note: We recommend writing down your password on paper and keeping it somewhere safe as it is the only means of accessing your account</string>
     <string name="title">Title</string>
+    <string name="euro_sign_symbol">Euro sign</string>
+    <string name="email">Email</string>
+    <string name="email_hint">Enter email addres...</string>
+    <string name="Phone">Phone</string>
+    <string name="PersonalInfo">Personal Info</string>
+    <string name="Location">Location</string>
+    <string name="Address">Address</string>
+    <string name="ZipCode">ZipCode</string>
+    <string name="ItemDetails">Item Details</string>
+    <string name="Date">Date</string>
+    <string name="Time">Time</string>
+    <string name="DateTime">Date/Time</string>
+    <string name="Schedule">Schedule</string>
+    <string name="Description">Description</string>
+    <string name="Title">Title</string>
+    <string name="Deposit">Deposit</string>
+    <string name="Price">Price</string>
+    <string name="EnterDescription">Enter description...</string>
+    <string name="EnterTitle">Enter title...</string>
 </resources>

@@ -95,6 +95,7 @@
         android:layout_width="157dp"
         android:layout_height="43dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:elevation="5dp"
         android:text="@string/tap_for_details"
@@ -103,6 +104,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/address_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_address" />
 
     <TextView
         android:id="@+id/ether_value"
@@ -120,34 +134,64 @@
         app:layout_constraintTop_toBottomOf="@+id/account_balance"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/address_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/cardview_light_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_address" />
-
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/etherSignImage"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/ether_currency_symbol"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/conversion_symbol"
         app:layout_constraintStart_toEndOf="@+id/ether_value"
         app:layout_constraintTop_toBottomOf="@+id/account_balance"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/pink_ether2" />
+
+    <ImageView
+        android:id="@+id/conversion_symbol"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/ether_currency_symbol"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/euroSignImage"
+        app:layout_constraintStart_toEndOf="@+id/etherSignImage"
+        app:layout_constraintTop_toBottomOf="@+id/account_balance"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/conversion_arrows" />
+
+    <TextView
+        android:id="@+id/euro_value"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/euroSignImage"
+        app:layout_constraintTop_toBottomOf="@+id/account_balance"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/euroSignImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/euro_sign_symbol"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/conversion_symbol"
+        app:layout_constraintTop_toBottomOf="@+id/account_balance"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/euro_sign" />
 
 </android.support.constraint.ConstraintLayout>

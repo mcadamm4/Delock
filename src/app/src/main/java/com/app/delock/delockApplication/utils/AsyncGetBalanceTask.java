@@ -9,18 +9,8 @@ import android.widget.TextView;
 
 import com.app.delock.delockApplication.R;
 
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.Web3jFactory;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.http.HttpService;
-import org.web3j.utils.Convert;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.concurrent.ExecutionException;
-
-import static org.web3j.utils.Convert.Unit.ETHER;
+import static com.app.delock.delockApplication.utils.GetBalanceUtils.*;
+import static com.app.delock.delockApplication.utils.utils.round;
 
 /**
  * Created by Marky on 18/04/2018.
@@ -28,7 +18,7 @@ import static org.web3j.utils.Convert.Unit.ETHER;
 
 //GET ADDRESS BALANCE AND BLOCK NUMBER FROM WEB3J ASYNCHRONOUSLY
 @SuppressLint("StaticFieldLeak")
-public class AsyncGetBalanceTask extends AsyncTask<Void, BigDecimal, BigDecimal> {
+public class AsyncGetBalanceTask extends AsyncTask<Void, String[], String[]> {
     private final View view;
     private String address;
 
@@ -38,7 +28,6 @@ public class AsyncGetBalanceTask extends AsyncTask<Void, BigDecimal, BigDecimal>
 
     public AsyncGetBalanceTask(View view, Context mContext){
         this.view = view;
-
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("prefs", 0);
         address = sharedPreferences.getString("accountAddress", "No address found");
     }
@@ -51,29 +40,25 @@ public class AsyncGetBalanceTask extends AsyncTask<Void, BigDecimal, BigDecimal>
         address_value.setText(address);
     }
     @Override
-    protected BigDecimal doInBackground(Void... params) {
-        //this method will be running on background thread so don't update UI frome here
-        //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
+    protected String[] doInBackground(Void... params) {
+        //GET ETHER MARKET VALUE
+        double latestEuroValue = getLatestEuroValue();
+        //GET ACCOUNT ETHER BALANCE
+        double ether = getAccountBalanceEther(url, token, address, 5);
+        //CALCULATE EURO VALUE OF BALANCE
+        double balanceInEuro = round((latestEuroValue * ether), 2);
 
-        Web3j web3 = Web3jFactory.build(new HttpService(url + token));
-
-        EthGetBalance ethGetBalance = null;
-        try {
-            ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        assert ethGetBalance != null;
-        BigInteger wei = ethGetBalance.getBalance();
-        return Convert.fromWei(wei.toString(), ETHER);
+        return new String[]{Double.toString(balanceInEuro), Double.toString(ether)};
     }
 
     @Override
-    protected void onPostExecute(BigDecimal result) {
+    protected void onPostExecute(String[] result) {
         super.onPostExecute(result);
-        //this method will be running on UI thread
+
+        TextView euro_balance = view.findViewById(R.id.euro_value);
+        euro_balance.setText(result[0]);
         TextView ether_balance = view.findViewById(R.id.ether_value);
-        ether_balance.setText(String.valueOf(result));
+        ether_balance.setText(result[1]);
     }
 }
 
