@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
 
+import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.IPFSDaemon;
 import com.app.delock.delockApplication.SplashActivity;
 
@@ -51,9 +52,9 @@ public class AsyncDownloadTask extends AsyncTask<Void, Void, String[]>
         Toast toast = makeText(splashActivity, result[0], Toast.LENGTH_LONG);
         toast.show();
 
-        SharedPreferences prefs = splashActivity.getSharedPreferences("prefs", 0);
+        SharedPreferences prefs = splashActivity.getSharedPreferences(Constants.SHARED_PREFS, 0);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("firstStart", false);
+        editor.putBoolean(Constants.FIRST_START_SHARED_PREF, false);
         editor.apply();
     }
 }

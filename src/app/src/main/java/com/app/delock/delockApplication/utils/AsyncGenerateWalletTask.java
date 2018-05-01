@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.SplashActivity;
 
 import org.web3j.crypto.CipherException;
@@ -68,22 +69,22 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
     }
 
     private void saveAddress(String address) {
-        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences(Constants.SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("accountAddress", address);
+        editor.putString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, address);
         editor.apply();
     }
     //Remove this and prompt for user input in reality
     private void savePassword() {
-        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences(Constants.SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Password", password);
+        editor.putString(Constants.PASSWORD_SHARED_PREF, password);
         editor.apply();
     }
     private void saveWalletPath(String walletPath) {
-        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = splashActivity.getSharedPreferences(Constants.SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Wallet_Path", walletPath);
+        editor.putString(Constants.WALLET_PATH_SHARED_PREF, walletPath);
         editor.apply();
     }
 }

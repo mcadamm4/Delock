@@ -14,53 +14,34 @@ public class FilterHelper extends Filter {
     private static ItemsAdapter adapter;
 
     public static FilterHelper newInstance(ArrayList<Item> currentList, ItemsAdapter adapter) {
-        FilterHelper.adapter=adapter;
+        FilterHelper.adapter = adapter;
         FilterHelper.currentList = currentList;
         return new FilterHelper();
     }
 
-    /*
-    - Perform actual filtering.
-     */
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
         FilterResults filterResults=new FilterResults();
 
-        if(constraint != null && constraint.length()>0)
-        {
-            //CHANGE TO UPPER
+        if(constraint != null && constraint.length()>0) {
             constraint=constraint.toString().toUpperCase();
 
-            //HOLD FILTERS WE FIND
             ArrayList<Item> foundFilters=new ArrayList<>();
-
             String item;
 
-            //ITERATE CURRENT LIST
-            for (int i=0;i<currentList.size();i++)
-            {
-                item= currentList.get(i).getName();
-
-
+            for (int i=0;i<currentList.size();i++) {
+                item = currentList.get(i).title;
                 //SEARCH
-                if(item.toUpperCase().contains(constraint))
-                {
-                    //ADD IF FOUND
+                if(item.toUpperCase().contains(constraint)) {
                     foundFilters.add(currentList.get(i));
                 }
             }
-
-            //SET RESULTS TO FILTER LIST
             filterResults.count=foundFilters.size();
             filterResults.values=foundFilters;
-        }else
-        {
-            //NO ITEM FOUND.LIST REMAINS INTACT
+        } else {
             filterResults.count=currentList.size();
             filterResults.values=currentList;
         }
-
-        //RETURN RESULTS
         return filterResults;
     }
 

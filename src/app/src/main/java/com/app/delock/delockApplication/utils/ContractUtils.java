@@ -23,22 +23,32 @@ import java.math.BigInteger;
  * Created by Marky on 01/05/2018.
  */
 
-public class ContractUtils {
+class ContractUtils {
 
-    public static void deployContract(Context mContext, Item item, String[] imageHashes) {
+    static void deployContract(Context mContext, String[] ipfsHashes, Item item) {
         Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
 
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("prefs", 0);
-        String walletPath = sharedPreferences.getString("Wallet_Path", "No address found");
-        String password = sharedPreferences.getString("Password", "No address found");
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constants.SHARED_PREFS, 0);
+        String walletPath = sharedPreferences.getString(Constants.WALLET_PATH_SHARED_PREF, "No address found");
 
-        try {
-            Credentials cred = WalletUtils.loadCredentials(password, walletPath);
-            Rental newRental = Rental.deploy(web3, cred, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT, item.itemDeposit, item.itemCost)
-                    .send();
-            String newRentalAddress = newRental.getContractAddress();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //SHOULD PROMPT USER FOR PASSWORD, REMOVE SHARED PREF FOR SECURITY
+        String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
+
+        BigInteger deposit = BigInteger.valueOf((long) item.itemDeposit);
+        BigInteger price = BigInteger.valueOf((long) item.itemCost);
+        int i = 1;
+
+//        try {
+//            Credentials cred = WalletUtils.loadCredentials(password, walletPath);
+//            Rental newRental = Rental.deploy(web3, cred, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT,"", deposit, price)
+//                    .send();
+//
+//            Will need to be added to rental directory and users list of owned rentals
+//
+//            String newRentalAddress = newRental.getContractAddress();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return newRentalAddress;
     }
 }

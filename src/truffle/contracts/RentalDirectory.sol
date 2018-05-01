@@ -9,7 +9,7 @@ contract RentalDirectory {
 
     //FIELDS
     address public owner;
-    Rental[] public rentals;
+    address[] public rentals;
 
     //CONSTRUCTOR
     function RentalDirectory() public {
@@ -35,8 +35,8 @@ contract RentalDirectory {
 
     //FUNCTIONS
 
-    function createNewRental(string _ipfsHash, uint _deposit, uint _price) public returns(uint) {
-        rentals.push(new Rental(_ipfsHash, _deposit, _price));
+    function createNewRental(address newRentalAddress) public returns(uint) {
+        rentals.push(newRentalAddress);
         emit event_NewRental(rentals.length-1);
 
         // ....
@@ -51,7 +51,7 @@ contract RentalDirectory {
     }
 
     function getRental(uint _index) public constant returns (Rental) {
-        Rental rental = rentals[_index];
+        Rental rental = rentals[_index].getDetails();
         return rental;
     }
 

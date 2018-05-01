@@ -31,8 +31,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         path = this.getFilesDir();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("prefs", 0);
-        boolean firstStart = sharedPreferences.getBoolean("firstStart", true);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFS, 0);
+        boolean firstStart = sharedPreferences.getBoolean(Constants.FIRST_START_SHARED_PREF, true);
 
         if(firstStart) {
             daemon = new IPFSDaemon(this.getApplicationContext());

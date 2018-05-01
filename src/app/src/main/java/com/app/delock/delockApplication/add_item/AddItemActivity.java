@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.andremion.louvre.Louvre;
 import com.andremion.louvre.home.GalleryActivity;
@@ -64,21 +65,43 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
         FloatingActionButton confirm = findViewById(id.confirm);
         confirm.setOnClickListener(view -> {
 
-            File[] imageaFiles = gatherImageFiles();
-            JSONObject jsonData = collectDataIntoJSON(formBuilder);
-            Intent intent = new Intent(AddItemActivity.this, PublishItemActivity.class);
-            intent.putExtra("ImageFiles", imageaFiles);
-            intent.putExtra("JsonData", (Serializable) jsonData);
-            startActivity(intent);
+            File[] imageFiles = gatherImageFiles();
+            if(imageFiles==null){
+                Toast toast = Toast.makeText(AddItemActivity.this, "No images attached", Toast.LENGTH_LONG);
+                toast.show();
+            } else {
+                JSONObject jsonData = collectDataIntoJSON(formBuilder);
+                collectDataIntoItem();
+
+                Intent intent = new Intent(AddItemActivity.this, PublishItemActivity.class);
+                intent.putExtra("ImageFiles", imageFiles);
+                intent.putExtra("JsonData", jsonData.toString());
+                intent.putExtra("NewItem", newItem);
+                startActivity(intent);
+            }
         });
     }
 
+    private void collectDataIntoItem() {
+            //Gather up JSON data
+            final ArrayList<BaseFormElement<?>> elements = formBuilder.getElements();
+
+            String title = elements.get(1).getValueAsString();
+            double depositAmount = Double.valueOf(elements.get(2).getValueAsString());
+            double price = Double.valueOf(elements.get(3).getValueAsString());
+            String desc = elements.get(4).getValueAsString();
+
+            newItem = new Item(title, depositAmount, price, desc);
+    }
+
     private File[] gatherImageFiles() {
-        File[] imagesMap = new File[3];
+        File[] imagesMap = null;
 
         if (mSelection != null) {
             int i=0;
             Object[] selections = mSelection.toArray();
+            imagesMap = new File[selections.length];
+
             for (Object uri : selections) {
                 Uri newUri = (Uri) uri;
                 File newFile = new File(newUri.getPath());

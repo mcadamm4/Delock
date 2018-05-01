@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
 
+import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
 
 import static com.app.delock.delockApplication.utils.GetBalanceUtils.*;
@@ -24,8 +25,8 @@ public class AsyncGetBalanceTask extends AsyncTask<Void, String[], String[]> {
 
     public AsyncGetBalanceTask(View view, Context mContext){
         this.view = view;
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("prefs", 0);
-        address = sharedPreferences.getString("accountAddress", "No address found");
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constants.SHARED_PREFS, 0);
+        address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
     }
 
     @Override

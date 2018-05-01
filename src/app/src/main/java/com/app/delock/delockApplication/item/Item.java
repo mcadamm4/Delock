@@ -10,21 +10,15 @@ import java.util.Map;
  */
 
 public class Item implements Serializable {
-
-    public File[] itemImages;
-    public String detailsIpfsHash;
+    public String title;
     public double itemDeposit;
     public double itemCost;
-
-    public String title;
     public String itemDescription;
 
     public Item() {
     }
 
-    public Item(File[] _itemImages, String _detailsIpfsHash, String _title, double _itemDeposit, double _itemCost, String _itemDescription){
-        this.itemImages = _itemImages;
-        this.detailsIpfsHash = _detailsIpfsHash;
+    public Item(String _title, double _itemDeposit, double _itemCost, String _itemDescription){
         this.title = _title;
         this.itemDeposit = _itemDeposit;
         this.itemCost = _itemCost;

@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.utils.AsyncCreateNewItemTask;
 import com.app.delock.delockApplication.utils.AsyncUtil;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -23,11 +25,16 @@ public class PublishItemActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        File[] imageFiles = (File[]) intent.getSerializableExtra("ImageFiles");
-        JSONObject jsonData = (JSONObject) intent.getSerializableExtra("JsonData");
-
-        AsyncUtil.execute(new AsyncCreateNewItemTask(PublishItemActivity.this, imageFiles, jsonData));
+        try {
+            Intent intent = getIntent();
+            File[] imageFiles = (File[]) intent.getSerializableExtra("ImageFiles");
+            JSONObject jsonData = new JSONObject(getIntent().getStringExtra("JsonData"));
+            Item newItem = (Item) intent.getSerializableExtra("NewItem");
+            TextView v = findViewById(R.id.textView5);
+            AsyncUtil.execute(new AsyncCreateNewItemTask(PublishItemActivity.this, imageFiles, jsonData, newItem, v));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         Button button = findViewById(R.id.lock_publish_button);
         button.setOnClickListener(view -> {

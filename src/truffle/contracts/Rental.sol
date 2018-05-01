@@ -56,6 +56,10 @@ contract Rental {
     event lockItem(); // ?
 
     //FUNCTIONS
+    function getDetails() public {
+        return
+    }
+
     function rent() public notRented payable {
         assert(msg.value > 0);
     }
