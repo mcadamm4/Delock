@@ -69,11 +69,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Item item = itemsList.get(position);
-        holder.title.setText(item.getName());
-        holder.cost.setText("€" + item.getItemCost() + " hr");
+//        holder.title.setText(item.getName());
+//        holder.cost.setText("€" + item.getItemCost() + " hr");
 
         // loading item image using Glide library
-        Glide.with(mContext).load(item.getThumbnail()).into(holder.thumbnail);
+//        Glide.with(mContext).load(item.getThumbnail()).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +86,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "You clicked the card of " + item.getName(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(mContext, "You clicked the card of " + item.getName(), Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(mContext, ItemActivity.class);
                 intent.putExtra("Item", (Serializable) item);
@@ -98,7 +98,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "You clicked the Thumbnail of " + item.getName(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(mContext, "You clicked the Thumbnail of " + item.getName(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(mContext, ItemActivity.class);
                 intent.putExtra("Item", (Serializable) item);
                 mContext.startActivity(intent);

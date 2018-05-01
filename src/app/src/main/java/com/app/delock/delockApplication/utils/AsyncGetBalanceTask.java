@@ -22,10 +22,6 @@ public class AsyncGetBalanceTask extends AsyncTask<Void, String[], String[]> {
     private final View view;
     private String address;
 
-    //INFURA URL
-    private String url = "https://ropsten.infura.io/";
-    private String token = "kv4a42NG93ZwJ9h0lZqK";
-
     public AsyncGetBalanceTask(View view, Context mContext){
         this.view = view;
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("prefs", 0);
@@ -44,7 +40,7 @@ public class AsyncGetBalanceTask extends AsyncTask<Void, String[], String[]> {
         //GET ETHER MARKET VALUE
         double latestEuroValue = getLatestEuroValue();
         //GET ACCOUNT ETHER BALANCE
-        double ether = getAccountBalanceEther(url, token, address, 5);
+        double ether = getAccountBalanceEther(address, 5);
         //CALCULATE EURO VALUE OF BALANCE
         double balanceInEuro = round((latestEuroValue * ether), 2);
 

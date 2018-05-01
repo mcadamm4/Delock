@@ -30,6 +30,9 @@ android {
     ext {
         kFormMasterVersion = '3.0.0'
     }
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+    }
 }
 
 dependencies {
@@ -63,6 +66,7 @@ dependencies {
     implementation 'com.roomorama:caldroid:3.0.1'
     //JSON
     implementation 'com.android.volley:volley:1.1.0'
+
     //FORMS
     implementation "com.thejuki:k-form-master:3.0.0"
     //Image Slider

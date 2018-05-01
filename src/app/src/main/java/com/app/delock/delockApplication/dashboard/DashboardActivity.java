@@ -138,7 +138,7 @@ public class DashboardActivity extends AppCompatActivity {
                     return true;
                 });
 
-        prepareItems();
+//        prepareItems();
 
     }
 
@@ -195,47 +195,47 @@ public class DashboardActivity extends AppCompatActivity {
     //-----------------------------------------------------------------------------
     // -----------------------------------------------------------------------------
     //Add a few items for testing
-    private void prepareItems() {
-        int[] covers = new int[]{
-                R.drawable.vintage_bicycle,
-                R.drawable.one_bed_house,
-                R.drawable.penthouse,
-                R.drawable.audi,
-                R.drawable.skateboard,
-                R.drawable.coffee,
-                R.drawable.road_bike,
-                R.drawable.study,
-                R.drawable.four_bed_house,
-                R.drawable.motorbike};
-
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
-
-        Item item = new Item("Vintage Bicycle", "Bicycle",  13, covers[0]);
-        itemsList.add(item);
-        item = new Item("One-Bed House", "Housing", 10, covers[1]);
-        itemsList.add(item);
-        item = new Item("Penthouse", "Housing", 100, covers[2]);
-        itemsList.add(item);
-        item = new Item("Audi", "Motor", 25, covers[3]);
-        itemsList.add(item);
-        item = new Item("Skateboard", "Sport", 2, covers[4]);
-        itemsList.add(item);
-        item = new Item("Coffee Machine", "Kitchen", 3, covers[5]);
-        itemsList.add(item);
-        item = new Item("Road Bike", "Bicycle", 15, covers[6]);
-        itemsList.add(item);
-        item = new Item("Study Space", "Spaces", 10, covers[7]);
-        itemsList.add(item);
-        item = new Item("Four Bed House", "Housing",34, covers[8]);
-        itemsList.add(item);
-        item = new Item("Kawaski Motorbike", "Motor",13, covers[9]);
-        itemsList.add(item);
-
-        adapter.notifyDataSetChanged();
-    }
+//    private void prepareItems() {
+//        int[] covers = new int[]{
+//                R.drawable.vintage_bicycle,
+//                R.drawable.one_bed_house,
+//                R.drawable.penthouse,
+//                R.drawable.audi,
+//                R.drawable.skateboard,
+//                R.drawable.coffee,
+//                R.drawable.road_bike,
+//                R.drawable.study,
+//                R.drawable.four_bed_house,
+//                R.drawable.motorbike};
+//
+//        HashMap<String,String> url_maps = new HashMap<String, String>();
+//        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
+//        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
+//        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+//        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+//
+//        Item item = new Item("Vintage Bicycle", "Bicycle",  13, covers[0]);
+//        itemsList.add(item);
+//        item = new Item("One-Bed House", "Housing", 10, covers[1]);
+//        itemsList.add(item);
+//        item = new Item("Penthouse", "Housing", 100, covers[2]);
+//        itemsList.add(item);
+//        item = new Item("Audi", "Motor", 25, covers[3]);
+//        itemsList.add(item);
+//        item = new Item("Skateboard", "Sport", 2, covers[4]);
+//        itemsList.add(item);
+//        item = new Item("Coffee Machine", "Kitchen", 3, covers[5]);
+//        itemsList.add(item);
+//        item = new Item("Road Bike", "Bicycle", 15, covers[6]);
+//        itemsList.add(item);
+//        item = new Item("Study Space", "Spaces", 10, covers[7]);
+//        itemsList.add(item);
+//        item = new Item("Four Bed House", "Housing",34, covers[8]);
+//        itemsList.add(item);
+//        item = new Item("Kawaski Motorbike", "Motor",13, covers[9]);
+//        itemsList.add(item);
+//
+//        adapter.notifyDataSetChanged();
+//    }
 
 }

@@ -145,4 +145,10 @@
     <string name="Price">Price</string>
     <string name="EnterDescription">Enter description...</string>
     <string name="EnterTitle">Enter title...</string>
+    <string name="title_activity_lock_and_publish">LockAndPublishActivity</string>
+    <string name="unlock">Unlock</string>
+    <string name="lock">Lock</string>
+    <string name="NFC_hint">Please hold your device to the lock.</string>
+    <string name="title_activity_lock_new_item">LockNewItemActivity</string>
+    <string name="lock_and_publish_listing">Lock and Publish New Listing</string>
 </resources>

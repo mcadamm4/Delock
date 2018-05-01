@@ -1,8 +1,9 @@
 package com.app.delock.delockApplication.utils;
 
+import com.app.delock.delockApplication.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.web3j.abi.datatypes.Address;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -29,8 +30,8 @@ import static org.web3j.utils.Convert.Unit.ETHER;
 public class GetBalanceUtils {
 
     //RAW BALANCE FOR CALCULATIONS
-    static double getAccountBalanceEther(String url, String token, String address) {
-        Web3j web3 = Web3jFactory.build(new HttpService(url + token));
+    static double getAccountBalanceEther(String address) {
+        Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
         EthGetBalance ethGetBalance = null;
         try {
             ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
@@ -46,8 +47,8 @@ public class GetBalanceUtils {
     }
 
     //ROUND BALANCE FOR PRESENTATION
-    static double getAccountBalanceEther(String url, String token, String address, int precision) {
-        Web3j web3 = Web3jFactory.build(new HttpService(url + token));
+    static double getAccountBalanceEther(String address, int precision) {
+        Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
         EthGetBalance ethGetBalance = null;
         try {
             ethGetBalance = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get();
@@ -65,7 +66,7 @@ public class GetBalanceUtils {
     static double getLatestEuroValue() {
         double latestEuroValue = 0;
         try {
-            URL obj = new URL("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR");
+            URL obj = new URL(Constants.ETH_LATEST_VALUE_URL);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
 

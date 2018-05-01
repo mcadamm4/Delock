@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.app.delock.delockApplication.unlock_item.UnlockActivity">
 
-
     <ImageView
         android:id="@+id/background"
         android:layout_width="0dp"
@@ -20,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/item_title"
-        android:contentDescription="@string/background" />
+        android:contentDescription="@string/background"  />
 
     <TextView
         android:id="@+id/Tip"
@@ -38,6 +37,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--<Switch-->
+        <!--android:id="@+id/lock_unlock_switch"-->
+        <!--android:layout_width="110dp"-->
+        <!--android:layout_height="44dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:showText="true"-->
+        <!--android:splitTrack="false"-->
+        <!--android:switchTextAppearance="@android:style/TextAppearance.DeviceDefault.Widget.Button"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:textOff="@string/lock"-->
+        <!--android:textOn="@string/unlock"-->
+        <!--android:thumbTint="@color/common_google_signin_btn_text_dark_default"-->
+        <!--android:trackTint="@color/cardview_light_background"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/Tip"-->
+        <!--app:layout_constraintVertical_bias="0.638" />-->
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="258dp"
@@ -49,49 +69,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lock_unlock_switch"
+        app:layout_constraintTop_toBottomOf="@+id/Tip"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/wifi_tethering" />
-
-    <Switch
-        android:id="@+id/lock_unlock_switch"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:showText="true"
-        android:splitTrack="false"
-        android:switchTextAppearance="@android:style/TextAppearance.DeviceDefault.Widget.Button"
-        android:textAlignment="textStart"
-        android:textOff="@string/lock"
-        android:textOn="@string/unlock"
-        android:thumbTint="@color/common_google_signin_btn_text_dark_default"
-        android:trackTint="@color/cardview_light_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Tip"
-        app:layout_constraintVertical_bias="0.638" />
-
-    <Button
-        android:id="@+id/menu_unlock"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="43dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/ic_dots_vertical_black_48dp"
-        android:backgroundTint="@color/cardview_light_background"
-        app:layout_constraintBottom_toTopOf="@+id/lock_unlock_switch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
