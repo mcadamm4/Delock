@@ -1,6 +1,5 @@
 pragma solidity^0.4.18;
 
-import "./Rental.sol";
 /* import "./UserDirectory.sol"; */
 
 //Repository of all rentals
@@ -35,9 +34,9 @@ contract RentalDirectory {
 
     //FUNCTIONS
 
-    function createNewRental(address newRentalAddress) public returns(uint) {
+    function addNewRental(address newRentalAddress) public returns (uint) {
         rentals.push(newRentalAddress);
-        emit event_NewRental(rentals.length-1);
+        /* emit event_NewRental(rentals.length-1); */
 
         // ....
         // Have to add this new rental to Users list of owned rentals
@@ -49,13 +48,17 @@ contract RentalDirectory {
     function numberOfRentals() public constant returns (uint) {
         return rentals.length;
     }
-
-    function getRental(uint _index) public constant returns (Rental) {
+/*
+    function getRental(uint _index) public constant returns (address) {
         Rental rental = rentals[_index].getDetails();
         return rental;
+    } */
+
+    function returnListings() public return (address[]) {
+        return rentals;
     }
 
-    function deleteRental(uint _index) public rentalOwner(_index) rentalExists(_index) {
+    /* function deleteRental(uint _index) public rentalOwner(_index) rentalExists(_index) {
         delete rentals[_index];
     }
 
@@ -64,5 +67,5 @@ contract RentalDirectory {
         rental.setIpfsHash(_ipfsHash);
         rental.setPricePerHour(_price);
         rental.setDepositAmount(_deposit);
-    }
+    } */
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.delock.delockApplication.R;
@@ -31,7 +32,9 @@ public class PublishItemActivity extends AppCompatActivity {
             JSONObject jsonData = new JSONObject(getIntent().getStringExtra("JsonData"));
             Item newItem = (Item) intent.getSerializableExtra("NewItem");
             TextView v = findViewById(R.id.textView5);
-            AsyncUtil.execute(new AsyncCreateNewItemTask(PublishItemActivity.this, imageFiles, jsonData, newItem, v));
+            ImageView im = findViewById(R.id.imageView4);
+
+            AsyncUtil.execute(new AsyncCreateNewItemTask(PublishItemActivity.this, imageFiles, jsonData, newItem, v, im));
         } catch (JSONException e) {
             e.printStackTrace();
         }

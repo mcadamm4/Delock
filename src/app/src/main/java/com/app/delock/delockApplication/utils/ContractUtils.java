@@ -1,9 +1,7 @@
 package com.app.delock.delockApplication.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.item.Item;
@@ -25,7 +23,7 @@ import java.math.BigInteger;
 
 class ContractUtils {
 
-    static void deployContract(Context mContext, String[] ipfsHashes, Item item) {
+    static Boolean deployContract(Context mContext, String[] ipfsHashes, Item item) {
         Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
 
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constants.SHARED_PREFS, 0);
@@ -35,20 +33,22 @@ class ContractUtils {
         String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
 
         BigInteger deposit = BigInteger.valueOf((long) item.itemDeposit);
-        BigInteger price = BigInteger.valueOf((long) item.itemCost);
-        int i = 1;
+        BigInteger price = BigInteger.valueOf((long) item.itemPrice);
+        String newRentalAddress = null;
 
-//        try {
-//            Credentials cred = WalletUtils.loadCredentials(password, walletPath);
-//            Rental newRental = Rental.deploy(web3, cred, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT,"", deposit, price)
-//                    .send();
-//
-//            Will need to be added to rental directory and users list of owned rentals
-//
-//            String newRentalAddress = newRental.getContractAddress();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return newRentalAddress;
+        try {
+            Credentials cred = WalletUtils.loadCredentials(password, walletPath);
+            Rental newRental = Rental.deploy(web3, cred, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT,"", deposit, price)
+                    .send();
+            newRentalAddress = newRental.getContractAddress();
+
+//          -- NEED WRAPPER --
+//            RentalDirectory rentalDirectory = RentalDirectory.load("0x<address>|<ensName>", web3, cred, ManagedTransaction.GAS_PRICE, Contract.GAS_LIMIT);
+//            rentalDirectory.addNewListing(newRentalAddress)
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return newRental.isValid();
     }
 }
