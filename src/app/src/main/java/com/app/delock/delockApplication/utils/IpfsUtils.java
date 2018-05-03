@@ -36,15 +36,7 @@ public class IpfsUtils {
         FileOutputStream outputStream;
         try {
             String jsonAsText = jsonData.toString();
-
-//            File newFile = new File(mContext.getCacheDir() + "/" + Constants.IPFS_JSON_FILE_NAME);
-//            newFile.createNewFile();
-
-//            outputStream = mContext.openFileOutput(String.valueOf(newFile), Context.MODE_PRIVATE);
-//            outputStream.write(jsonAsText.getBytes());
-//            outputStream.close();
             ipfsHashes[i] = new IPFS().getAdd().string(jsonAsText).getHash();
-//            newFile.delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,7 +61,7 @@ public class IpfsUtils {
         return json;
     }
 
-    public static ArrayList<Bitmap> retrieveImagesFromIPFS(String[] ipfsHash) {
+    public static ArrayList<Bitmap> retrieveImagesFromIPFS(List<String> ipfsHash) {
         ArrayList<Bitmap> bmpList = new ArrayList<>();
         try {
             for(String hash : ipfsHash){
@@ -81,6 +73,6 @@ public class IpfsUtils {
         catch (IOException e) {
             e.printStackTrace();
         }
-    return bmpList;
+        return bmpList;
     }
 }

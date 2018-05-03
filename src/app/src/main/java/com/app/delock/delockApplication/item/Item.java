@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 
 public class Item implements Serializable {
-//    Rental rental = null;
-    private ArrayList<Bitmap> imageBitmaps;
+    public Rental rental = null;
+    public ArrayList<Bitmap> imageBitmaps;
     public String title;
     public double itemDeposit;
     public double itemPrice;
@@ -22,7 +22,8 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(ArrayList<Bitmap> _imageBitmaps, String _title, double _itemDeposit, double _itemPrice, String _itemDescription){
+    public Item(Rental _rental, ArrayList<Bitmap> _imageBitmaps, String _title, double _itemDeposit, double _itemPrice, String _itemDescription){
+        this.rental = _rental;
         this.imageBitmaps = _imageBitmaps;
         this.title = _title;
         this.itemDeposit = _itemDeposit;

@@ -16,4 +16,8 @@ public class Constants {
 
     public static final String INFURA_URL = "https://ropsten.infura.io/kv4a42NG93ZwJ9h0lZqK";
     public static final String ETH_LATEST_VALUE_URL = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR";
+
+    //DEPLOYED CONTRACT ADDRESSES
+    public static final String RENTAL_DIRECTORY_ADDRESS = "0x091c18402c2092157faAa9358c32687aE6105DC0";
+    public static final String USER_DIRECTORY_ADDRESS = "";
 }

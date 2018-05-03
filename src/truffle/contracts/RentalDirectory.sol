@@ -1,8 +1,4 @@
-pragma solidity^0.4.18;
-
-/* import "./UserDirectory.sol"; */
-
-//Repository of all rentals
+pragma solidity^0.4.21;
 
 contract RentalDirectory {
 
@@ -23,14 +19,14 @@ contract RentalDirectory {
         require(msg.sender==owner);
         _;
     }
-    modifier rentalOwner(uint _index) {
-        require(msg.sender==rentals[_index].owner());
-        _;
-    }
-    modifier rentalExists(uint _index) {
-        require(_index < rentals.length);
-        _;
-    }
+    // modifier rentalOwner(uint _index) {
+    //     require(msg.sender==rentals[_index];
+    //     _;
+    // }
+    // modifier rentalExists(uint _index) {
+    //     require(_index < rentals.length);
+    //     _;
+    // }
 
     //FUNCTIONS
 
@@ -54,7 +50,7 @@ contract RentalDirectory {
         return rental;
     } */
 
-    function returnListings() public return (address[]) {
+    function returnListings() public constant returns (address[]) {
         return rentals;
     }
 

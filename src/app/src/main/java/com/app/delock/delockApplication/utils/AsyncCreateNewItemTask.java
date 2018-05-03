@@ -34,16 +34,12 @@ public class AsyncCreateNewItemTask extends AsyncTask<Void, Void, Boolean> {
     private final File[] imageFiles;
     private final JSONObject jsonData;
     private Item item;
-    private TextView view;
-    private ImageView im;
 
-    public AsyncCreateNewItemTask(Context _mContext, File[] _imageFiles, JSONObject _jsonData, Item _item, TextView view, ImageView im){
+    public AsyncCreateNewItemTask(Context _mContext, File[] _imageFiles, JSONObject _jsonData, Item _item) {
         this.mContext = _mContext;
         this.imageFiles = _imageFiles;
         this.jsonData = _jsonData;
         this.item = _item;
-        this.view = view;
-        this.im = im;
     }
 
     @Override
@@ -70,9 +66,6 @@ public class AsyncCreateNewItemTask extends AsyncTask<Void, Void, Boolean> {
 
         Toast toast = Toast.makeText(mContext.getApplicationContext(), message, Toast.LENGTH_LONG);
         toast.show();
-//        view.setText(result[0]);
-
     }
-
 }
 

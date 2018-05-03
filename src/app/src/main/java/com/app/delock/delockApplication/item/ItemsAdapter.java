@@ -27,7 +27,7 @@ import com.bumptech.glide.Glide;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-//An adapter is responisble for taking data and making it into a view
+//An adapter is responsible for taking data and making it into a view
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> implements Filterable {
 
@@ -69,48 +69,30 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Item item = itemsList.get(position);
-//        holder.title.setText(item.getName());
-//        holder.cost.setText("€" + item.getItemCost() + " hr");
 
-        // loading item image using Glide library
-//        Glide.with(mContext).load(item.getThumbnail()).into(holder.thumbnail);
+        holder.title.setText(item.title);
+        holder.cost.setText(String.valueOf(item.itemPrice));
+        holder.thumbnail.setImageBitmap(item.imageBitmaps.get(0));
 
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenu(holder.overflow, position);
-            }
+        holder.overflow.setOnClickListener(view -> showPopupMenu(holder.overflow, position));
+
+        holder.cardView.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, ItemActivity.class);
+            intent.putExtra("Item", item);
+            mContext.startActivity(intent);
+            // listener.onCardSelected(position, holder.thumbnail);
         });
 
-        //Set click listener on card and execute onCardSelected method when clicked
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(mContext, "You clicked the card of " + item.getName(), Toast.LENGTH_LONG).show();
-
-                Intent intent = new Intent(mContext, ItemActivity.class);
-                intent.putExtra("Item", (Serializable) item);
-                mContext.startActivity(intent);
-                // listener.onCardSelected(position, holder.thumbnail);
-            }
-        });
-        //Set click thumbnail on card and execute onCardSelected method when clicked
-        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(mContext, "You clicked the Thumbnail of " + item.getName(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(mContext, ItemActivity.class);
-                intent.putExtra("Item", (Serializable) item);
-                mContext.startActivity(intent);
-                // listener.onCardSelected(position, holder.thumbnail);
-            }
+        holder.thumbnail.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, ItemActivity.class);
+            intent.putExtra("Item", item);
+            mContext.startActivity(intent);
+            // listener.onCardSelected(position, holder.thumbnail);
         });
 
     }
 
-    /**
-     * Showing popup menu when tapping on 3 dots
-     */
+    // Show popup menu when tapping on 3 dots
     private void showPopupMenu(View view, int position) {
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
@@ -120,11 +102,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         popup.show();
     }
 
-    /**
-     * Click listener for popup menu items
-     */
-    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
+    // Click listener for popup menu items
+    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
         int position;
 
         public MyMenuItemClickListener(int position) {
@@ -148,12 +128,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         return itemsList.size();
     }
 
-    public interface ItemsAdapterListener {
-        void onAddToFavoriteSelected(int position);
-        
-        void onCardSelected(int position, ImageView thumbnail);
-    }
-
     public void setItemsList(ArrayList<Item> filteredItems)
     {
         this.itemsList=filteredItems;
@@ -161,5 +135,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     public Filter getFilter() {
         return FilterHelper.newInstance(itemsList,this);
+    }
+
+    public interface ItemsAdapterListener {
+        void onAddToFavoriteSelected(int position);
+
+        void onCardSelected(int position, ImageView thumbnail);
     }
 }

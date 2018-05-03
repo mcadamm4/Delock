@@ -5,17 +5,17 @@ contract Rental {
     address public renter;
 
     uint public depositAmount;
-    uint public pricePerHour = 1;
-    string public ipfsHash;
+    uint public pricePerHour;
+    address[] public ipfsHashes;
 
-    bool public currentlyRented;
+    /* bool public currentlyRented;
 
     uint public startDateCurrentRental;
-    uint public endDateCurrentRental;
+    uint public endDateCurrentRental; */
 
-    function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
+    function Rental(address[] _ipfsHashes,  uint _depositAmount, uint _pricePerHour) public {
         owner = msg.sender;
-        ipfsHash = _ipfsHash;
+        ipfsHashes = _ipfsHashes;
         depositAmount = _depositAmount;
         pricePerHour = _pricePerHour;
     }
@@ -29,14 +29,14 @@ contract Rental {
         require(msg.sender==renter);
         _;
     }
-    modifier isRented(){
-        require(currentlyRented==true);
-        _;
-    }
-    modifier notRented(){
-        require(currentlyRented==false);
-        _;
-    }
+    // modifier isRented(){
+    //     require(currentlyRented==true);
+    //     _;
+    // }
+    // modifier notRented(){
+    //     require(currentlyRented==false);
+    //     _;
+    // }
 
     //SETTERS
     function setDepositAmount(uint _depositAmount) public onlyOwner {
@@ -45,9 +45,14 @@ contract Rental {
     function setPricePerHour(uint _pricePerHour) public onlyOwner {
         pricePerHour = _pricePerHour;
     }
-    function setIpfsHash(string _ipfsHash) public onlyOwner {
-      ipfsHash = _ipfsHash;
+    function setIpfsHashes(address[] _ipfsHashes) public onlyOwner {
+      ipfsHashes = _ipfsHashes;
     }
+
+    function getIpfsHashes() public constant returns (address[]) {
+        return ipfsHashes;
+    }
+
 
     //EVENTS
     event rentItem(address indexed _renter);
@@ -56,7 +61,7 @@ contract Rental {
     event lockItem(); // ?
 
     //FUNCTIONS
-    function rent() public notRented payable {
-        assert(msg.value > 0);
-    }
+    // function rent() public notRented payable {
+    //     assert(msg.value > 0);
+    // }
 }

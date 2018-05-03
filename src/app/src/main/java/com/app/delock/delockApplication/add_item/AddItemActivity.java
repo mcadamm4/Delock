@@ -28,7 +28,6 @@ import org.json.JSONObject;
 import org.web3j.protocol.Web3j;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +90,7 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
             double price = Double.valueOf(elements.get(3).getValueAsString());
             String desc = elements.get(4).getValueAsString();
 
-            newItem = new Item(title, depositAmount, price, desc);
+            newItem = new Item(null, null, title, depositAmount, price, desc);
     }
 
     private File[] gatherImageFiles() {
