@@ -1,5 +1,7 @@
 package com.app.delock.delockApplication;
 
+import java.math.BigInteger;
+
 /**
  * Created by Marky on 01/05/2018.
  */
@@ -18,6 +20,6 @@ public class Constants {
     public static final String ETH_LATEST_VALUE_URL = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR";
 
     //DEPLOYED CONTRACT ADDRESSES
-    public static final String RENTAL_DIRECTORY_ADDRESS = "0x091c18402c2092157faAa9358c32687aE6105DC0";
+    public static final String RENTAL_DIRECTORY_ADDRESS = "0x8705e379A2B4C38DaA181aC995E3495Ed1816fAf";
     public static final String USER_DIRECTORY_ADDRESS = "";
 }

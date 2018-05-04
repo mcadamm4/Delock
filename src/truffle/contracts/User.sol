@@ -8,7 +8,7 @@ contract User {
     //FILEDS
     address public owner;
     bytes32 public ipfsHash;
-    address[] ownedRentals;
+    string ownedRentals;
     address[] renting;
     address[] favorites;
 

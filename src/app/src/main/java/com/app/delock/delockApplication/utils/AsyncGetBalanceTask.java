@@ -1,9 +1,11 @@
 package com.app.delock.delockApplication.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,10 +25,9 @@ public class AsyncGetBalanceTask extends AsyncTask<Void, String[], String[]> {
     private final View view;
     private String address;
 
-    public AsyncGetBalanceTask(View view, Context mContext){
+    public AsyncGetBalanceTask(View view, String address){
         this.view = view;
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(Constants.SHARED_PREFS, 0);
-        address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
+        this.address = address;
     }
 
     @Override

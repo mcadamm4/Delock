@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.delock.delockApplication.browse.BrowseActivity;
 import com.app.delock.delockApplication.utils.AsyncDownloadTask;
 import com.app.delock.delockApplication.utils.AsyncGenerateWalletTask;
-import com.app.delock.delockApplication.browse.BrowseActivity;
+import com.squareup.picasso.Cache;
 
 import org.ligi.kaxt.ContextExtensionsKt;
 
@@ -71,8 +72,25 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        //STOP IPFS DAEMON SERVICE
         SplashActivity.this.stopService(new Intent(SplashActivity.this, IPFSDaemonService.class));
+
+        // Delete all cached listing items
+        File Listings_Folder = new File(SplashActivity.this.getCacheDir(), "Listings_Folder");
+        final File[] listings = Listings_Folder.listFiles();
+        for(File listing : listings) {
+            listing.delete();
+        }
+
+/*
+        Delete all cached Rental wrapper files
+        Rental wrapper caching not working
+
+        File Rental_Wrappers_Folder = new File(SplashActivity.this.getCacheDir(), "Rental_Wrappers_Folder");
+        final File[] rentals = Rental_Wrappers_Folder.listFiles();
+        for(File rental : rentals) {
+        rental.delete();
+        }
+*/
     }
 
     public void startIPFSDaemon() {

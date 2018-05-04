@@ -66,7 +66,7 @@
         android:textAlignment="textStart"
         android:textOff="@string/lock"
         android:textOn="@string/unlock"
-        android:thumbTint="@color/common_google_signin_btn_text_dark_default"
+        android:thumbTint="@color/white"
         android:trackTint="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

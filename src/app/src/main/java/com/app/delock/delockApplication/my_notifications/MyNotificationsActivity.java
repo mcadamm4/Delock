@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
 import com.app.delock.delockApplication.utils.AsyncUtil;
@@ -33,9 +34,7 @@ import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.Contract;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
@@ -66,8 +65,8 @@ public class MyNotificationsActivity extends AppCompatActivity {
         new AsyncInfo().execute();
 
         //ADDRESS
-        SharedPreferences sharedPreferences = getSharedPreferences("prefs", 0);
-        address = sharedPreferences.getString("accountAddress", "No address found");
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
+        address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
 
         //DRAWER
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -88,7 +87,7 @@ public class MyNotificationsActivity extends AppCompatActivity {
                     @Override
                     public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                         // Respond when the drawer's position changes
-                        AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, getApplicationContext()));
+                        AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, address));
                     }
 
                     @Override
@@ -183,7 +182,7 @@ public class MyNotificationsActivity extends AppCompatActivity {
             super.onPostExecute(result);
             //this method will be running on UI thread
             String response = ("Version:\n\t" + result[0] + "\n\nGas Price:\n\t" + result[1] +  "\n\nBlock:\n\t" + result[2]  +  "\n\nValid Contract:\n\t" + result[3]);
-            textView = (TextView) findViewById(R.id.textView);
+            textView = (TextView) findViewById(R.id.item_description);
             textView.setText(response);
             lottieAnimation.setVisibility(View.INVISIBLE);
         }

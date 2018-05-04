@@ -1,15 +1,14 @@
 package com.app.delock.delockApplication.browse;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,10 +25,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
-import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
-import com.app.delock.delockApplication.utils.AsyncRetrieveListingsTask;
-import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.app.delock.delockApplication.add_item.AddItemActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
@@ -37,13 +34,13 @@ import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
 import com.app.delock.delockApplication.settings.SettingsActivity;
+import com.app.delock.delockApplication.utils.AsyncClearListingsTask;
+import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.utils.AsyncRetrieveListingsTask;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
-import org.json.JSONException;
-import org.web3j.protocol.Web3j;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BrowseActivity extends AppCompatActivity {
     private ItemsAdapter adapter;
@@ -94,13 +91,16 @@ public class BrowseActivity extends AppCompatActivity {
                 }
                 return true;
             });
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
+        String address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
+
         mDrawerLayout.addDrawerListener(
             new DrawerLayout.DrawerListener() {
                 @SuppressLint("ObsoleteSdkInt")
                 @Override
                 public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                     // Respond when the drawer's position changes
-                    AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, getApplicationContext()));
+                    AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, address));
                 }
 
                 @Override
@@ -139,7 +139,20 @@ public class BrowseActivity extends AppCompatActivity {
         //ADAPTER
         adapter = new ItemsAdapter(this, itemsList, listener);
 
-        AsyncUtil.execute(new AsyncRetrieveListingsTask(this, adapter));
+//        Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
+//        String walletPath = sharedPreferences.getString(Constants.WALLET_PATH_SHARED_PREF, "No address found");
+
+        //SHOULD PROMPT USER FOR PASSWORD, REMOVE SHARED PREF FOR SECURITY
+//        String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
+//        Credentials cred = null;
+//        try {
+//            cred = WalletUtils.loadCredentials(password, walletPath);
+//        } catch (IOException | CipherException e) {
+//            e.printStackTrace();
+//        }
+//
+//        RentalDirectory rentalDirectory =
+//                RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
 
         //RECYCLER VIEW
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -166,6 +179,13 @@ public class BrowseActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
+
+        FloatingActionButton clearListings = findViewById(R.id.clearListings);
+        clearListings.setOnClickListener(v ->
+            AsyncUtil.execute(new AsyncClearListingsTask(BrowseActivity.this))
+        );
+
+        AsyncUtil.execute(new AsyncRetrieveListingsTask(findViewById(R.id.animation_view), BrowseActivity.this, adapter));
 
         //BOTTOM NAVIGATION BAR
         BottomNavigationView navMenu = findViewById(R.id.navigation);

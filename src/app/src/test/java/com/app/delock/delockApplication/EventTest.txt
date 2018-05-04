@@ -1,0 +1,43 @@
+// import java.math.BigInteger;
+// import java.util.Arrays;
+// import java.util.concurrent.ExecutionException;
+//
+// import org.web3j.abi.FunctionEncoder;
+// import org.web3j.abi.TypeReference;
+// import org.web3j.abi.datatypes.Function;
+// import org.web3j.abi.datatypes.Uint;
+// import org.web3j.protocol.Web3j;
+// import org.web3j.protocol.core.methods.request.Transaction;
+// import org.web3j.protocol.http.HttpService;
+//
+// public class SendEvent {
+//
+//     public static String myAddr = "0x5638ebd0c2519a0a5e11b79c63add6ef1a5e0557";
+//
+//     public static void main(String[] args) {
+//
+//         try {
+//             Web3j web3 = Web3j.build(new HttpService());
+//
+//             String encodedFunction = FunctionEncoder.encode(new Function("triggerEvent",
+//                     Arrays.asList(Uint.DEFAULT),
+//                     Arrays.asList(new TypeReference<Uint>() {})));
+//             String from = myAddr;
+//             BigInteger gasPrice = BigInteger.valueOf(1);
+//             BigInteger gasLimit = BigInteger.valueOf(1000000L);
+//             String to = Subscribe.contractAddr;
+//             BigInteger nonce = null;
+//
+//             Transaction transaction = Transaction.createFunctionCallTransaction(from, nonce, gasPrice, gasLimit, to,
+//                     encodedFunction);
+//
+//             org.web3j.protocol.core.methods.response.EthSendTransaction transactionResponse = web3
+//                     .ethSendTransaction(transaction).sendAsync().get();
+//
+//         } catch (InterruptedException e) {
+//             e.printStackTrace();
+//         } catch (ExecutionException e) {
+//             e.printStackTrace();
+//         }
+//     }
+// }

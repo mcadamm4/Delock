@@ -6,11 +6,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Callable;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
-import org.web3j.abi.datatypes.DynamicArray;
 import org.web3j.abi.datatypes.Event;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
@@ -37,7 +35,7 @@ import rx.functions.Func1;
  * <p>Generated with web3j version 3.3.1.
  */
 public class RentalDirectory extends Contract {
-    private static final String BINARY = "0x6060604052341561000f57600080fd5b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506104128061005e6000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630eb56db714610072578063799e6d391461009b5780638da5cb5b146100e8578063945e344b1461013d578063af94a1d1146101a7575b600080fd5b341561007d57600080fd5b61008561020a565b6040518082815260200191505060405180910390f35b34156100a657600080fd5b6100d2600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610217565b6040518082815260200191505060405180910390f35b34156100f357600080fd5b6100fb610289565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561014857600080fd5b6101506102ae565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b83811015610193578082015181840152602081019050610178565b505050509050019250505060405180910390f35b34156101b257600080fd5b6101c86004808035906020019091905050610342565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000600180549050905090565b60006001805480600101828161022d9190610381565b9160005260206000209001600084909190916101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550506001805490509050919050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6102b66103ad565b600180548060200260200160405190810160405280929190818152602001828054801561033857602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190600101908083116102ee575b5050505050905090565b60018181548110151561035157fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b8154818355818115116103a8578183600052602060002091820191016103a791906103c1565b5b505050565b602060405190810160405280600081525090565b6103e391905b808211156103df5760008160009055506001016103c7565b5090565b905600a165627a7a7230582092788587aed496cd29bb4ff58036ec6a918d26bbd83326d7b45bea67c4aeea900029";
+    private static final String BINARY = "0x60606040526000600255341561001457600080fd5b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506103e2806100636000396000f300606060405260043610610078576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630eb56db71461007d5780631e0e3925146100a657806346ecfe32146100cf578063799e6d39146100e45780638da5cb5b14610131578063af94a1d114610186575b600080fd5b341561008857600080fd5b6100906101e9565b6040518082815260200191505060405180910390f35b34156100b157600080fd5b6100b96101f6565b6040518082815260200191505060405180910390f35b34156100da57600080fd5b6100e26101fc565b005b34156100ef57600080fd5b61011b600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610261565b6040518082815260200191505060405180910390f35b341561013c57600080fd5b610144610301565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561019157600080fd5b6101a76004808035906020019091905050610326565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6000600180549050905090565b60025481565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561025757600080fd5b6000600281905550565b6000600180549050600254141561028b57600180818180549050019150816102899190610365565b505b81600160026000815480929190600101919050558154811015156102ab57fe5b906000526020600020900160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506001805490509050919050565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60018181548110151561033557fe5b90600052602060002090016000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b81548183558181151161038c5781836000526020600020918201910161038b9190610391565b5b505050565b6103b391905b808211156103af576000816000905550600101610397565b5090565b905600a165627a7a723058205b8719c658d436a6d904235631868da00fb7835d51ff72c51f241751a00daf8c0029";
 
     protected static final HashMap<String, String> _addresses;
 
@@ -87,6 +85,13 @@ public class RentalDirectory extends Contract {
         });
     }
 
+    public RemoteCall<BigInteger> numElements() {
+        final Function function = new Function("numElements", 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
+    }
+
     public RemoteCall<String> owner() {
         final Function function = new Function("owner", 
                 Arrays.<Type>asList(), 
@@ -117,26 +122,19 @@ public class RentalDirectory extends Contract {
         return executeRemoteCallTransaction(function);
     }
 
+    public RemoteCall<TransactionReceipt> clearRentals() {
+        final Function function = new Function(
+                "clearRentals", 
+                Arrays.<Type>asList(), 
+                Collections.<TypeReference<?>>emptyList());
+        return executeRemoteCallTransaction(function);
+    }
+
     public RemoteCall<BigInteger> numberOfRentals() {
         final Function function = new Function("numberOfRentals", 
                 Arrays.<Type>asList(), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
-    }
-
-    public RemoteCall<List> returnListings() {
-        final Function function = new Function("returnListings", 
-                Arrays.<Type>asList(), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<DynamicArray<Address>>() {}));
-        return new RemoteCall<List>(
-                new Callable<List>() {
-                    @Override
-                    @SuppressWarnings("unchecked")
-                    public List call() throws Exception {
-                        List<Type> result = (List<Type>) executeCallSingleValueReturn(function, List.class);
-                        return convertToNative(result);
-                    }
-                });
     }
 
     public static RentalDirectory load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {

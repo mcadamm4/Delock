@@ -6,16 +6,16 @@ contract Rental {
 
     uint public depositAmount;
     uint public pricePerHour;
-    address[] public ipfsHashes;
+    string public ipfsHashes;
 
     /* bool public currentlyRented;
 
     uint public startDateCurrentRental;
     uint public endDateCurrentRental; */
 
-    function Rental(address[] _ipfsHashes,  uint _depositAmount, uint _pricePerHour) public {
+    function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
         owner = msg.sender;
-        ipfsHashes = _ipfsHashes;
+        ipfsHashes = _ipfsHash;
         depositAmount = _depositAmount;
         pricePerHour = _pricePerHour;
     }
@@ -45,13 +45,16 @@ contract Rental {
     function setPricePerHour(uint _pricePerHour) public onlyOwner {
         pricePerHour = _pricePerHour;
     }
-    function setIpfsHashes(address[] _ipfsHashes) public onlyOwner {
+    /* function setIpfsHashes(string[] _ipfsHashes) public onlyOwner {
       ipfsHashes = _ipfsHashes;
-    }
+    } */
+    /* function numberOfIpfsHashes() public constant returns (uint) {
+        return ipfsHashes.length;
+    } */
 
-    function getIpfsHashes() public constant returns (address[]) {
+    /* function getIpfsHashes() public constant returns (string[]) {
         return ipfsHashes;
-    }
+    } */
 
 
     //EVENTS

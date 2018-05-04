@@ -32,10 +32,9 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="0.3"
                 android:textColor="#000"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toTopOf="@+id/item_description"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
                 app:layout_constraintVertical_bias="0.0" />
@@ -46,10 +45,9 @@
                 android:layout_height="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
-                android:text="0.1"
                 android:textColor="#000"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toTopOf="@+id/item_description"
                 app:layout_constraintEnd_toStartOf="@+id/rental_cost_symbol"
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
                 app:layout_constraintVertical_bias="0.0" />
@@ -63,7 +61,7 @@
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/ether_currency_symbol"
                 android:scaleType="fitCenter"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toTopOf="@+id/item_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
@@ -72,13 +70,12 @@
 
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/item_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/dummy_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -112,7 +109,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/item_description" />
 
             <ImageView
                 android:id="@+id/deposit_cost_symbol"
@@ -132,7 +129,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/title"
                 android:textColor="#000"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +145,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Deposit"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toTopOf="@+id/item_description"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
@@ -162,7 +158,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Rental price:"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toTopOf="@+id/item_description"
                 app:layout_constraintEnd_toStartOf="@+id/item_cost"
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
                 app:layout_constraintVertical_bias="0.0" />

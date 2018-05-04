@@ -1,27 +1,24 @@
 package com.app.delock.delockApplication.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.app.delock.delockApplication.Constants;
-import com.fasterxml.jackson.core.JsonParser;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.MalformedURLException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import io.ipfs.kotlin.IPFS;
-import io.ipfs.kotlin.IPFSConnection;
 
 /**
  * Created by Marky on 01/05/2018.
@@ -29,7 +26,7 @@ import io.ipfs.kotlin.IPFSConnection;
 
 public class IpfsUtils {
 
-    public static String[] publishToIPFS(Context mContext, File[] imageFiles, JSONObject jsonData){
+    public static String[] publishToIPFS(Activity mContext, File[] imageFiles, JSONObject jsonData){
         String[] ipfsHashes = new String[imageFiles.length+1];
         int i=0;
 
@@ -61,14 +58,33 @@ public class IpfsUtils {
         return json;
     }
 
-    public static ArrayList<Bitmap> retrieveImagesFromIPFS(List<String> ipfsHash) {
-        ArrayList<Bitmap> bmpList = new ArrayList<>();
+    public static ArrayList<File> retrieveImagesFromIPFS(Activity mContext, String[] ipfsHash) {
+        ArrayList<File> bmpList = new ArrayList<>();
+        URL url;
+        URLConnection connection;
+        InputStream input = null;
+        OutputStream output = null;
+        File cacheDir = mContext.getCacheDir();
+        byte data[] = new byte[1024];
         try {
             for(String hash : ipfsHash){
-                URL url = new URL("https://ipfs.io/ipfs/" + hash);
-                Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                bmpList.add(bitmap);
+                url = new URL("https://ipfs.io/ipfs/" + hash);
+                connection = url.openConnection();
+                connection.connect();
+                input = new BufferedInputStream(url.openStream(), 8192);
+                output = new FileOutputStream(cacheDir + hash);
+                connection.setConnectTimeout(60000);
+                int count;
+                while ((count = input.read(data)) != -1) {
+                    output.write(data, 0, count);
+                }
+
+                bmpList.add(new File(cacheDir + hash));
             }
+            assert output != null;
+            output.flush();
+            output.close();
+            input.close();
         }
         catch (IOException e) {
             e.printStackTrace();

@@ -6,6 +6,8 @@ package com.app.delock.delockApplication.item;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -18,13 +20,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.browse.FilterHelper;
-import com.bumptech.glide.Glide;
 
-import java.io.Serializable;
+import java.io.File;
 import java.util.ArrayList;
 
 //An adapter is responsible for taking data and making it into a view
@@ -68,28 +68,29 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        final Item item = itemsList.get(position);
+        if(!itemsList.isEmpty()) {
+            final Item item = itemsList.get(position);
 
-        holder.title.setText(item.title);
-        holder.cost.setText(String.valueOf(item.itemPrice));
-        holder.thumbnail.setImageBitmap(item.imageBitmaps.get(0));
+            holder.thumbnail.setImageBitmap(BitmapFactory.decodeFile(String.valueOf(item.imageFiles.get(0))));
+            holder.title.setText(item.title);
+            holder.cost.setText(String.valueOf(item.itemPrice));
+            holder.thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        holder.overflow.setOnClickListener(view -> showPopupMenu(holder.overflow, position));
+            holder.overflow.setOnClickListener(view -> showPopupMenu(holder.overflow, position));
 
-        holder.cardView.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, ItemActivity.class);
             intent.putExtra("Item", item);
-            mContext.startActivity(intent);
-            // listener.onCardSelected(position, holder.thumbnail);
-        });
 
-        holder.thumbnail.setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, ItemActivity.class);
-            intent.putExtra("Item", item);
-            mContext.startActivity(intent);
-            // listener.onCardSelected(position, holder.thumbnail);
-        });
+            holder.cardView.setOnClickListener(view -> {
+                mContext.startActivity(intent);
+                // listener.onCardSelected(position, holder.thumbnail);
+            });
 
+            holder.thumbnail.setOnClickListener(view -> {
+                mContext.startActivity(intent);
+                // listener.onCardSelected(position, holder.thumbnail);
+            });
+        }
     }
 
     // Show popup menu when tapping on 3 dots
