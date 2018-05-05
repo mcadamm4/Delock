@@ -43,7 +43,8 @@ public class Item implements Serializable {
         File cacheDir = mContext.getCacheDir();
         File cachedListings = new File(cacheDir, "Listings_Folder");
 
-        File listing = new File(cachedListings,title + String.valueOf(Math.random()));
+        // Save Item to cache under its Contract address
+        File listing = new File(cachedListings, address);
 
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;

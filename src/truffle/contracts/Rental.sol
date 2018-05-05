@@ -7,11 +7,7 @@ contract Rental {
     uint public depositAmount;
     uint public pricePerHour;
     string public ipfsHashes;
-
-    /* bool public currentlyRented;
-
-    uint public startDateCurrentRental;
-    uint public endDateCurrentRental; */
+    bool public available;
 
     function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
         owner = msg.sender;
@@ -29,14 +25,14 @@ contract Rental {
         require(msg.sender==renter);
         _;
     }
-    // modifier isRented(){
-    //     require(currentlyRented==true);
-    //     _;
-    // }
-    // modifier notRented(){
-    //     require(currentlyRented==false);
-    //     _;
-    // }
+    modifier isRented(){
+        require(available==false);
+        _;
+    }
+    modifier notRented(){
+        require(available==true);
+        _;
+    }
 
     //SETTERS
     function setDepositAmount(uint _depositAmount) public onlyOwner {
@@ -45,16 +41,9 @@ contract Rental {
     function setPricePerHour(uint _pricePerHour) public onlyOwner {
         pricePerHour = _pricePerHour;
     }
-    /* function setIpfsHashes(string[] _ipfsHashes) public onlyOwner {
-      ipfsHashes = _ipfsHashes;
-    } */
-    /* function numberOfIpfsHashes() public constant returns (uint) {
-        return ipfsHashes.length;
-    } */
-
-    /* function getIpfsHashes() public constant returns (string[]) {
-        return ipfsHashes;
-    } */
+    function setAvailable(bool _available) public {
+        available = _available;
+    }
 
 
     //EVENTS
@@ -64,7 +53,7 @@ contract Rental {
     event lockItem(); // ?
 
     //FUNCTIONS
-    // function rent() public notRented payable {
-    //     assert(msg.value > 0);
-    // }
+    function rent() public notRented payable {
+         assert(msg.value > 0);
+    }
 }

@@ -2,7 +2,7 @@ package com.app.delock.delockApplication.item;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,32 +13,25 @@ import android.widget.TextView;
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.smartcontract_wrappers.Rental;
-import com.app.delock.delockApplication.smartcontract_wrappers.RentalDirectory;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
-import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Contract;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static com.app.delock.delockApplication.R.id.add;
 import static com.app.delock.delockApplication.R.id.item_description;
 import static com.app.delock.delockApplication.R.id.item_cost;
 import static com.app.delock.delockApplication.R.id.item_deposit;
@@ -51,7 +44,7 @@ import static com.app.delock.delockApplication.R.id.item_title;
 public class ItemActivity extends AppCompatActivity {
     private static final String TAG = "ItemActivity"; //Help identify activity while debugging
     private SliderLayout mSlider;
-    private Rental rental;
+    private Item item;
     public TextView itemTitle, itemDeposit, itemCost, itemDescription;
     private Button nfcButton;
 
@@ -64,14 +57,13 @@ public class ItemActivity extends AppCompatActivity {
 
         //INTENT
         Intent intent = getIntent();
-        Item item = (Item) intent.getSerializableExtra("Item");
+        item = (Item) intent.getSerializableExtra("Item");
         mSlider = findViewById(R.id.slider);
 
         // Get cached rental wrapper - feature not currently possible
         // getCachedRentalWrapper(item);
 
-        getRentalWrapper(item.address);
-
+        AsyncUtil.execute(new AsyncGetAvailability());
         setSliderImages(item);
 
         //ITEM DETAILS
@@ -108,7 +100,29 @@ public class ItemActivity extends AppCompatActivity {
 //        });
     }
 
-    private void getRentalWrapper(String address) {
+    public class AsyncGetAvailability extends AsyncTask<Void, Void, Boolean>
+    {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //Set loader visibility
+        }
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return getRentalWrapper();
+        }
+
+
+        @Override
+        protected void onPostExecute(Boolean strings) {
+            super.onPostExecute(strings);
+            //Set loader visibility
+        }
+    }
+
+    private boolean getRentalWrapper() {
+        Boolean available = false;
         try {
             Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
 
@@ -119,13 +133,15 @@ public class ItemActivity extends AppCompatActivity {
             String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
             Credentials cred = WalletUtils.loadCredentials(password, walletPath);
 
-            Rental rental = Rental.load(address, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
-
-            assert (rental.isValid());
-//            Boolean available = rental.getAvailabile();
-        } catch (IOException | CipherException e) {
+            Rental rental = Rental.load(item.address, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+            if(rental.isValid())
+                available = rental.available().send();
+            else
+                throw new Exception();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return available;
     }
 
 
