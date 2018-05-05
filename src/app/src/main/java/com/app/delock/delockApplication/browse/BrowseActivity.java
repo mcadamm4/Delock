@@ -24,12 +24,14 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Filter;
 
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.add_item.AddItemActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
+import com.app.delock.delockApplication.item.FilterHelper;
 import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
@@ -43,7 +45,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import java.io.File;
 import java.util.ArrayList;
 
-public class BrowseActivity extends AppCompatActivity {
+public class BrowseActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener {
     private ItemsAdapter adapter;
     MaterialSearchBar searchBar;
 
@@ -161,26 +163,29 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
         //SEARCH BAR
         searchBar = findViewById(R.id.searchBar);
-        searchBar.setHint("Search..");
+        searchBar.setHint("Search listings..");
+        //Enable searchbar callbacks
+        searchBar.setOnSearchActionListener(this);
         searchBar.setCardViewElevation(10);
         //SEARCH BAR TEXT CHANGE LISTENER
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //SEARCH FILTER
-                adapter.setItemsList(itemsList);
                 adapter.getFilter().filter(charSequence);
             }
             @Override
             public void afterTextChanged(Editable editable) {
             }
         });
-
+        searchBar.setHapticFeedbackEnabled(true);
 //        FloatingActionButton clearListings = findViewById(R.id.clearListings);
 //        clearListings.setOnClickListener((View v) -> {
 //                    AsyncUtil.execute(new AsyncClearListingsTask(BrowseActivity.this));
@@ -228,9 +233,10 @@ public class BrowseActivity extends AppCompatActivity {
 //        prepareItems();
     }
 
+
     @Override
     public void onBackPressed() {
-        // Do Here what ever you want do on back press;
+        AsyncUtil.execute(new AsyncRetrieveListingsTask(findViewById(R.id.animation_view), BrowseActivity.this, adapter));
     }
 
     @Override
@@ -241,6 +247,21 @@ public class BrowseActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //SearchBar
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+
+    }
+
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
     }
 
     //RecyclerView item decoration - give equal margin around grid item

@@ -7,7 +7,6 @@ package com.app.delock.delockApplication.item;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -22,9 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.delock.delockApplication.R;
-import com.app.delock.delockApplication.browse.FilterHelper;
 
-import java.io.File;
 import java.util.ArrayList;
 
 //An adapter is responsible for taking data and making it into a view

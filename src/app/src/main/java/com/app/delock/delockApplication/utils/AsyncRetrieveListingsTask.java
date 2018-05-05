@@ -62,7 +62,7 @@ public class AsyncRetrieveListingsTask extends AsyncTask<Void, Void, ArrayList<I
             e.printStackTrace();
         }
         File cacheDir = mContext.getCacheDir();
-        File cachedFolder = null;
+        File cachedFolder;
 
         // Create cache folders
         if(!new File(cacheDir, "Listings_Folder").exists()){
