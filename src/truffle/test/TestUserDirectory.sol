@@ -5,7 +5,7 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/UserDirectory.sol";
 
 contract TestUserDirectory {
-    function testCreateNewUser() public {
+    /* function testCreateNewUser() public {
         Assert.equal(true, true, "True");
     }
     function testGetUser() public {
@@ -16,5 +16,5 @@ contract TestUserDirectory {
     }
     function testDeleteUser() public {
         Assert.equal(true, true, "True");
-    }
+    } */
 }

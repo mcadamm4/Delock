@@ -5,7 +5,7 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/User.sol";
 
 contract TestUser {
-      function testDemo() public {
+      /* function testDemo() public {
           Assert.equal(true, true, "True");
-      }
+      } */
 }

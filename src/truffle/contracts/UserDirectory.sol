@@ -41,7 +41,7 @@ contract UserDirectory {
         owner = msg.sender;
     }
 
-    function createNewUser(bytes32 _ipfsHash) public {
+    /* function createNewUser(bytes32 _ipfsHash) public {
         userMapping[msg.sender] = new User(_ipfsHash);
         emit event_NewUser(msg.sender);
     }
@@ -56,5 +56,5 @@ contract UserDirectory {
 
     function deleteUser() public {
         delete userMapping[msg.sender];
-    }
+    } */
 }

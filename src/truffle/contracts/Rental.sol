@@ -69,14 +69,12 @@ contract Rental {
          // -- Owner listens for this event?
     }
 
-    function calcElapsedTime() public isRented returns (uint) {
-        uint rentalPeriod = (now - rental_StartTime);
-        return rentalPeriod;
+    function calcElapsedTime() public constant isRented returns (uint) {
+        return (now - rental_StartTime);
     }
 
     function calcTotalCostOfRental() public onlyRenter isRented {
-        uint rentalPeriod = calcElapsedTime();
-        uint totalCost = (pricePerHour * rentalPeriod);
+        uint totalCost = (pricePerHour * calcElapsedTime());
 
         //Renter may return the item before they have used up the deposit amount
         if(totalCost > depositAmount) {
@@ -93,7 +91,7 @@ contract Rental {
         resetRental();
     }
 
-    function resetRental() public {
+    function resetRental() private {
         total_CostOfRental = 0;
         available = true;
         renter = address(0);

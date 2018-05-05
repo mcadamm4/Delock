@@ -27,15 +27,10 @@ contract RentalDirectory {
         }
         rentals[numElements++] = newRentalAddress;
         /* emit event_NewRental(rentals.length-1); */
-
-        return rentals.length;
+        return numElements;
     }
 
     function clearRentals() public {
         numElements = 0;
-    }
-
-    function numberOfRentals() public constant returns (uint) {
-        return rentals.length;
     }
 }

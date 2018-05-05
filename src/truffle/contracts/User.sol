@@ -31,8 +31,8 @@ contract User {
     //EVENTS
 
     //FUNCTIONS
-    function addNewOwnedRental() public onlyOwner {
-        /* ownedRentals.push(); */
-    }
+    /* function addNewOwnedRental() public onlyOwner {
+         ownedRentals.push();
+    } */
 
 }

@@ -24,12 +24,11 @@ contract TestRental {
         Assert.equal(rental.pricePerHour(), price, "Price set successfully.");
     }
 
-    function testSetIpfsHash() public {
+    function testSetAvailable() public {
         Rental rental = new Rental("Initial Hash", 1, 1);
 
-        bytes32 ipfsHash = "New IPFS Hash";
-        rental.setIpfsHash(ipfsHash);
+        rental.setAvailable(true);
 
-        Assert.equal(rental.ipfsHash(), ipfsHash, "IPFSHash set successfully.");
+        Assert.equal(rental.available(), true, "Rental availability set successfully");
     }
 }

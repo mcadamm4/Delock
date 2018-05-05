@@ -3,79 +3,80 @@ pragma solidity^0.4.21;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/RentalDirectory.sol";
+import "../contracts/Rental.sol";
 
 contract TestRentalDirectory {
-    
+
     function testCreateRental() public {
         RentalDirectory dir = new RentalDirectory();
-        bytes32 ipfsHash = "Rental Hash";
-        uint deposit = 2;
-        uint price = 2;
+        address rentalAddress = new Rental("Hash", 1, 1);
         //Act
-        dir.createNewRental(ipfsHash, deposit, price);
+        uint numRentals = dir.addNewRental(rentalAddress);
         //Assert
-        Rental retrievedRental = dir.getRental(0);
-        Assert.equal(retrievedRental.ipfsHash(), ipfsHash, "Rental created with correct IpfsHash");
-        Assert.equal(retrievedRental.depositAmount(), deposit, "Rental created with correct deposit");
-        Assert.equal(retrievedRental.pricePerHour(), price, "Rental created with correct price");
+        Assert.equal(numRentals, 1, "Correct number of rentals added");
     }
 
     function testCorrectNumberOfRentals() public {
         //Arrange
         RentalDirectory dir = new RentalDirectory();
-        dir.createNewRental("1st Rental Hash", 1, 1);
-        dir.createNewRental("2nd Rental Hash", 2, 2);
+        // -- ONE
+        address rentalAddress = new Rental("Hash", 1, 1);
+        dir.addNewRental(rentalAddress);
+        // -- TWO
+        rentalAddress = new Rental("Hash", 2, 2);
+        dir.addNewRental(rentalAddress);
         //Act
-        uint numberOfRentals = dir.numberOfRentals();
+        uint numElements = dir.numElements();
         //Assert
-        Assert.equal(2, numberOfRentals, "Correct number of rentals create and returned");
+        Assert.equal(numElements, 2 , "Correct number of rentals created");
     }
 
     function testIncorrectNumberOfRentals() public {
         //Arrange
         RentalDirectory dir = new RentalDirectory();
-        dir.createNewRental("1st Rental Hash", 1, 1);
-        dir.createNewRental("2nd Rental Hash", 2, 2);
+        address rentalAddress = new Rental("Hash", 1, 1);
+        dir.addNewRental(rentalAddress);
+        rentalAddress = new Rental("Hash", 2, 2);
+        dir.addNewRental(rentalAddress);
         //Act
-        uint numberOfRentals = dir.numberOfRentals();
+        uint numElements = dir.numElements();
         //Assert
-        Assert.notEqual(31, numberOfRentals, "Control case for previous test - testCorrectNumberOfRentals");
+        Assert.notEqual(31, numElements, "Control case for previous test - testCorrectNumberOfRentals");
     }
 
-    function testGetRental() public {
+    /* function testGetRentalAddresses() public {
         //Arrange
         RentalDirectory dir = new RentalDirectory();
-        dir.createNewRental("1st Rental Hash", 1, 1);
 
-        bytes32 ipfsHash = "2nd Rental Hash";
-        uint deposit = 2;
-        uint price = 2;
-        dir.createNewRental(ipfsHash, deposit, price);
-
+        address rentalAddress1 = new Rental("Hash", 1, 1);
+        dir.addNewRental(rentalAddress1);
+        address rentalAddress2 = new Rental("Hash", 2, 2);
+        uint numElements = dir.addNewRental(rentalAddress2);
         //Act
-        Rental retrievedRental = dir.getRental(1);
+        address[] retrievedRental = dir.getRentals();
         //Assert
-        Assert.equal(retrievedRental.ipfsHash(), ipfsHash, "Rental created with correct IpfsHash");
-        Assert.equal(retrievedRental.depositAmount(), deposit, "Rental created with correct deposit");
-        Assert.equal(retrievedRental.pricePerHour(), price, "Rental created with correct price");
-    }
+        Assert.equal(numElements, 2, "Correct number of rentals added");
+        Assert.equal(rentalAddress1, retrievedRental[0],  "New Rental Address Successfully added");
+        Assert.equal(rentalAddress2, retrievedRental[1],  "New Rental Address Successfully added");
+    } */
 
-    function testUpdateRentalDetails() public {
+    function testClearRentals() public {
         //Arrange
         RentalDirectory dir = new RentalDirectory();
-        bytes32 oldIpfsHash = "Rental Hash";
-        uint oldDeposit = 1;
-        uint oldPrice = 1;
-        uint newRentalIndex = dir.createNewRental(oldIpfsHash, oldDeposit, oldPrice)-1;
+
+        address rentalAddress1 = new Rental("Hash", 1, 1);
+        dir.addNewRental(rentalAddress1);
+        Rental rentalAddress2 = new Rental("Hash", 2, 2);
+        dir.addNewRental(rentalAddress2);
+
+        dir.addNewRental(rentalAddress1);
+        uint numRentals = dir.addNewRental(rentalAddress2);
+        Assert.equal(numRentals, 2, "Correct number of rentals added");
+
         //Act
-        bytes32 newIpfsHash = "New Hash";
-        uint newDeposit = 23;
-        uint newPrice = 32;
-        dir.updateRentalDetails(newRentalIndex, newIpfsHash, newDeposit, newPrice);
+        dir.clearRentals();
         //Assert
-        Rental retrievedRental = dir.getRental(0);
-        Assert.equal(retrievedRental.ipfsHash(), newIpfsHash, "Rental Ipfshash updated");
-        Assert.equal(retrievedRental.depositAmount(), newDeposit, "Rental deposit updated");
-        Assert.equal(retrievedRental.pricePerHour(), newPrice, "Rental price updated");
+        uint numElements = dir.numElements();
+        Assert.equal(numElements, 0, "Rentals successfull cleared");
     }
 }
