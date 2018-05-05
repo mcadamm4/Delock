@@ -9,6 +9,9 @@ contract Rental {
     string public ipfsHashes;
     bool public available;
 
+    uint public rental_StartTime;
+    uint public total_CostOfRental;
+
     function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
         owner = msg.sender;
         ipfsHashes = _ipfsHash;
@@ -47,13 +50,52 @@ contract Rental {
 
 
     //EVENTS
-    event rentItem(address indexed _renter);
-    event returnItem();
-    event unlockItem(); // ?
-    event lockItem(); // ?
+    event event_rentItem(address indexed _renter);
+    event event_returnItem(address indexed _renter, uint revenue);
+    event event_unlockItem(); // ?
+    event event_lockItem(); // ?
 
     //FUNCTIONS
-    function rent() public notRented payable {
-         assert(msg.value > 0);
+    function rentItem() public notRented payable {
+         assert(msg.value == depositAmount);
+         renter = msg.sender;
+
+         rental_StartTime = now;
+         available = false;
+
+         //Transfer depositAmount to contract
+         msg.sender.transfer(depositAmount);
+         emit event_rentItem(msg.sender);
+         // -- Owner listens for this event?
+    }
+
+    function calcElapsedTime() public isRented returns (uint) {
+        uint rentalPeriod = (now - rental_StartTime);
+        return rentalPeriod;
+    }
+
+    function calcTotalCostOfRental() public onlyRenter isRented {
+        uint rentalPeriod = calcElapsedTime();
+        uint totalCost = (pricePerHour * rentalPeriod);
+
+        //Renter may return the item before they have used up the deposit amount
+        if(totalCost > depositAmount) {
+            totalCost = (totalCost - depositAmount);
+        }
+        total_CostOfRental = totalCost;
+    }
+
+    function returnItem() public onlyRenter isRented payable {
+        assert(msg.value>total_CostOfRental);
+
+        owner.transfer(total_CostOfRental);
+        emit event_returnItem(msg.sender, total_CostOfRental);
+        resetRental();
+    }
+
+    function resetRental() public {
+        total_CostOfRental = 0;
+        available = true;
+        renter = address(0);
     }
 }
