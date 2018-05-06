@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.app.delock.delockApplication.add_item.PublishItemActivity">
 
-    <include layout="@layout/content_lock_new_item" />
+    <include layout="@layout/content_deploy_new_item" />
 
 </android.support.design.widget.CoordinatorLayout>

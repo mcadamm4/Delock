@@ -1,18 +1,13 @@
 package com.app.delock.delockApplication.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.TextView;
 
-import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
 
-import static com.app.delock.delockApplication.utils.GetBalanceUtils.*;
+import static com.app.delock.delockApplication.utils.CurrencyUtils.*;
 import static com.app.delock.delockApplication.utils.utils.round;
 
 /**

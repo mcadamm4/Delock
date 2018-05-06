@@ -127,7 +127,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:text="@string/note_we_recommend_writing_down_your_password_on_paper_and_keeping_it_somewhere_safe_as_it_is_the_only_means_of_accessing_your_account"
+        android:text="@string/Wallet_Tip"
         android:textAlignment="viewStart"
         android:textAllCaps="true"
         android:textColor="@color/cardview_light_background"

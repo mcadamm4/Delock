@@ -65,7 +65,7 @@ class ContractUtils {
             String str = TextUtils.join(",", ipfsHashes);
 
             // Deploy new rental contract
-            newRental = Rental.deploy(web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT, str, deposit, price).send();
+            newRental = Rental.deploy(web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT, str, deposit, price, true).send();
             newRentalAddress = newRental.getContractAddress();
 
             // Add new rental to rental directory

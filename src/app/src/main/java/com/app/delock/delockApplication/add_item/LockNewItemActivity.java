@@ -6,7 +6,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.Switch;
 
 import com.app.delock.delockApplication.R;
@@ -23,9 +22,13 @@ public class LockNewItemActivity extends NFCReaderSpeakerActivity {
     SharedPreferences prefs;
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock_and_publish);
+        setContentView(R.layout.activity_lock_new_item);
 
         this.prefs = getSharedPreferences("com.app.delock.delockApplication", 0);
         this.prefs.edit().putString(this.passwordKey, "default_password").apply();
@@ -56,5 +59,7 @@ public class LockNewItemActivity extends NFCReaderSpeakerActivity {
 //            }
         }
     }
+
+
 }
 

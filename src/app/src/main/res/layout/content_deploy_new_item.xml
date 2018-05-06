@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.app.delock.delockApplication.add_item.PublishItemActivity"
-    tools:showIn="@layout/activity_lock_new_item">
+    tools:showIn="@layout/activity_deploy_new_item">
 
     <ImageView
         android:id="@+id/background_modern"

@@ -27,7 +27,7 @@ import static org.web3j.utils.Convert.Unit.ETHER;
  * Created by Marky on 30/04/2018.
  */
 
-public class GetBalanceUtils {
+public class CurrencyUtils {
 
     //RAW BALANCE FOR CALCULATIONS
     static double getAccountBalanceEther(String address) {
@@ -63,7 +63,7 @@ public class GetBalanceUtils {
         return round(ether.doubleValue(), precision);
     }
 
-    static double getLatestEuroValue() {
+    public static double getLatestEuroValue() {
         double latestEuroValue = 0;
         try {
             URL obj = new URL(Constants.ETH_LATEST_VALUE_URL);

@@ -34,7 +34,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/user_profile_image"
-            android:src="@drawable/mark" />
+            android:src="@drawable/user_placeholder" />
     </android.support.v7.widget.CardView>
 
     <!--<ImageView-->
@@ -148,7 +148,7 @@
         app:layout_constraintStart_toEndOf="@+id/ether_value"
         app:layout_constraintTop_toBottomOf="@+id/account_balance"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/pink_ether2" />
+        app:srcCompat="@drawable/pink_ether" />
 
     <ImageView
         android:id="@+id/conversion_symbol"

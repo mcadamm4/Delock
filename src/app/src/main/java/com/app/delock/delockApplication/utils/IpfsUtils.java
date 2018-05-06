@@ -48,11 +48,10 @@ public class IpfsUtils {
     }
 
     public static JSONObject retrieveItemDetailsFromIPFS(String hash){
+        JSONObject json = null;
         try {
             // Use IPFS Daemon to get file from peers
             final String result = new IPFS().getGet().cat(hash);
-
-            JSONObject json = null;
             json = new JSONObject(result);
         } catch (JSONException e) {
             e.printStackTrace();

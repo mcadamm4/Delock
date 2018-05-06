@@ -20,7 +20,7 @@ public class PublishItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock_new_item);
+        setContentView(R.layout.activity_deploy_new_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,4 +42,8 @@ public class PublishItemActivity extends AppCompatActivity {
             startActivity(intent1);
         });
     }
+    @Override
+    public void onBackPressed() {
+    }
+
 }

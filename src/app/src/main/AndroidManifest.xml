@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.app.delock.delockApplication">
 
     <!--
@@ -24,11 +25,10 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/grey_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <service
-            android:name=".IPFSDaemonService"
-            android:exported="false" />
+        android:theme="@style/AppTheme"
+        tools:ignore="ExtraText">
 
+        <!-- ACTIVITIES / SCREENS -->
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,20 +39,6 @@
             android:name=".browse.BrowseActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".item.ItemActivity"
-            android:label="@string/title_activity_Item" />
-        <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
-        <activity
             android:name=".dashboard.DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme" />
@@ -60,20 +46,35 @@
             android:name=".my_notifications.MyNotificationsActivity"
             android:label="@string/title_activity_my_notifications"
             android:theme="@style/AppTheme" />
-        <activity android:name=".check_availability.AvailabilityActvity" />
         <activity
-            android:name=".unlock_item.UnlockActivity"
-            android:label="@string/title_activity_unlock"
+            android:name=".details.AccountDetailsActivity"
+            android:label="@string/title_activity_account_details"
             android:theme="@style/AppTheme" />
-        <activity android:name=".nfc.NFCSpeakerActivity" />
-        <activity android:name=".nfc.NFCReaderSpeakerActivity" />
         <activity
             android:name=".add_item.AddItemActivity"
             android:label="@string/title_activity_add_item"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".details.AccountDetailsActivity"
-            android:label="@string/title_activity_account_details"
+            android:name=".item.ItemActivity"
+            android:label="@string/title_activity_Item" />
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".add_item.LockNewItemActivity"
+            android:label="@string/title_activity_lock_and_publish"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".unlock_item.UnlockActivity"
+            android:label="@string/title_activity_unlock"
+            android:theme="@style/AppTheme" />
+
+        <activity android:name=".nfc.NFCSpeakerActivity" />
+        <activity android:name=".nfc.NFCReaderSpeakerActivity" />
+
+        <activity
+            android:name=".add_item.PublishItemActivity"
+            android:label="@string/title_activity_lock_new_item"
             android:theme="@style/AppTheme" />
         <activity
             android:name="com.andremion.louvre.home.GalleryActivity"
@@ -81,17 +82,21 @@
         <activity
             android:name="com.andremion.louvre.preview.PreviewActivity"
             android:theme="@style/AppTheme.Louvre.Preview" />
-        <activity
-            android:name=".add_item.LockNewItemActivity"
-            android:label="@string/title_activity_lock_and_publish"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".add_item.PublishItemActivity"
-            android:label="@string/title_activity_lock_new_item"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+
+        <!-- SERVICES -->
+        <service
+            android:name=".IPFSDaemonService"
+            android:exported="false"/>
+        <service
+            android:name=".my_notifications.NotificationService"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="your.app.domain.NotificationService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <!-- MAPS API KEY AND PLAY VERSION -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAhHiHs0rxPY_UsoaNwtiNYlaf-KCjH1H4" />

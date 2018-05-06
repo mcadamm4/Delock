@@ -19,7 +19,7 @@ import java.math.RoundingMode;
 
 public class utils {
 
-    static double round(double value, int precision) {
+    public static double round(double value, int precision) {
         if (precision < 0) throw new IllegalArgumentException();
 
         BigDecimal bd = new BigDecimal(value);
