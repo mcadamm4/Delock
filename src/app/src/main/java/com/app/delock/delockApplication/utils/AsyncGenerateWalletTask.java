@@ -22,6 +22,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
 import static android.widget.Toast.makeText;
+import static com.app.delock.delockApplication.WalletReadyStatus.walletReady;
+import static com.app.delock.delockApplication.utils.GetBalanceUtils.getAccountBalanceEther;
 
 /**
  * Created by Marky on 18/04/2018.
@@ -62,18 +64,6 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
         }
         return new String[]{result, walletPath};
     }
-    private void getTestEtherFromFaucet(String address) {
-        try {
-            URL url = new URL("http://faucet.ropsten.be:3001/donate/" + address);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.connect();
-            con.setConnectTimeout(60000);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onPostExecute(String[] result) {
@@ -82,8 +72,21 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
         saveAddress(result[0]);
         savePassword(); //For dev convenience, remove this and prompt user every time in reality
         saveWalletPath(result[1]);
+        walletReady = true;
     }
 
+    private void getTestEtherFromFaucet(String address) {
+        try {
+            URL url = new URL("http://faucet.ropsten.be:3001/donate/" + address);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setConnectTimeout(60000);
+            int responseCode = con.getResponseCode();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void saveAddress(String address) {
         SharedPreferences sharedPreferences = splashActivity.getSharedPreferences(Constants.SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

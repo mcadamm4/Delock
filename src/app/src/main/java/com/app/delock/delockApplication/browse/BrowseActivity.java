@@ -186,18 +186,17 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
             }
         });
         searchBar.setHapticFeedbackEnabled(true);
-//        FloatingActionButton clearListings = findViewById(R.id.clearListings);
-//        clearListings.setOnClickListener((View v) -> {
-//                    AsyncUtil.execute(new AsyncClearListingsTask(BrowseActivity.this));
-//                    // Delete all cached listing items
-//                    File Listings_Folder = new File(BrowseActivity.this.getCacheDir(), "Listings_Folder");
-//                    final File[] listings = Listings_Folder.listFiles();
-//                    for (File listing : listings)
-//                        listing.delete();
-//                    AsyncUtil.execute(new AsyncRetrieveListingsTask(
-//                            BrowseActivity.this.findViewById(R.id.animation_view), BrowseActivity.this, adapter));
-//                }
-//        );
+
+        FloatingActionButton clearListings = findViewById(R.id.clearListings);
+        clearListings.setOnClickListener((View v) -> {
+                    AsyncUtil.execute(new AsyncClearListingsTask(BrowseActivity.this));
+                    // Delete all cached listing items
+                    File Listings_Folder = new File(BrowseActivity.this.getCacheDir(), "Listings_Folder");
+                    final File[] listings = Listings_Folder.listFiles();
+                    for (File listing : listings)
+                        listing.delete();
+                }
+        );
 
         AsyncUtil.execute(new AsyncRetrieveListingsTask(findViewById(R.id.animation_view), BrowseActivity.this, adapter));
 

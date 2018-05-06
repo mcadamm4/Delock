@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import io.ipfs.kotlin.IPFS;
 
@@ -46,11 +47,13 @@ public class IpfsUtils {
         return ipfsHashes;
     }
 
-    public static JSONObject retrieveItemDetailsFromIPFS(String ipfsHashes){
-        final String cat = new IPFS().getGet().cat(ipfsHashes);
-        JSONObject json = null;
+    public static JSONObject retrieveItemDetailsFromIPFS(String hash){
         try {
-            json = new JSONObject(cat);
+            // Use IPFS Daemon to get file from peers
+            final String result = new IPFS().getGet().cat(hash);
+
+            JSONObject json = null;
+            json = new JSONObject(result);
         } catch (JSONException e) {
             e.printStackTrace();
         }
