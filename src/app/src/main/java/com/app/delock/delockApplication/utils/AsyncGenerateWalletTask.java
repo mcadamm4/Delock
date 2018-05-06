@@ -22,8 +22,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
 import static android.widget.Toast.makeText;
-import static com.app.delock.delockApplication.WalletReadyStatus.walletReady;
-import static com.app.delock.delockApplication.utils.GetBalanceUtils.getAccountBalanceEther;
 
 /**
  * Created by Marky on 18/04/2018.
@@ -72,7 +70,6 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
         saveAddress(result[0]);
         savePassword(); //For dev convenience, remove this and prompt user every time in reality
         saveWalletPath(result[1]);
-        walletReady = true;
     }
 
     private void getTestEtherFromFaucet(String address) {
