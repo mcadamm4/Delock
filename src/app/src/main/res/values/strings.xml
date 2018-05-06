@@ -5,35 +5,13 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_Item">Item</string>
-    <string name="ethereum_ethereum_not_installed">You  need to install Ethereum Android first</string>
     <string name="balance">Balance</string>
     <string name="prompt_address">Account address</string>
     <string name="error_field_required">This field is required</string>
 
     <string name="action_settings">Settings</string>
 
-    <!--DEMO STRINGS - Remove these before commit -->
-    <string name="action_add_favourite">Add to Favourites</string>
-    <string name="action_play_next">Play Next</string>
-    <string name="backdrop_title">Delock</string>
-    <string name="backdrop_subtitle">A p2p rental system</string>
-    <!--///////////////////-->
-    <string name="dummy_text">What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of
-        type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-        The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here,
-        making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text,
-        and a search for lorem ipsum will uncover many web sites still in their infancy.
-        Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).  </string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
     <string name="pref_header_general">General</string>
-
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact
         based on your message history
@@ -124,7 +102,8 @@
     <string name="generate_wallet">Generate Wallet</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="enter_password">Enter Password</string>
-    <string name="note_we_recommend_writing_down_your_password_on_paper_and_keeping_it_somewhere_safe_as_it_is_the_only_means_of_accessing_your_account">Note: We recommend writing down your password on paper and keeping it somewhere safe as it is the only means of accessing your account</string>
+    <string name="Wallet_Tip">Note: We recommend writing down your password on paper and keeping
+        it somewhere safe as it is the only means of accessing your account</string>
     <string name="title">Title</string>
     <string name="euro_sign_symbol">Euro sign</string>
     <string name="email">Email</string>
@@ -151,4 +130,7 @@
     <string name="NFC_hint">Please hold your device to the lock.</string>
     <string name="title_activity_lock_new_item">LockNewItemActivity</string>
     <string name="lock_and_publish_listing">Lock and Publish New Listing</string>
+    <string name="deposit">Deposit</string>
+    <string name="rental_price">Rental price:</string>
+    <string name="enable_nfc_and_location_services">Enable NFC and Location Services</string>
 </resources>

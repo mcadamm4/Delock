@@ -14,7 +14,8 @@ contract RentalDirectory {
     }
 
     //EVENTS
-    event event_NewRental(uint _index);
+    event event_NewRental(address indexed _rentalOwner, address indexed _address);
+    event event_Return(address indexed _rentalOwner, address indexed _address);
 
     //MODIFIERS
     modifier onlyOwner() {
@@ -26,11 +27,19 @@ contract RentalDirectory {
             rentals.length += 1;
         }
         rentals[numElements++] = newRentalAddress;
-        /* emit event_NewRental(rentals.length-1); */
+        emit event_NewRental(msg.sender, newRentalAddress);
         return numElements;
     }
 
     function clearRentals() public {
         numElements = 0;
+    }
+
+    function triggerRentalEvent(address _rentalOwner, address _rentalAddress) public {
+        emit event_NewRental(_rentalOwner, _rentalAddress);
+    }
+
+    function triggerReturnEvent(address _rentalOwner, address _rentalAddress) public {
+        emit event_Return(_rentalOwner, _rentalAddress);
     }
 }

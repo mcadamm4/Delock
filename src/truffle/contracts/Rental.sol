@@ -12,11 +12,12 @@ contract Rental {
     uint public rental_StartTime;
     uint public total_CostOfRental;
 
-    function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour) public {
+    function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour, bool _available) public {
         owner = msg.sender;
         ipfsHashes = _ipfsHash;
         depositAmount = _depositAmount;
         pricePerHour = _pricePerHour;
+        available = _available;
     }
 
     //MODIFIERS -- Set requirements and permissions for function execution
@@ -44,14 +45,21 @@ contract Rental {
     function setPricePerHour(uint _pricePerHour) public onlyOwner {
         pricePerHour = _pricePerHour;
     }
+    function ownerSetAvailable(bool _available) public onlyOwner {
+        available = _available;
+        renter = owner;
+        emit event_OwnerSetAvailable(_available);
+    }
     function setAvailable(bool _available) public {
         available = _available;
     }
 
 
     //EVENTS
-    event event_rentItem(address indexed _renter);
-    event event_returnItem(address indexed _renter, uint revenue);
+    event event_rentItem();
+    event event_returnItem(uint _revenue);
+    event event_CostCalculation(uint _totalCostOfRental);
+    event event_OwnerSetAvailable(bool _available);
     event event_unlockItem(); // ?
     event event_lockItem(); // ?
 
@@ -65,29 +73,28 @@ contract Rental {
 
          //Transfer depositAmount to contract
          msg.sender.transfer(depositAmount);
-         emit event_rentItem(msg.sender);
-         // -- Owner listens for this event?
+         emit event_rentItem();
     }
 
     function calcElapsedTime() public constant isRented returns (uint) {
         return (now - rental_StartTime);
     }
 
-    function calcTotalCostOfRental() public onlyRenter isRented {
-        uint totalCost = (pricePerHour * calcElapsedTime());
+    function calcTotalCostOfRental() public onlyRenter isRented returns (uint) {
+        total_CostOfRental = (pricePerHour * calcElapsedTime());
 
         //Renter may return the item before they have used up the deposit amount
-        if(totalCost > depositAmount) {
-            totalCost = (totalCost - depositAmount);
+        if(total_CostOfRental > depositAmount) {
+            total_CostOfRental = (total_CostOfRental - depositAmount);
         }
-        total_CostOfRental = totalCost;
+        emit event_CostCalculation(total_CostOfRental);
     }
 
     function returnItem() public onlyRenter isRented payable {
-        assert(msg.value>total_CostOfRental);
+        assert(msg.value>=total_CostOfRental);
 
         owner.transfer(total_CostOfRental);
-        emit event_returnItem(msg.sender, total_CostOfRental);
+        emit event_returnItem(total_CostOfRental);
         resetRental();
     }
 
