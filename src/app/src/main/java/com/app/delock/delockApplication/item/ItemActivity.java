@@ -1,5 +1,6 @@
 package com.app.delock.delockApplication.item;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -18,6 +19,14 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
@@ -41,7 +50,7 @@ import static com.app.delock.delockApplication.R.id.item_title;
  * Created by Marky on 16/03/2018.
  */
 
-public class ItemActivity extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "ItemActivity"; //Help identify activity while debugging
     private SliderLayout mSlider;
     private Item item;
@@ -65,6 +74,7 @@ public class ItemActivity extends AppCompatActivity {
 
         AsyncUtil.execute(new AsyncGetAvailability());
         setSliderImages(item);
+        addMapFragment();
 
         //ITEM DETAILS
         itemTitle = findViewById(item_title);
@@ -77,29 +87,32 @@ public class ItemActivity extends AppCompatActivity {
         itemCost.setText(String.valueOf(item.itemPrice));
         itemDescription.setText(item.itemDescription);
 
-        CalendarView clndr = findViewById(R.id.calendarView2);
-        String date = "24/4/2018";
-        String parts[] = date.split("/");
-
-        int day = Integer.parseInt(parts[0]);
-        int month = Integer.parseInt(parts[1]);
-        int year = Integer.parseInt(parts[2]);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-
-        long milliTime = calendar.getTimeInMillis();
-        clndr.setDate (milliTime, true, true);
-
 //        nfcButton = findViewById(R.id.nfcButton);
 //        nfcButton.setOnClickListener(view -> {
 //            Intent intent1 = new Intent(ItemActivity.this, UnlockActivity.class);
 //            startActivity(intent1);
 //        });
     }
+    // This method adds map fragment to the container.
+    private void addMapFragment() {
+        SupportMapFragment mMapFragment = SupportMapFragment.newInstance();
+        mMapFragment.getMapAsync(this);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.map, mMapFragment)
+                .commit();
+    }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng sydney = new LatLng(-33.852, 151.211);
+        googleMap.addMarker(new MarkerOptions().position(sydney)
+                .title("Marker in Sydney"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.getMinZoomLevel();
+    }
+
+    @SuppressLint("StaticFieldLeak")
     public class AsyncGetAvailability extends AsyncTask<Void, Void, Boolean>
     {
 

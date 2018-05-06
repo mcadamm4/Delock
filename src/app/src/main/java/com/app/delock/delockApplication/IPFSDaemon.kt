@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Build
-import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_item.*
 import okio.Okio
 import java.io.File
 import java.io.FileNotFoundException

@@ -1,10 +1,7 @@
-package com.app.delock.delockApplication.browse;
+package com.app.delock.delockApplication.item;
 
 import android.annotation.SuppressLint;
 import android.widget.Filter;
-
-import com.app.delock.delockApplication.item.Item;
-import com.app.delock.delockApplication.item.ItemsAdapter;
 
 import java.util.ArrayList;
 public class FilterHelper extends Filter {
@@ -26,7 +23,7 @@ public class FilterHelper extends Filter {
         if(constraint != null && constraint.length()>0) {
             constraint=constraint.toString().toUpperCase();
 
-            ArrayList<Item> foundFilters=new ArrayList<>();
+            ArrayList<Item> foundFilters = new ArrayList<>();
             String item;
 
             for (int i=0;i<currentList.size();i++) {

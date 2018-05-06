@@ -15,6 +15,8 @@ import org.web3j.crypto.WalletUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -53,10 +55,24 @@ public class AsyncGenerateWalletTask extends AsyncTask<Void, Void, String[]>
             walletPath = path.getPath()+"/"+s;
             Credentials cred = WalletUtils.loadCredentials(password, walletPath);
             result = cred.getAddress();
+            // Request test ether from Ethereum faucet
+            getTestEtherFromFaucet(result);
         } catch (NoSuchAlgorithmException | NoSuchProviderException | CipherException | IOException | InvalidAlgorithmParameterException e) {
             e.printStackTrace();
         }
         return new String[]{result, walletPath};
+    }
+    private void getTestEtherFromFaucet(String address) {
+        try {
+            URL url = new URL("http://faucet.ropsten.be:3001/donate/" + address);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.connect();
+            con.setConnectTimeout(60000);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
