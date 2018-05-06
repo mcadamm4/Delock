@@ -203,17 +203,27 @@ sure they are all being updated properly all while trying to use as few resource
 
 I have some basic functionality in the contracts so what I plan to do now is deploy them and see if I can call them from the mobile device. If this work properly then I can get back to building out the functionality of the contracts.
 
-In order to deploy the contracts from my laptop, I have started a go-ethereum node through which I can interact with the Ethereum blockchain and deploy the contracts. 
+In order to deploy the contracts from my laptop, I have started a go-ethereum node through which I can interact with the Ethereum blockchain and deploy the contracts.
 
 ---
 
 ## `Sunday April 30th`
 
-Contracts can now be deployed frfom the app. Im am working on the add item screen. I need to gather the entered data into a JSON object and save it to IPFS, then deploy a rental contract. I also have to perform the "Lock Event" whereby the owner will set the lock via NFC and the contract will mark the item as available, at the time this is done the app will need to take the device location and save it to either IPFS or to the contract so that the item location is available to renters.
+Contracts can now be deployed from the app. Im am working on the add item screen. I need to gather the entered data into a JSON object and save it to IPFS, then deploy a rental contract. I also have to perform the "Lock Event" whereby the owner will set the lock via NFC and the contract will mark the item as available, at the time this is done the app will need to take the device location and save it to either IPFS or to the contract so that the item location is available to renters.
 
 In terms of schedule, I am behind by quite a bit but I feel that I will be able to get the important functionality working.
 
 ---
+
+## `Saturday May 6th`
+In the last week I have gotten the adding and retrieval of items from both IPFS and the Ethereum network to function properly. The browse screen was being populated with all available listings in the app.
+For testing purposes, when thee app starts it also requests test ether from an Ethereum faucet.
+
+In the Item screen I added a map fragment but in the course of trying to get this to work the IPFS Daemon has broken and cannot pull down any data.
+This is a major problem and I will need to address it immediately.
+
+
+
 
 
 [images](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images)
