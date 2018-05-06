@@ -8,11 +8,11 @@ import com.app.delock.delockApplication.smartcontract_wrappers.Rental;
 
 import java.util.ArrayList;
 
-import static com.app.delock.delockApplication.utils.ContractUtils.cacheRentalWrappers;
-
 /**
  * Created by Marky on 04/05/2018.
  */
+
+// IGNORE THIS TASK - DOES NOT WORK AT THE MOMENT
 
 public class AsyncCacheRentalWrappersTask extends AsyncTask<Void, Void, Void> {
     @SuppressLint("StaticFieldLeak")
@@ -26,7 +26,7 @@ public class AsyncCacheRentalWrappersTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        cacheRentalWrappers(mContext, rentalList);
+//        cacheRentalWrappers(mContext, rentalList);
         return null;
     }
 }

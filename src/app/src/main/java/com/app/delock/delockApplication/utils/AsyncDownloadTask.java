@@ -22,12 +22,10 @@ public class AsyncDownloadTask extends AsyncTask<Void, Void, String[]>
 
     private final View view;
     private final SplashActivity splashActivity;
-    private final IPFSDaemon daemon;
 
-    public AsyncDownloadTask(View view, SplashActivity splashActivity, IPFSDaemon daemon){
+    public AsyncDownloadTask(View view, SplashActivity splashActivity){
         this.view = view;
         this.splashActivity = splashActivity;
-        this.daemon = daemon;
     }
 
     @Override
@@ -39,6 +37,7 @@ public class AsyncDownloadTask extends AsyncTask<Void, Void, String[]>
     }
     @Override
     protected String[] doInBackground(Void... params) {
+        IPFSDaemon daemon = new IPFSDaemon(splashActivity);
         //this method will be running on background thread so don't update UI frome here
         //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
         String result = daemon.download(splashActivity);

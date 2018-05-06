@@ -166,29 +166,29 @@ class ContractUtils {
         return itemList;
     }
 
-    public static void cacheRentalWrappers(Activity mContext, ArrayList<Rental> rentalList) {
-        File cacheDir = mContext.getCacheDir();
-        File cachedRentals = new File(cacheDir, "Rental_Wrappers_Folder");
-        FileOutputStream fileOutputStream = null;
-        ObjectOutputStream objectOutputStream = null;
-        File rentalFile;
-
-        try {
-            for(Rental rental : rentalList) {
-                rentalFile = new File(cachedRentals, rental.getContractAddress());
-
-                fileOutputStream = new FileOutputStream(rentalFile);
-                objectOutputStream = new ObjectOutputStream(fileOutputStream);
-                objectOutputStream.writeObject(rental);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileOutputStream != null) fileOutputStream.close();
-                if (objectOutputStream != null) objectOutputStream.close();
-            } catch (Exception ignored) {
-            }
-        }
-    }
+//    public static void cacheRentalWrappers(Activity mContext, ArrayList<Rental> rentalList) {
+//        File cacheDir = mContext.getCacheDir();
+//        File cachedRentals = new File(cacheDir, "Rental_Wrappers_Folder");
+//        FileOutputStream fileOutputStream = null;
+//        ObjectOutputStream objectOutputStream = null;
+//        File rentalFile;
+//
+//        try {
+//            for(Rental rental : rentalList) {
+//                rentalFile = new File(cachedRentals, rental.getContractAddress());
+//
+//                fileOutputStream = new FileOutputStream(rentalFile);
+//                objectOutputStream = new ObjectOutputStream(fileOutputStream);
+//                objectOutputStream.writeObject(rental);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (fileOutputStream != null) fileOutputStream.close();
+//                if (objectOutputStream != null) objectOutputStream.close();
+//            } catch (Exception ignored) {
+//            }
+//        }
+//    }
 }

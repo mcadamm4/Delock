@@ -47,7 +47,6 @@ public class IpfsUtils {
     }
 
     public static JSONObject retrieveItemDetailsFromIPFS(String ipfsHashes){
-//        for(String str : ipfsHashes)
         final String cat = new IPFS().getGet().cat(ipfsHashes);
         JSONObject json = null;
         try {

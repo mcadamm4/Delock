@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.app.delock.delockApplication.browse.BrowseActivity;
 import com.app.delock.delockApplication.utils.AsyncDownloadTask;
 import com.app.delock.delockApplication.utils.AsyncGenerateWalletTask;
-import com.squareup.picasso.Cache;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 
 import org.ligi.kaxt.ContextExtensionsKt;
 
@@ -23,7 +23,6 @@ import io.ipfs.kotlin.model.VersionInfo;
 
 public class SplashActivity extends AppCompatActivity {
     public IPFS ipfs = new IPFS();
-    IPFSDaemon daemon;
     File path;
 
     @Override
@@ -36,8 +35,8 @@ public class SplashActivity extends AppCompatActivity {
         boolean firstStart = sharedPreferences.getBoolean(Constants.FIRST_START_SHARED_PREF, true);
 
         if(firstStart) {
-            daemon = new IPFSDaemon(this.getApplicationContext());
-            new AsyncDownloadTask(null, this, daemon).execute();
+
+            AsyncUtil.execute(new AsyncDownloadTask(null, this));
 
             TextView enterPasswordBox = findViewById(R.id.password_input1);
             TextView confirmPasswordBox = findViewById(R.id.password_input2);
@@ -62,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
     private void comparePasswords(String input1, String input2) {
         if(input1.equals(input2)){
             //Take password and make new wallet
-            new AsyncGenerateWalletTask(this, input1, path).execute();
+            AsyncUtil.execute(new AsyncGenerateWalletTask(this, input1, path));
             startIPFSDaemon();
         } else {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show();
