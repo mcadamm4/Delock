@@ -42,8 +42,6 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
     private List<Uri> mSelection;
     SliderLayout mSlider;
     Rental newRental;
-    String token = "kv4a42NG93ZwJ9h0lZqK";
-    String url = "https://ropsten.infura.io/";
     File path;
     Web3j web3;
     private FormBuildHelper formBuilder = null;
@@ -72,7 +70,7 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
                 JSONObject jsonData = collectDataIntoJSON(formBuilder);
                 collectDataIntoItem();
 
-                Intent intent = new Intent(AddItemActivity.this, PublishItemActivity.class);
+                Intent intent = new Intent(AddItemActivity.this, DeployNewItemActivity.class);
                 intent.putExtra("ImageFiles", imageFiles);
                 intent.putExtra("JsonData", jsonData.toString());
                 intent.putExtra("NewItem", newItem);

@@ -73,7 +73,7 @@
         <activity android:name=".nfc.NFCReaderSpeakerActivity" />
 
         <activity
-            android:name=".add_item.PublishItemActivity"
+            android:name=".add_item.DeployNewItemActivity"
             android:label="@string/title_activity_lock_new_item"
             android:theme="@style/AppTheme" />
         <activity

@@ -133,4 +133,6 @@
     <string name="deposit">Deposit</string>
     <string name="rental_price">Rental price:</string>
     <string name="enable_nfc_and_location_services">Enable NFC and Location Services</string>
+    <string name="new_item_password_hint">Note: You wont need to remember this password</string>
+    <string name="lock_item_to_finish">Lock Item to Finish</string>
 </resources>
