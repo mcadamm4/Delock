@@ -64,98 +64,16 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
-        //DRAWER
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-            (MenuItem menuItem) -> {
-                // set item as selected to persist highlight
-                menuItem.setChecked(true);
-                // close drawer when item is tapped
-                mDrawerLayout.closeDrawers();
-
-                Intent myIntent;
-                switch(menuItem.getItemId()) {
-                    case R.id.nav_identity:{
-//                      myIntent = new Intent(this, SettingsActivity.class);
-//                      startActivity(myIntent);
-                        break;
-                    }
-                    case R.id.nav_add_item: {
-                        myIntent = new Intent(this, AddItemActivity.class);
-                        startActivity(myIntent);
-                        break;
-                    }
-                    case R.id.nav_settings: {
-                        myIntent = new Intent(this, SettingsActivity.class);
-                        startActivity(myIntent);
-                        break;
-                    }
-                }
-                return true;
-            });
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
         String address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
 
-        mDrawerLayout.addDrawerListener(
-            new DrawerLayout.DrawerListener() {
-                @SuppressLint("ObsoleteSdkInt")
-                @Override
-                public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-                    // Respond when the drawer's position changes
-                    AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, address));
-                }
-
-                @Override
-                public void onDrawerOpened(@NonNull View drawerView) {
-                    // Respond when the drawer is opened
-
-                    //ADD COPY BUTTON FOR ADDRESS
-//                    Object var10000 = AddItemActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
-//                    ClipboardManager clipboardManager = (ClipboardManager)var10000;
-//                    ClipData clip = ClipData.newPlainText("hash", result[0]);
-//                    assert clipboardManager != null;
-//                    clipboardManager.setPrimaryClip(clip);
-
-                    Button detailsButton = findViewById(R.id.tap_for_details);
-                    detailsButton.setOnClickListener(view -> {
-                        Intent intent1 = new Intent(BrowseActivity.this, AccountDetailsActivity.class);
-                        startActivity(intent1);
-                    });
-                }
-
-                @Override
-                public void onDrawerClosed(@NonNull View drawerView) {
-                    // Respond when the drawer is closed
-                }
-
-                @Override
-                public void onDrawerStateChanged(int newState) {
-                    // Respond when the drawer motion state changes
-                }
-            }
-        );
+        setupDrawer(address);
 
         //RECYCLER VIEW
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         itemsList = new ArrayList<>();
         //ADAPTER
         adapter = new ItemsAdapter(this, itemsList, listener);
-
-//        Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
-//        String walletPath = sharedPreferences.getString(Constants.WALLET_PATH_SHARED_PREF, "No address found");
-
-        //SHOULD PROMPT USER FOR PASSWORD, REMOVE SHARED PREF FOR SECURITY
-//        String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
-//        Credentials cred = null;
-//        try {
-//            cred = WalletUtils.loadCredentials(password, walletPath);
-//        } catch (IOException | CipherException e) {
-//            e.printStackTrace();
-//        }
-//
-//        RentalDirectory rentalDirectory =
-//                RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
 
         //RECYCLER VIEW
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -230,6 +148,78 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
 //        });
         //SAMPLE ITEMS
 //        prepareItems();
+    }
+
+    private void setupDrawer(String address) {
+        //DRAWER
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+            (MenuItem menuItem) -> {
+                // set item as selected to persist highlight
+                menuItem.setChecked(true);
+                // close drawer when item is tapped
+                mDrawerLayout.closeDrawers();
+
+                Intent myIntent;
+                switch(menuItem.getItemId()) {
+                    case R.id.nav_identity:{
+//                      myIntent = new Intent(this, SettingsActivity.class);
+//                      startActivity(myIntent);
+                        break;
+                    }
+                    case R.id.nav_add_item: {
+                        myIntent = new Intent(this, AddItemActivity.class);
+                        startActivity(myIntent);
+                        break;
+                    }
+                    case R.id.nav_settings: {
+                        myIntent = new Intent(this, SettingsActivity.class);
+                        startActivity(myIntent);
+                        break;
+                    }
+                }
+                return true;
+            });
+
+        mDrawerLayout.addDrawerListener(
+            new DrawerLayout.DrawerListener() {
+                @SuppressLint("ObsoleteSdkInt")
+                @Override
+                public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                    // Respond when the drawer's position changes
+                    AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, address));
+                }
+
+                @Override
+                public void onDrawerOpened(@NonNull View drawerView) {
+                    // Respond when the drawer is opened
+
+                    //ADD COPY BUTTON FOR ADDRESS
+//                    Object var10000 = AddItemActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+//                    ClipboardManager clipboardManager = (ClipboardManager)var10000;
+//                    ClipData clip = ClipData.newPlainText("hash", result[0]);
+//                    assert clipboardManager != null;
+//                    clipboardManager.setPrimaryClip(clip);
+
+                    Button detailsButton = findViewById(R.id.tap_for_details);
+                    detailsButton.setOnClickListener(view -> {
+                        Intent intent1 = new Intent(BrowseActivity.this, AccountDetailsActivity.class);
+                        startActivity(intent1);
+                    });
+                }
+
+                @Override
+                public void onDrawerClosed(@NonNull View drawerView) {
+                    // Respond when the drawer is closed
+                }
+
+                @Override
+                public void onDrawerStateChanged(int newState) {
+                    // Respond when the drawer motion state changes
+                }
+            }
+        );
     }
 
 

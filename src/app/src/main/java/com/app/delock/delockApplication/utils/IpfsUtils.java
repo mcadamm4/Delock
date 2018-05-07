@@ -9,10 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -52,7 +54,17 @@ public class IpfsUtils {
         try {
             // Use IPFS Daemon to get file from peers
             final String result = new IPFS().getGet().cat(hash);
+//            Scanner scanner = new Scanner(new URL("https://ipfs.io/ipfs/" + hash).openStream(), "UTF-8").useDelimiter("\\A");
+//            String result = scanner.hasNext() ? scanner.next() : "";
+//            scanner.close();
             json = new JSONObject(result);
+//            URL ipfs = new URL("https://ipfs.io/ipfs/" + hash);
+//            BufferedReader in = new BufferedReader(new InputStreamReader(ipfs.openStream()));
+//            String inputLine;
+//            while ((inputLine = in.readLine()) != null)
+
+//            in.close();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

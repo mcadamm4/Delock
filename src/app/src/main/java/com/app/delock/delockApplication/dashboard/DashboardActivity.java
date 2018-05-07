@@ -24,6 +24,8 @@ import android.widget.Button;
 
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
+import com.app.delock.delockApplication.add_item.AddItemActivity;
+import com.app.delock.delockApplication.settings.SettingsActivity;
 import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
 import com.app.delock.delockApplication.utils.AsyncRetrieveListingsTask;
 import com.app.delock.delockApplication.utils.AsyncUtil;
@@ -37,9 +39,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DashboardActivity extends AppCompatActivity {
-    //INFURA URL
-    String url = "https://ropsten.infura.io/";
-    String token = "kv4a42NG93ZwJ9h0lZqK";
 
     private DrawerLayout mDrawerLayout;
     private String address;
@@ -63,50 +62,7 @@ public class DashboardActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
         address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
 
-        //DRAWER
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                (MenuItem menuItem) -> {
-                    // set item as selected to persist highlight
-                    menuItem.setChecked(true);
-                    // close drawer when item is tapped
-                    mDrawerLayout.closeDrawers();
-                    // Add code here to update the UI based on the item selected
-                    // For example, swap UI fragments here
-                    return true;
-                });
-
-        mDrawerLayout.addDrawerListener(
-                new DrawerLayout.DrawerListener() {
-                    @SuppressLint("ObsoleteSdkInt")
-                    @Override
-                    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
-                        AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, address));
-                    }
-
-                    @Override
-                    public void onDrawerOpened(@NonNull View drawerView) {
-                        // Respond when the drawer is opened
-                        Button detailsButton = findViewById(R.id.tap_for_details);
-                        detailsButton.setOnClickListener(view -> {
-                            Intent intent1 = new Intent(DashboardActivity.this, AccountDetailsActivity.class);
-                            startActivity(intent1);
-                        });
-                    }
-
-                    @Override
-                    public void onDrawerClosed(@NonNull View drawerView) {
-                        // Respond when the drawer is closed
-                    }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-                        // Respond when the drawer motion state changes
-                    }
-                }
-        );
+        setupDrawer();
 
         //RECYCLER VIEW
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -142,6 +98,77 @@ public class DashboardActivity extends AppCompatActivity {
                     }
                     return true;
                 });
+    }
+
+    private void setupDrawer() {
+        //DRAWER
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                (MenuItem menuItem) -> {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
+
+                    Intent myIntent;
+                    switch(menuItem.getItemId()) {
+                        case R.id.nav_identity:{
+//                      myIntent = new Intent(this, SettingsActivity.class);
+//                      startActivity(myIntent);
+                            break;
+                        }
+                        case R.id.nav_add_item: {
+                            myIntent = new Intent(this, AddItemActivity.class);
+                            startActivity(myIntent);
+                            break;
+                        }
+                        case R.id.nav_settings: {
+                            myIntent = new Intent(this, SettingsActivity.class);
+                            startActivity(myIntent);
+                            break;
+                        }
+                    }
+                    return true;
+                });
+        mDrawerLayout.addDrawerListener(
+                new DrawerLayout.DrawerListener() {
+                    @SuppressLint("ObsoleteSdkInt")
+                    @Override
+                    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                        // Respond when the drawer's position changes
+                        AsyncUtil.execute(new AsyncGetBalanceTask(drawerView, address));
+                    }
+
+                    @Override
+                    public void onDrawerOpened(@NonNull View drawerView) {
+                        // Respond when the drawer is opened
+
+                        //ADD COPY BUTTON FOR ADDRESS
+//                    Object var10000 = AddItemActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+//                    ClipboardManager clipboardManager = (ClipboardManager)var10000;
+//                    ClipData clip = ClipData.newPlainText("hash", result[0]);
+//                    assert clipboardManager != null;
+//                    clipboardManager.setPrimaryClip(clip);
+
+                        Button detailsButton = findViewById(R.id.tap_for_details);
+                        detailsButton.setOnClickListener(view -> {
+                            Intent intent1 = new Intent(DashboardActivity.this, AccountDetailsActivity.class);
+                            startActivity(intent1);
+                        });
+                    }
+
+                    @Override
+                    public void onDrawerClosed(@NonNull View drawerView) {
+                        // Respond when the drawer is closed
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        // Respond when the drawer motion state changes
+                    }
+                }
+        );
     }
 
     @Override

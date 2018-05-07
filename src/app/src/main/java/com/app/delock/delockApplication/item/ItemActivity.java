@@ -44,13 +44,13 @@ import java.util.ArrayList;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.app.delock.delockApplication.R.id.item_description;
-import static com.app.delock.delockApplication.R.id.eth_price;
 import static com.app.delock.delockApplication.R.id.eth_deposit;
-import static com.app.delock.delockApplication.R.id.owner_address;
+import static com.app.delock.delockApplication.R.id.eth_price;
+import static com.app.delock.delockApplication.R.id.item_description;
 import static com.app.delock.delockApplication.utils.CurrencyUtils.getLatestEuroValue;
 import static com.app.delock.delockApplication.utils.utils.round;
-import static org.web3j.protocol.core.DefaultBlockParameterName.*;
+import static org.web3j.protocol.core.DefaultBlockParameterName.EARLIEST;
+import static org.web3j.protocol.core.DefaultBlockParameterName.LATEST;
 
 /**
  * Created by Marky on 16/03/2018.
@@ -62,7 +62,7 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView itemTitle, ownerAddressView, ethDeposit, eurDeposit, ethPrice, eurPrice, itemDescription;
     private ImageView ethDepositSymbol, ethPriceSymbol, eurDepositSymbol, eurPriceSymbol;
     private Button rentItemButton, returnItemButton;
-    private LottieAnimationView availableLottie, notAvailableLottie;
+    private LottieAnimationView availableLottie, notAvailableLottie, available_loading;
     private ImageView convert_currency;
     private SliderLayout mSlider;
     private String userAddress;
@@ -75,7 +75,7 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String listingOwner = "";
     private String currentRenter = "";
     private BigInteger deposit;
-    private Boolean available = false;
+    public boolean available;
 
     private double depositEuroValue;
     private double priceEuroValue;
@@ -105,6 +105,8 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void setAvailableStatus() {
         availableLottie = findViewById(R.id.available_lock_lottie);
         notAvailableLottie = findViewById(R.id.not_available_lock_lottie);
+        available_loading = findViewById(R.id.available_loading);
+
         AsyncUtil.execute(new AsyncGetDetailsFromContractTask());
     }
 
@@ -160,7 +162,7 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void findItemViews() {
-        itemTitle = findViewById(owner_address);
+        itemTitle = findViewById(R.id.item_title);
         ownerAddressView = findViewById(R.id.owner_address);
         ethDeposit = findViewById(eth_deposit);
         eurDeposit = findViewById(R.id.eur_deposit);
@@ -229,10 +231,7 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @SuppressLint("StaticFieldLeak")
     public class AsyncGetDetailsFromContractTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+
         @Override
         protected Void doInBackground(Void... voids) {
             getDetailsFromContract();
@@ -250,12 +249,12 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
             boolean ownerDisabled = (userAddress.compareTo(currentRenter)==0);
             // Is renter but not owner
             boolean isRenter = (userAddress.compareTo(currentRenter)==0);
+            available_loading.setVisibility(INVISIBLE);
 
             if(available){
                 availableLottie.setVisibility(VISIBLE);
                 if(isOwner) {
-                   availableLottie.setOnClickListener(
-                           v -> disableItem());
+                    availableLottie.setOnClickListener(view -> AsyncUtil.execute(new AsyncSetAvailableTask(false)));
                 } else {
                     rentItemButton.setVisibility(VISIBLE);
                 }
@@ -263,9 +262,9 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
                 notAvailableLottie.setVisibility(VISIBLE);
                 // If owner has previously disabled item and is set as the currentRenter , owner can enable item
                 if(isOwner && ownerDisabled){
-                    notAvailableLottie.pauseAnimation();
-                    notAvailableLottie.setOnClickListener(
-                            v -> enableItem());
+                    float flt = notAvailableLottie.getSpeed();
+                    notAvailableLottie.setSpeed(flt * 1000);
+                    notAvailableLottie.setOnClickListener(view -> AsyncUtil.execute(new AsyncSetAvailableTask(true)));
                 } else if(isRenter) {
                     returnItemButton.setVisibility(VISIBLE);
                 }
@@ -273,41 +272,37 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void disableItem() {
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                try {
-                    rental.ownerSetAvailable(false).send();
-                    availableLottie.setVisibility(INVISIBLE);
-                    rental.event_OwnerSetAvailableEventObservable(EARLIEST, LATEST).subscribe(event -> {
-                        AsyncUtil.execute(new AsyncGetDetailsFromContractTask());
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        AsyncUtil.execute(new AsyncGetDetailsFromContractTask());
-    }
+    @SuppressLint("StaticFieldLeak")
+    public class AsyncSetAvailableTask extends AsyncTask<Void, Void, Boolean[]> {
+        private boolean setAvailable;
+        public AsyncSetAvailableTask(boolean value) {
+            setAvailable = value;
+        }
 
-    private void enableItem() {
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                try {
-                    rental.ownerSetAvailable(true).send();
-                    notAvailableLottie.setVisibility(INVISIBLE);
-                    rental.event_OwnerSetAvailableEventObservable(EARLIEST, LATEST).subscribe(event -> {
-                       AsyncUtil.execute(new AsyncGetDetailsFromContractTask());
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            availableLottie.setVisibility(INVISIBLE);
+            notAvailableLottie.setVisibility(INVISIBLE);
+            available_loading.setVisibility(VISIBLE);
+        }
+
+        @Override
+        protected Boolean[] doInBackground(Void... voids) {
+            final Boolean[] updateStatus = {false};
+            try {
+                rental.ownerSetAvailable(setAvailable).send();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        };
+            return updateStatus;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean[] result) {
+            super.onPostExecute(result);
+            AsyncUtil.execute(new AsyncGetDetailsFromContractTask());
+        }
     }
 
     private void getDetailsFromContract() {
@@ -338,15 +333,12 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @SuppressLint("StaticFieldLeak")
     public class AsyncRentItemTask extends AsyncTask<Void, Void, Boolean[]> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+
         @Override
         protected Boolean[] doInBackground(Void... voids) {
             Boolean[] successfulRent = new Boolean[]{false};
             try {
-                rental.rentItem(deposit);
+                rental.rentItem(deposit).send();
                 rental.event_rentItemEventObservable(EARLIEST, LATEST).subscribe(event -> {
                     successfulRent[0] = true;
                     rentalDirectory.triggerRentalEvent(listingOwner, rental.getContractAddress());
@@ -364,6 +356,7 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast toast = Toast.makeText(ItemActivity.this, "Renting encountered a problem", Toast.LENGTH_LONG);
                 toast.show();
             } else {
+                rentItemButton.setVisibility(INVISIBLE);
                 Intent intent = new Intent(ItemActivity.this, UnlockActivity.class);
                 startActivity(intent);
             }
@@ -372,23 +365,30 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @SuppressLint("StaticFieldLeak")
     public class AsyncReturnItemTask extends AsyncTask<Void, Void, Boolean[]> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+
         @Override
         protected Boolean[] doInBackground(Void... voids) {
             Boolean[] successfulReturn = new Boolean[]{false};
             try {
                 rental.calcTotalCostOfRental().send();
+
+                // Looks like event is not being triggered or something
+
                 rental.event_CostCalculationEventObservable(EARLIEST, LATEST).subscribe(costCalcEvent -> {
                     // Receive calculation event and return item with payment
                     final BigInteger cost = costCalcEvent._totalCostOfRental;
-                    rental.returnItem(cost);
-                    rental.event_returnItemEventObservable(EARLIEST, LATEST).subscribe(returnItemEvent -> {
-                        successfulReturn[0] = true;
-                        rentalDirectory.triggerReturnEvent(listingOwner, rental.getContractAddress());
-                    });
+                    try {
+                        rental.returnItem(cost).send();
+                        rental.event_returnItemEventObservable(EARLIEST, LATEST).subscribe(returnItemEvent -> {
+                            successfulReturn[0] = true;
+                            rentalDirectory.triggerReturnEvent(listingOwner, rental.getContractAddress());
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                rental.event_returnItemEventObservable(EARLIEST, LATEST).subscribe(returnEvent -> {
+
                 });
             } catch (Exception e) {
                 e.printStackTrace();
