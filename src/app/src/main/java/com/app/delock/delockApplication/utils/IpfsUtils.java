@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -52,20 +53,15 @@ public class IpfsUtils {
     public static JSONObject retrieveItemDetailsFromIPFS(String hash){
         JSONObject json = null;
         try {
-            // Use IPFS Daemon to get file from peers
-            final String result = new IPFS().getGet().cat(hash);
-//            Scanner scanner = new Scanner(new URL("https://ipfs.io/ipfs/" + hash).openStream(), "UTF-8").useDelimiter("\\A");
-//            String result = scanner.hasNext() ? scanner.next() : "";
-//            scanner.close();
+            // Use IPFS Daemon to get file from peers ...
+            // The Daemon randomly and inexplicably times out, therefore using regular Http for the time being
+//            final String result = new IPFS().getGet().cat(hash);
+            Scanner scanner = new Scanner(new URL("https://ipfs.io/ipfs/" + hash).openStream(), "UTF-8").useDelimiter("\\A");
+            String result = scanner.hasNext() ? scanner.next() : "";
+            scanner.close();
             json = new JSONObject(result);
-//            URL ipfs = new URL("https://ipfs.io/ipfs/" + hash);
-//            BufferedReader in = new BufferedReader(new InputStreamReader(ipfs.openStream()));
-//            String inputLine;
-//            while ((inputLine = in.readLine()) != null)
 
-//            in.close();
-
-        } catch (JSONException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         return json;

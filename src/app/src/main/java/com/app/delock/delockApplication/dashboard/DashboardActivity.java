@@ -1,6 +1,9 @@
 package com.app.delock.delockApplication.dashboard;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -21,6 +24,8 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
@@ -143,14 +148,18 @@ public class DashboardActivity extends AppCompatActivity {
                     @Override
                     public void onDrawerOpened(@NonNull View drawerView) {
                         // Respond when the drawer is opened
+                        ImageView copy = findViewById(R.id.copy_address);
+                        copy.setOnClickListener(v -> {
+                            // Gets a handle to the clipboard service.
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            // Creates a new text clip to put on the clipboard
+                            ClipData clip = ClipData.newPlainText("Ethereum Address", address);
+                            // Set the clipboard's primary clip.
+                            assert clipboard != null;
+                            clipboard.setPrimaryClip(clip);
 
-                        //ADD COPY BUTTON FOR ADDRESS
-//                    Object var10000 = AddItemActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
-//                    ClipboardManager clipboardManager = (ClipboardManager)var10000;
-//                    ClipData clip = ClipData.newPlainText("hash", result[0]);
-//                    assert clipboardManager != null;
-//                    clipboardManager.setPrimaryClip(clip);
-
+                            Toast.makeText(DashboardActivity.this, "Address copied to clipboard", Toast.LENGTH_LONG).show();
+                        });
                         Button detailsButton = findViewById(R.id.tap_for_details);
                         detailsButton.setOnClickListener(view -> {
                             Intent intent1 = new Intent(DashboardActivity.this, AccountDetailsActivity.class);

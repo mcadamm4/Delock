@@ -1,6 +1,9 @@
 package com.app.delock.delockApplication.browse;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -25,6 +28,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Filter;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
@@ -52,6 +57,7 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
     private ArrayList<Item> itemsList;
     private ItemsAdapter.ItemsAdapterListener listener;
     private DrawerLayout mDrawerLayout;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,7 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
-        String address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
+        address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
 
         setupDrawer(address);
 
@@ -194,13 +200,18 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
                 @Override
                 public void onDrawerOpened(@NonNull View drawerView) {
                     // Respond when the drawer is opened
+                    ImageView copy = findViewById(R.id.copy_address);
+                    copy.setOnClickListener(v -> {
+                        // Gets a handle to the clipboard service.
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        // Creates a new text clip to put on the clipboard
+                        ClipData clip = ClipData.newPlainText("Ethereum Address", address);
+                        // Set the clipboard's primary clip.
+                        assert clipboard != null;
+                        clipboard.setPrimaryClip(clip);
 
-                    //ADD COPY BUTTON FOR ADDRESS
-//                    Object var10000 = AddItemActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
-//                    ClipboardManager clipboardManager = (ClipboardManager)var10000;
-//                    ClipData clip = ClipData.newPlainText("hash", result[0]);
-//                    assert clipboardManager != null;
-//                    clipboardManager.setPrimaryClip(clip);
+                        Toast.makeText(BrowseActivity.this, "Address copied to clipboard", Toast.LENGTH_LONG).show();
+                    });
 
                     Button detailsButton = findViewById(R.id.tap_for_details);
                     detailsButton.setOnClickListener(view -> {

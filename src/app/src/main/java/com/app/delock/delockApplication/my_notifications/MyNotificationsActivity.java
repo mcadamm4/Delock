@@ -1,6 +1,9 @@
 package com.app.delock.delockApplication.my_notifications;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -18,17 +21,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.add_item.AddItemActivity;
-import com.app.delock.delockApplication.settings.SettingsActivity;
-import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
-import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.app.delock.delockApplication.browse.BrowseActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
+import com.app.delock.delockApplication.settings.SettingsActivity;
+import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
@@ -64,7 +68,7 @@ public class MyNotificationsActivity extends AppCompatActivity {
         //Retrieve information from ethereum
         new AsyncInfo().execute();
 
-        //ADDRESS
+        //WALLET ADDRESS
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
         address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
 
@@ -74,26 +78,27 @@ public class MyNotificationsActivity extends AppCompatActivity {
         BottomNavigationView navMenu = findViewById(R.id.navigation);
         navMenu.setSelectedItemId(R.id.navigation_notifications);
         navMenu.setOnNavigationItemSelectedListener(
-                menuItem -> {
-                    Intent intent;
-                    // set item as selected to persist highlight
-                    switch (menuItem.getItemId()) {
-                        case R.id.navigation_home:
-                            intent = new Intent(MyNotificationsActivity.this, BrowseActivity.class);
-                            startActivity(intent);
-                            break;
-                        case R.id.navigation_dashboard:
-                            intent = new Intent(MyNotificationsActivity.this, DashboardActivity.class);
-                            startActivity(intent);
-                            break;
-                        case R.id.navigation_notifications:
-                            break;
-                    }
-                    return true;
-                });
+            menuItem -> {
+                Intent intent;
+                // set item as selected to persist highlight
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_home:
+                        intent = new Intent(MyNotificationsActivity.this, BrowseActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navigation_dashboard:
+                        intent = new Intent(MyNotificationsActivity.this, DashboardActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.navigation_notifications:
+                        break;
+                }
+                return true;
+            });
     }
 
     private void setupDrawer() {
+        //DRAWER
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -135,14 +140,18 @@ public class MyNotificationsActivity extends AppCompatActivity {
                     @Override
                     public void onDrawerOpened(@NonNull View drawerView) {
                         // Respond when the drawer is opened
+                        ImageView copy = findViewById(R.id.copy_address);
+                        copy.setOnClickListener(v -> {
+                            // Gets a handle to the clipboard service.
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            // Creates a new text clip to put on the clipboard
+                            ClipData clip = ClipData.newPlainText("Ethereum Address", address);
+                            // Set the clipboard's primary clip.
+                            assert clipboard != null;
+                            clipboard.setPrimaryClip(clip);
 
-                        //ADD COPY BUTTON FOR ADDRESS
-//                    Object var10000 = AddItemActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
-//                    ClipboardManager clipboardManager = (ClipboardManager)var10000;
-//                    ClipData clip = ClipData.newPlainText("hash", result[0]);
-//                    assert clipboardManager != null;
-//                    clipboardManager.setPrimaryClip(clip);
-
+                            Toast.makeText(MyNotificationsActivity.this, "Address copied to clipboard", Toast.LENGTH_LONG).show();
+                        });
                         Button detailsButton = findViewById(R.id.tap_for_details);
                         detailsButton.setOnClickListener(view -> {
                             Intent intent1 = new Intent(MyNotificationsActivity.this, AccountDetailsActivity.class);
@@ -162,6 +171,7 @@ public class MyNotificationsActivity extends AppCompatActivity {
                 }
         );
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -187,12 +187,12 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(-33.852, 151.211);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng dublin = new LatLng(53.38533169999999, -6.258840299999974);
+        googleMap.addMarker(new MarkerOptions().position(dublin)
+                .title(item.title));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(dublin));
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.getMinZoomLevel();
+        googleMap.setMinZoomPreference(10);
     }
 
     private void setSliderImages(Item item) {
@@ -275,7 +275,7 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
     @SuppressLint("StaticFieldLeak")
     public class AsyncSetAvailableTask extends AsyncTask<Void, Void, Boolean[]> {
         private boolean setAvailable;
-        public AsyncSetAvailableTask(boolean value) {
+        AsyncSetAvailableTask(boolean value) {
             setAvailable = value;
         }
 
@@ -333,7 +333,6 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @SuppressLint("StaticFieldLeak")
     public class AsyncRentItemTask extends AsyncTask<Void, Void, Boolean[]> {
-
         @Override
         protected Boolean[] doInBackground(Void... voids) {
             Boolean[] successfulRent = new Boolean[]{false};
@@ -371,24 +370,20 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
             Boolean[] successfulReturn = new Boolean[]{false};
             try {
                 rental.calcTotalCostOfRental().send();
-
                 // Looks like event is not being triggered or something
 
+
+                final BigInteger[] cost = new BigInteger[1];
                 rental.event_CostCalculationEventObservable(EARLIEST, LATEST).subscribe(costCalcEvent -> {
                     // Receive calculation event and return item with payment
-                    final BigInteger cost = costCalcEvent._totalCostOfRental;
-                    try {
-                        rental.returnItem(cost).send();
-                        rental.event_returnItemEventObservable(EARLIEST, LATEST).subscribe(returnItemEvent -> {
-                            successfulReturn[0] = true;
-                            rentalDirectory.triggerReturnEvent(listingOwner, rental.getContractAddress());
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    cost[0] = costCalcEvent._totalCostOfRental;
                 });
-                rental.event_returnItemEventObservable(EARLIEST, LATEST).subscribe(returnEvent -> {
 
+                rental.returnItem(cost[0]).send();
+                rental.event_returnItemEventObservable(EARLIEST, LATEST).subscribe(returnItemEvent -> {
+                    successfulReturn[0] = true;
+                    // Trigger return event so owner gets a notification
+                    rentalDirectory.triggerReturnEvent(listingOwner, rental.getContractAddress());
                 });
             } catch (Exception e) {
                 e.printStackTrace();
