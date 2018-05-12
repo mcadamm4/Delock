@@ -222,7 +222,17 @@ For testing purposes, when thee app starts it also requests test ether from an E
 In the Item screen I added a map fragment but in the course of trying to get this to work the IPFS Daemon has broken and cannot pull down any data.
 This is a major problem and I will need to address it immediately.
 
+---
 
+## `Friday May 12th`
+As it turns out, the Daemon seems to randomly timeout and I cannot fix that as it seems to be a bug in the library I am using. However I have figured out that using a regular Http request to pull down the files works in the meantime.
+
+I managed to get the maps fragment working but there is no functionality to actually dynamically get item locations, it is just for show.
+
+I do not intend on hooking up the physical lock to the Arduino as I do not have time.
+The plan is to fix some errors with the contracts as regards conversion from Ether and Wei (the contracts work with Wei) to get proper rental and return charges when renting or returning an item.
+
+If this is easily fixed then I can put in some minor NFC functionality and have the Arduino beep oncec for lock and twice for unlock.
 
 
 
