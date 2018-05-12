@@ -81,7 +81,8 @@ contract Rental {
     }
 
     function calcTotalCostOfRental() public onlyRenter isRented returns (uint) {
-        total_CostOfRental = (pricePerHour * calcElapsedTime());
+        // Get rental price per second
+        total_CostOfRental = ((pricePerHour/3600) * calcElapsedTime());
 
         //Renter may return the item before they have used up the deposit amount
         if(total_CostOfRental > depositAmount) {

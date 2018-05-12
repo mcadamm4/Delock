@@ -20,10 +20,12 @@ import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Contract;
+import org.web3j.utils.Convert;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.CacheRequest;
 import java.util.ArrayList;
@@ -40,8 +42,9 @@ class ContractUtils {
 
     @SuppressLint({"Assert", "NewApi"})
     static String deployContract(Activity mContext, String[] ipfsHashes, Item item) {
-        BigInteger deposit = BigInteger.valueOf((long) item.itemDeposit);
-        BigInteger price = BigInteger.valueOf((long) item.itemPrice);
+        // CONVERT FROM ETHER TO WEI BEFORE SAVING TO CONTRACT
+        BigInteger deposit = BigInteger.valueOf(Convert.toWei(String.valueOf(item.itemDeposit), Convert.Unit.ETHER).longValue());
+        BigInteger price = BigInteger.valueOf(Convert.toWei(String.valueOf(item.itemPrice), Convert.Unit.ETHER).longValue());
         String newRentalAddress = null;
         Rental newRental = null;
         String status = "";
