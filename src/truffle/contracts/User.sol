@@ -4,7 +4,7 @@ import "./UserDirectory.sol";
 
 //Repository of all listings
 
-contract User {
+contract User { //NOT IMPLEMENTED
     //FILEDS
     address public owner;
     bytes32 public ipfsHash;

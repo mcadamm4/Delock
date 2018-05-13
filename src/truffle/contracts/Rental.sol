@@ -10,7 +10,10 @@ contract Rental {
     bool public available;
 
     uint public rental_StartTime;
-    uint public total_CostOfRental;
+
+    uint public amountDue = 0;
+    bool private overpaid = false;
+    uint public total_CostOfRental = 0;
 
     function Rental(string _ipfsHash,  uint _depositAmount, uint _pricePerHour, bool _available) public {
         owner = msg.sender;
@@ -20,7 +23,7 @@ contract Rental {
         available = _available;
     }
 
-    //MODIFIERS -- Set requirements and permissions for function execution
+    // Access modifiers
     modifier onlyOwner(){
         require(msg.sender==owner);
         _;
@@ -38,7 +41,7 @@ contract Rental {
         _;
     }
 
-    //SETTERS
+    // ---
     function setDepositAmount(uint _depositAmount) public onlyOwner {
         depositAmount = _depositAmount;
     }
@@ -50,20 +53,16 @@ contract Rental {
         renter = owner;
         emit event_OwnerSetAvailable(_available);
     }
-    function setAvailable(bool _available) public {
-        available = _available;
-    }
 
-
-    //EVENTS
-    event event_rentItem();
-    event event_returnItem(uint _revenue);
-    event event_CostCalculation(uint _totalCostOfRental);
+    //Events
     event event_OwnerSetAvailable(bool _available);
-    event event_unlockItem(); // ?
-    event event_lockItem(); // ?
+    event event_rentItem(bool _available);
+    event event_CostCalculation(uint _totalCostOfRental);
+    event event_returnItem(bool _available);
 
-    //FUNCTIONS
+    //Functions
+
+    // Payable methods take payments provided in msg.value
     function rentItem() public notRented payable {
          assert(msg.value == depositAmount);
          renter = msg.sender;
@@ -71,32 +70,44 @@ contract Rental {
          rental_StartTime = now;
          available = false;
 
-         //Transfer depositAmount to contract
-         msg.sender.transfer(depositAmount);
-         emit event_rentItem();
+         emit event_rentItem(available);
     }
 
+    // Constant functions are read-only (do not cost gas to execute)
     function calcElapsedTime() public constant isRented returns (uint) {
         return (now - rental_StartTime);
     }
 
     function calcTotalCostOfRental() public onlyRenter isRented returns (uint) {
-        // Get rental price per second
+        // Get total cost of rental for the given period
         total_CostOfRental = ((pricePerHour/3600) * calcElapsedTime());
 
-        //Renter may return the item before they have used up the deposit amount
-        if(total_CostOfRental > depositAmount) {
-            total_CostOfRental = (total_CostOfRental - depositAmount);
+        // Deposit was lower than overall cost so KEEP deposit and return amountDue = (total_cost - depositAmount)
+        if(depositAmount < total_CostOfRental) {
+            // This is the amount outstanding for the renter
+            amountDue = (total_CostOfRental - depositAmount);
+            emit event_CostCalculation(amountDue);
         }
-        emit event_CostCalculation(total_CostOfRental);
+        // Deposit was more than actual cost so take total_cost from the deposit and RETURN surplus to renter
+        else {
+            overpaid = true;
+            amountDue = 0;
+            emit event_CostCalculation(amountDue);
+        }
     }
 
     function returnItem() public onlyRenter isRented payable {
-        assert(msg.value>=total_CostOfRental);
+        assert(msg.value>=amountDue);
 
+        // Return the renters surplus deposit
+        if(overpaid) {
+            renter.transfer(depositAmount - total_CostOfRental);
+        }
+
+        // Send the owner the revenue from rental
         owner.transfer(total_CostOfRental);
-        emit event_returnItem(total_CostOfRental);
         resetRental();
+        emit event_returnItem(available);
     }
 
     function resetRental() private {

@@ -2,7 +2,7 @@ pragma solidity^0.4.21;
 
 import "./User.sol";
 
-contract UserDirectory {
+contract UserDirectory { //NOT IMPLEMENTED
 
 // OWNER
     // Create listings
