@@ -20,6 +20,6 @@ public class Constants {
     public static final String ETH_LATEST_VALUE_URL = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR";
 
     //DEPLOYED CONTRACT ADDRESSES
-    public static final String RENTAL_DIRECTORY_ADDRESS = "0xaC88bc1A5B87D04BdC2D4B3fFC82E405f2149e9e";
+    public static final String RENTAL_DIRECTORY_ADDRESS = "0xDbba0201a541e35404F93839A4A1160bdD24bD54";
     public static final String USER_DIRECTORY_ADDRESS = "";
 }

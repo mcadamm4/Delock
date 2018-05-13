@@ -278,6 +278,32 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    private void getDetailsFromContract() {
+        try {
+            Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
+            SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFS, 0);
+            String walletPath = sharedPreferences.getString(Constants.WALLET_PATH_SHARED_PREF, "No address found");
+
+            //SHOULD PROMPT USER FOR PASSWORD, REMOVE SHARED PREF FOR SECURITY
+            String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
+            Credentials cred = WalletUtils.loadCredentials(password, walletPath);
+
+            rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+            rental = Rental.load(item.address, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+
+            if(rental.isValid()) {
+                listingOwner = rental.owner().send();
+                currentRenter = rental.renter().send();
+                available = rental.available().send();
+                depositWEI = rental.depositAmount().send();
+            }
+            else
+                throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // ALLOWS OWNER TO DISABLE/ENABLE RENTAL STATE
     @SuppressLint("StaticFieldLeak")
     public class AsyncSetAvailableTask extends AsyncTask<Void, Void, Boolean[]> {
@@ -309,32 +335,6 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
         protected void onPostExecute(Boolean[] result) {
             super.onPostExecute(result);
             AsyncUtil.execute(new AsyncGetDetailsFromContractTask());
-        }
-    }
-
-    private void getDetailsFromContract() {
-        try {
-            Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
-            SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFS, 0);
-            String walletPath = sharedPreferences.getString(Constants.WALLET_PATH_SHARED_PREF, "No address found");
-
-            //SHOULD PROMPT USER FOR PASSWORD, REMOVE SHARED PREF FOR SECURITY
-            String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
-            Credentials cred = WalletUtils.loadCredentials(password, walletPath);
-
-            rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
-            rental = Rental.load(item.address, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
-
-            if(rental.isValid()) {
-                listingOwner = rental.owner().send();
-                currentRenter = rental.renter().send();
-                available = rental.available().send();
-                depositWEI = rental.depositAmount().send();
-            }
-            else
-                throw new Exception();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -386,21 +386,15 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
                         rental.getEvent_CostCalculationEvents(send);
                 Rental.Event_CostCalculationEventResponse event_costCalculationEventResponse =
                         event_costCalculationEvents.get(event_costCalculationEvents.size()-1);
-
                 totalCostOfRental = event_costCalculationEventResponse._totalCostOfRental;
-//                rental.event_CostCalculationEventObservable(EARLIEST, LATEST).subscribe(costCalcEvent -> {
-//                    // Receive calculation event and return item with payment
-//                    BigInteger cost = costCalcEvent._totalCostOfRental;
-//                },Throwable::printStackTrace);
-
 
                 //RETURN ITEM WITH AMOUNT DUE
-                rental.returnItem(totalCostOfRental).send();
-//                rental.event_returnItemEventObservable(EARLIEST, LATEST).subscribe(returnItemEvent -> {
-//                    successfulReturn[0] = true;
-//                    // Trigger return event so owner gets a notification
-//                    rentalDirectory.triggerReturnEvent(listingOwner, rental.getContractAddress());
-//                });
+                TransactionReceipt sendReturn = rental.returnItem(totalCostOfRental).send();
+                List<Rental.Event_returnItemEventResponse> event_returnItemEvents =
+                        rental.getEvent_returnItemEvents(sendReturn);
+                Rental.Event_returnItemEventResponse event_returnItemEventResponse =
+                        event_returnItemEvents.get(event_returnItemEvents.size() - 1);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
