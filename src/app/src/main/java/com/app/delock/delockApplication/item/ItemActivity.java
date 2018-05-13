@@ -38,11 +38,8 @@ import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Contract;
-import org.web3j.utils.Convert;
-import org.web3j.utils.Convert.Unit;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

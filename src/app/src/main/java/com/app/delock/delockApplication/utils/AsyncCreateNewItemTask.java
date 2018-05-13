@@ -2,26 +2,19 @@ package com.app.delock.delockApplication.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.View;
 import android.widget.Toast;
 
+import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.item.Item;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.app.delock.delockApplication.utils.ContractUtils.deployContract;
 import static com.app.delock.delockApplication.utils.IpfsUtils.publishToIPFS;
-import static com.app.delock.delockApplication.utils.IpfsUtils.retrieveImagesFromIPFS;
-import static com.app.delock.delockApplication.utils.IpfsUtils.retrieveItemDetailsFromIPFS;
 
 /**
  * Created by Marky on 01/05/2018.
@@ -60,6 +53,11 @@ public class AsyncCreateNewItemTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        mContext.findViewById(R.id.deploying_contract).setVisibility(View.INVISIBLE);
+        mContext.findViewById(R.id.deployed_contract_success).setVisibility(View.VISIBLE);
+        mContext.findViewById(R.id.gen_password_hint).setVisibility(View.VISIBLE);
+        mContext.findViewById(R.id.gen_password_input).setVisibility(View.VISIBLE);
+        mContext.findViewById(R.id.lock_new_item_button).setVisibility(View.VISIBLE);
 
         String message;
         if(result.compareTo("")==0) message = "Contract was not deployed";

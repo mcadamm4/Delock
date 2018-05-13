@@ -23,13 +23,10 @@ import org.web3j.tx.Contract;
 import org.web3j.utils.Convert;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.net.CacheRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.app.delock.delockApplication.utils.IpfsUtils.retrieveImagesFromIPFS;
 import static com.app.delock.delockApplication.utils.IpfsUtils.retrieveItemDetailsFromIPFS;
@@ -45,9 +42,9 @@ class ContractUtils {
         // CONVERT FROM ETHER TO WEI BEFORE SAVING TO CONTRACT
         BigInteger deposit = BigInteger.valueOf(Convert.toWei(String.valueOf(item.itemDeposit), Convert.Unit.ETHER).longValue());
         BigInteger price = BigInteger.valueOf(Convert.toWei(String.valueOf(item.itemPrice), Convert.Unit.ETHER).longValue());
-        String newRentalAddress = null;
-        Rental newRental = null;
-        String status = "";
+        String newRentalAddress;
+        Rental newRental;
+        String address = "";
         try {
             Web3j web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
 
@@ -77,7 +74,10 @@ class ContractUtils {
 
             assert (rentalDirectory.isValid());
             TransactionReceipt transactionReceipt = rentalDirectory.addNewRental(newRentalAddress).send();
-            status = transactionReceipt.getStatus();
+            List<RentalDirectory.Event_NewRentalEventResponse> event_newRentalEvents = rentalDirectory.getEvent_NewRentalEvents(transactionReceipt);
+            address = event_newRentalEvents.get(event_newRentalEvents.size() - 1)._address;
+
+            assert (address.compareTo(newRentalAddress)==0);
 
         } catch (Exception e ) {
             if (Arrays.toString(e.getStackTrace()).contains("java.lang.RuntimeException: java.lang.RuntimeException: Error processing transaction request: insufficient funds for gas * price + value")) {
@@ -86,7 +86,7 @@ class ContractUtils {
             } else
                 e.printStackTrace();
         }
-        return status;
+        return address;
     }
 
     static ArrayList<Item> retrieveListings(Activity mContext, Web3j web3, Credentials cred){
