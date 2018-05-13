@@ -45,7 +45,7 @@ public class AsyncClearListingsTask extends AsyncTask<Void, Void, String> {
             Credentials cred = WalletUtils.loadCredentials(password, walletPath);
 
             RentalDirectory rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS,
-                    web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+                    web3, cred, Constants.CUSTOM_GAS_PRICE, Contract.GAS_LIMIT);
 
             final TransactionReceipt send = rentalDirectory.clearRentals().send();
             BigInteger numElements = rentalDirectory.numElements().send();

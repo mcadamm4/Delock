@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * Created by Marky on 04/05/2018.
  */
 
-// IGNORE THIS TASK - DOES NOT WORK AT THE MOMENT
 
+// IGNORE THIS TASK - DOES NOT WORK AT THE MOMENT
 public class AsyncCacheRentalWrappersTask extends AsyncTask<Void, Void, Void> {
     @SuppressLint("StaticFieldLeak")
     private Activity mContext;

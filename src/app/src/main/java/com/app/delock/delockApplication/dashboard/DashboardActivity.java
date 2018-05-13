@@ -30,18 +30,25 @@ import android.widget.Toast;
 import com.app.delock.delockApplication.Constants;
 import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.add_item.AddItemActivity;
-import com.app.delock.delockApplication.settings.SettingsActivity;
-import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
-import com.app.delock.delockApplication.utils.AsyncRetrieveListingsTask;
-import com.app.delock.delockApplication.utils.AsyncUtil;
 import com.app.delock.delockApplication.browse.BrowseActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
 import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
+import com.app.delock.delockApplication.settings.SettingsActivity;
+import com.app.delock.delockApplication.utils.AsyncGetBalanceTask;
+import com.app.delock.delockApplication.utils.AsyncRetrieveListingsTask;
+import com.app.delock.delockApplication.utils.AsyncUtil;
 
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.http.HttpService;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -51,6 +58,8 @@ public class DashboardActivity extends AppCompatActivity {
     private ItemsAdapter adapter;
     private ArrayList<Item> itemsList;
     private ItemsAdapter.ItemsAdapterListener listener;
+    private Credentials cred;
+    private Web3j web3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +72,22 @@ public class DashboardActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
-        //ADDRESS
-        SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
-        address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
+        try {
+
+            web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
+            SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
+            String walletPath = sharedPreferences.getString(Constants.WALLET_PATH_SHARED_PREF, "No address found");
+            //SHOULD PROMPT USER FOR PASSWORD, REMOVE SHARED PREF FOR SECURITY
+            String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
+
+            cred = WalletUtils.loadCredentials(password, walletPath);
+
+            address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
+        } catch (IOException | CipherException e) {
+            e.printStackTrace();
+        }
+
+
 
         setupDrawer();
 
@@ -73,7 +95,7 @@ public class DashboardActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         itemsList = new ArrayList<>();
         //ADAPTER
-        adapter = new ItemsAdapter(this, itemsList, listener);
+        adapter = new ItemsAdapter(this, itemsList, listener, address, web3, cred);
         AsyncUtil.execute(new AsyncRetrieveListingsTask(findViewById(R.id.animation_view), DashboardActivity.this, adapter));
 
         //RECYCLER VIEW

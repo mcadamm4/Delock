@@ -41,11 +41,11 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
     private static final int LOUVRE_REQUEST_CODE = 0;
     private List<Uri> mSelection;
     SliderLayout mSlider;
-    Rental newRental;
-    File path;
-    Web3j web3;
     private FormBuildHelper formBuilder = null;
-    Item newItem;
+    private Item newItem;
+    private String title, desc;
+    private double depositAmount, price;
+    private ArrayList<BaseFormElement<?>> elements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,6 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
         setSupportActionBar(toolbar);
 
         setupSlider();
-
         setupForm();
 
         //CONFIRM BUTTON
@@ -63,13 +62,20 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
         confirm.setOnClickListener(view -> {
 
             File[] imageFiles = gatherImageFiles();
-            if(imageFiles==null){
-                Toast toast = Toast.makeText(AddItemActivity.this, "No images attached", Toast.LENGTH_LONG);
+
+            elements = formBuilder.getElements();
+            boolean requiredFieldsSupplied =
+                    elements.get(1).getValueAsString().compareTo("")==0 |
+                    elements.get(2).getValueAsString().compareTo("")==0 |
+                    elements.get(3).getValueAsString().compareTo("")==0;
+
+            if(imageFiles==null | requiredFieldsSupplied){
+                Toast toast = Toast.makeText(AddItemActivity.this, "Missing required fields - 1x Image | Title | Deposit | Price", Toast.LENGTH_LONG);
                 toast.show();
             } else {
                 JSONObject jsonData = collectDataIntoJSON(formBuilder);
-                collectDataIntoItem();
 
+                collectDataIntoItem();
                 Intent intent = new Intent(AddItemActivity.this, DeployNewItemActivity.class);
                 intent.putExtra("ImageFiles", imageFiles);
                 intent.putExtra("JsonData", jsonData.toString());
@@ -81,12 +87,12 @@ public class AddItemActivity extends AppCompatActivity implements OnFormElementV
 
     private void collectDataIntoItem() {
             //Gather up JSON data
-            final ArrayList<BaseFormElement<?>> elements = formBuilder.getElements();
+            elements = formBuilder.getElements();
 
-            String title = elements.get(1).getValueAsString();
-            double depositAmount = Double.valueOf(elements.get(2).getValueAsString());
-            double price = Double.valueOf(elements.get(3).getValueAsString());
-            String desc = elements.get(4).getValueAsString();
+            title = elements.get(1).getValueAsString();
+            depositAmount = Double.valueOf(elements.get(2).getValueAsString());
+            price = Double.valueOf(elements.get(3).getValueAsString());
+            desc = elements.get(4).getValueAsString();
 
             newItem = new Item(null, null, title, depositAmount, price, desc);
     }

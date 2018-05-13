@@ -27,7 +27,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,7 +35,6 @@ import com.app.delock.delockApplication.R;
 import com.app.delock.delockApplication.add_item.AddItemActivity;
 import com.app.delock.delockApplication.dashboard.DashboardActivity;
 import com.app.delock.delockApplication.details.AccountDetailsActivity;
-import com.app.delock.delockApplication.item.FilterHelper;
 import com.app.delock.delockApplication.item.Item;
 import com.app.delock.delockApplication.item.ItemsAdapter;
 import com.app.delock.delockApplication.my_notifications.MyNotificationsActivity;
@@ -79,7 +77,7 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         itemsList = new ArrayList<>();
         //ADAPTER
-        adapter = new ItemsAdapter(this, itemsList, listener);
+        adapter = new ItemsAdapter(this, itemsList, listener, null, null, null);
 
         //RECYCLER VIEW
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);

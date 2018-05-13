@@ -5,7 +5,6 @@ import "./UserDirectory.sol";
 //Repository of all listings
 
 contract User { //NOT IMPLEMENTED
-    //FILEDS
     address public owner;
     bytes32 public ipfsHash;
     string ownedRentals;
@@ -17,22 +16,34 @@ contract User { //NOT IMPLEMENTED
         ipfsHash = _ipfsHash;
     }
 
-    //MODIFIERS
+    // Access modifiers
     modifier onlyOwner() {
         require(msg.sender==owner);
         _;
     }
 
-    //SETTERS
-    function setIpfsHash(bytes32 _ipfsHash) public { //onlyOwner
+    // ---
+    function setIpfsHash(bytes32 _ipfsHash) public onlyOwner {
         ipfsHash = _ipfsHash;
     }
 
-    //EVENTS
+    // Events
+    // ??
 
-    //FUNCTIONS
-    /* function addNewOwnedRental() public onlyOwner {
-         ownedRentals.push();
-    } */
+    // Functions
+    function addNewOwnedRental() public onlyOwner {
+         /* ownedRentals.push(); */
+    }
 
+    function deleteOwnedRental() public onlyOwner {
+        /* delete ownedRentals[_index] */
+    }
+
+    function addNewRentedItem() public {
+        // Would listen for rental event for owner
+    }
+
+    function deleteRentedItem() public {
+        // Would listen for return event for owner
+    }
 }

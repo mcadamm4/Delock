@@ -19,6 +19,9 @@ public class Constants {
     public static final String INFURA_URL = "https://ropsten.infura.io/kv4a42NG93ZwJ9h0lZqK";
     public static final String ETH_LATEST_VALUE_URL = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR";
 
+    // Using custom gas price for demo purposes as test net is slow
+    public static final BigInteger CUSTOM_GAS_PRICE = BigInteger.valueOf(50000000000L);
+
     //DEPLOYED CONTRACT ADDRESSES
     public static final String RENTAL_DIRECTORY_ADDRESS = "0xDbba0201a541e35404F93839A4A1160bdD24bD54";
     public static final String USER_DIRECTORY_ADDRESS = "";

@@ -23,10 +23,10 @@ public class AddItemFormUtils {
 
     public enum Tag {
         Title,
-        Location,
         Deposit,
         Price,
         Description,
+        Location,
         Date,
         Time,
         DateTime
@@ -38,22 +38,26 @@ public class AddItemFormUtils {
         SingleLineEditTextBuilder title = new SingleLineEditTextBuilder((Tag.Title.ordinal()));
         title.setTitle(mContext.getString(R.string.Title));
         title.setHint(mContext.getString(R.string.EnterTitle));
+        title.setRequired(true);
         elements.add(title.build());
 
         NumberEditTextBuilder deposit = new NumberEditTextBuilder(Tag.Deposit.ordinal());
         deposit.setTitle(mContext.getString(R.string.Deposit));
-        deposit.setValue("0");
+        deposit.setHint("0");
+        deposit.setRequired(true);
         elements.add(deposit.build());
 
         NumberEditTextBuilder price = new NumberEditTextBuilder(Tag.Price.ordinal());
         price.setTitle(mContext.getString(R.string.Price));
-        price.setValue("0");
+        price.setHint("0");
+        price.setRequired(true);
         elements.add(price.build());;
 
         MultiLineEditTextBuilder textArea = new MultiLineEditTextBuilder(Tag.Description.ordinal());
         textArea.setTitle(mContext.getString(R.string.Description));
         textArea.setValue("");
         textArea.setHint(mContext.getString(R.string.EnterDescription));
+        textArea.setRequired(false);
         elements.add(textArea.build());
         return elements;
     }

@@ -68,12 +68,12 @@ class ContractUtils {
             String str = TextUtils.join(",", ipfsHashes);
 
             // Deploy new rental contract
-            newRental = Rental.deploy(web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT, str, deposit, price, true).send();
+            newRental = Rental.deploy(web3, cred, Constants.CUSTOM_GAS_PRICE, Contract.GAS_LIMIT, str, deposit, price, true).send();
             newRentalAddress = newRental.getContractAddress();
 
             // Add new rental to rental directory
             RentalDirectory rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS,
-                    web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+                    web3, cred, Constants.CUSTOM_GAS_PRICE, Contract.GAS_LIMIT);
 
             assert (rentalDirectory.isValid());
             TransactionReceipt transactionReceipt = rentalDirectory.addNewRental(newRentalAddress).send();
@@ -98,7 +98,7 @@ class ContractUtils {
             EthGasPrice getGasPrice = web3.ethGasPrice().send();
             BigInteger gasPrice = getGasPrice.getGasPrice();
 
-            rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+            rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Constants.CUSTOM_GAS_PRICE, Contract.GAS_LIMIT);
 
             //Retrieve all rental contract addresses from Rental Directory
             BigInteger tempNumElements = rentalDirectory.numElements().send();
@@ -125,7 +125,7 @@ class ContractUtils {
 
         // Generate new java Rental wrapper for every address found in the Rental Directory
         for(String address : addresses){
-            Rental rental = Rental.load(address, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+            Rental rental = Rental.load(address, web3, cred, Constants.CUSTOM_GAS_PRICE, Contract.GAS_LIMIT);
             try {
                 //Retrieve IPFS hashes as string and split
                 String[] ipfsData = rental.ipfsHashes().send().split(",");

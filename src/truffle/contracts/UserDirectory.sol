@@ -1,60 +1,33 @@
 pragma solidity^0.4.21;
 
-import "./User.sol";
 
 contract UserDirectory { //NOT IMPLEMENTED
-
-// OWNER
-    // Create listings
-    // Update listings
-    // Delete listings
-
-// RENTER
-    // Browse listing
-    // Create bookings
-    // Cancel bookings
-
-    //FIELDS
     address public owner;
-    mapping (address => User) public userMapping;
-    User[] public users;
+    address[] public users;
 
-    //EVENTS
+    // Events
     event event_NewUser(address _address);
 
-    //MODIFIERS
+    // Access modifiers
     modifier onlyOwner() {
         require(msg.sender==owner);
         _;
     }
-    modifier isUser(uint _index) {
-        require(msg.sender==users[_index].owner());
-        _;
-    }
     modifier userExists(uint _index) {
-        require(_index < users.length);
+        require(msg.sender==users[_index]);
         _;
     }
 
-    //FUNCTIONS
+    // Functions
     function UserDirectory() public {
         owner = msg.sender;
     }
 
-    /* function createNewUser(bytes32 _ipfsHash) public {
-        userMapping[msg.sender] = new User(_ipfsHash);
-        emit event_NewUser(msg.sender);
+    function createNewUser(address user) public {
+        users.push(user);
     }
 
-    function getUser() public returns (User) {
-        return userMapping[msg.sender];
+    function deleteUser(uint _index) public userExists(0) {
+        delete users[_index];
     }
-
-    function updateUserDetails(bytes32 _ipfsHash) public {
-        userMapping[msg.sender].setIpfsHash(_ipfsHash);
-    }
-
-    function deleteUser() public {
-        delete userMapping[msg.sender];
-    } */
 }

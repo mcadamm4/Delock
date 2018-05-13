@@ -75,6 +75,7 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String currency = "ETH";
 
     RentalDirectory rentalDirectory;
+
     //CONTRACT DETAILS
     private Rental rental;
     private String listingOwner, currentRenter = "";
@@ -288,8 +289,8 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
             String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
             Credentials cred = WalletUtils.loadCredentials(password, walletPath);
 
-            rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
-            rental = Rental.load(item.address, web3, cred, Contract.GAS_PRICE, Contract.GAS_LIMIT);
+            rentalDirectory = RentalDirectory.load(Constants.RENTAL_DIRECTORY_ADDRESS, web3, cred, Constants.CUSTOM_GAS_PRICE, Contract.GAS_LIMIT);
+            rental = Rental.load(item.address, web3, cred, Constants.CUSTOM_GAS_PRICE, Contract.GAS_LIMIT);
 
             if(rental.isValid()) {
                 listingOwner = rental.owner().send();
