@@ -21,7 +21,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import static com.app.delock.delockApplication.R.id.lock_new_item_button;
-import static com.app.delock.delockApplication.R.id.password_input;
+import static com.app.delock.delockApplication.R.id.gen_password_input;
 
 public class DeployNewItemActivity extends AppCompatActivity {
     TextView enterPasswordBox;
@@ -46,7 +46,7 @@ public class DeployNewItemActivity extends AppCompatActivity {
             AsyncUtil.execute(new AsyncCreateNewItemTask(DeployNewItemActivity.this, imageFiles, jsonData, newItem));
 
             // Generate hash password for Item
-            enterPasswordBox = findViewById(password_input);
+            enterPasswordBox = findViewById(gen_password_input);
             lockItemButton = findViewById(lock_new_item_button);
             lockItemButton.setOnClickListener(v -> {
                 String password = enterPasswordBox.getText().toString();
