@@ -77,7 +77,7 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         itemsList = new ArrayList<>();
         //ADAPTER
-        adapter = new ItemsAdapter(this, itemsList, listener, null, null, null);
+        adapter = new ItemsAdapter(this, itemsList, listener);
 
         //RECYCLER VIEW
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);

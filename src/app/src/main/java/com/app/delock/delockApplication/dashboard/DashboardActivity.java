@@ -72,22 +72,8 @@ public class DashboardActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
-        try {
-
-            web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
-            SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
-            String walletPath = sharedPreferences.getString(Constants.WALLET_PATH_SHARED_PREF, "No address found");
-            //SHOULD PROMPT USER FOR PASSWORD, REMOVE SHARED PREF FOR SECURITY
-            String password = sharedPreferences.getString(Constants.PASSWORD_SHARED_PREF, "No address found");
-
-            cred = WalletUtils.loadCredentials(password, walletPath);
-
-            address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
-        } catch (IOException | CipherException e) {
-            e.printStackTrace();
-        }
-
-
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
+        address = sharedPreferences.getString(Constants.ACCOUNT_ADDRESS_SHARED_PREF, "No address found");
 
         setupDrawer();
 
@@ -95,7 +81,7 @@ public class DashboardActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         itemsList = new ArrayList<>();
         //ADAPTER
-        adapter = new ItemsAdapter(this, itemsList, listener, address, web3, cred);
+        adapter = new ItemsAdapter(this, itemsList, listener);
         AsyncUtil.execute(new AsyncRetrieveListingsTask(findViewById(R.id.animation_view), DashboardActivity.this, adapter));
 
         //RECYCLER VIEW
