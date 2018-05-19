@@ -31,19 +31,19 @@ contract User { //NOT IMPLEMENTED
     // ??
 
     // Functions
-    function addNewOwnedRental() public onlyOwner {
+    //function addNewOwnedRental() public onlyOwner {
          /* ownedRentals.push(); */
-    }
+    //}
 
-    function deleteOwnedRental() public onlyOwner {
+    //function deleteOwnedRental() public onlyOwner {
         /* delete ownedRentals[_index] */
-    }
+    //}
 
-    function addNewRentedItem() public {
+    //function addNewRentedItem() public {
         // Would listen for rental event for owner
-    }
+    //}
 
-    function deleteRentedItem() public {
+    //function deleteRentedItem() public {
         // Would listen for return event for owner
-    }
+    //}
 }

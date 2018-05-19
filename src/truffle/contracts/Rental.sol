@@ -41,7 +41,6 @@ contract Rental {
         _;
     }
 
-    // ---
     function setDepositAmount(uint _depositAmount) public onlyOwner {
         depositAmount = _depositAmount;
     }
@@ -55,6 +54,7 @@ contract Rental {
     }
 
     //Events
+
     event event_OwnerSetAvailable(bool _available);
     event event_rentItem(bool _available);
     event event_CostCalculation(uint _totalCostOfRental);

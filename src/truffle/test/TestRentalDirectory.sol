@@ -1,7 +1,6 @@
 pragma solidity^0.4.21;
 
 import "truffle/Assert.sol";
-import "truffle/DeployedAddresses.sol";
 import "../contracts/RentalDirectory.sol";
 import "../contracts/Rental.sol";
 
@@ -9,7 +8,7 @@ contract TestRentalDirectory {
 
     function testCreateRental() public {
         RentalDirectory dir = new RentalDirectory();
-        address rentalAddress = new Rental("Hash", 1, 1);
+        address rentalAddress = new Rental("Hash", 1, 1, true);
         //Act
         uint numRentals = dir.addNewRental(rentalAddress);
         //Assert
@@ -20,10 +19,10 @@ contract TestRentalDirectory {
         //Arrange
         RentalDirectory dir = new RentalDirectory();
         // -- ONE
-        address rentalAddress = new Rental("Hash", 1, 1);
+        address rentalAddress = new Rental("Hash", 1, 1, true);
         dir.addNewRental(rentalAddress);
         // -- TWO
-        rentalAddress = new Rental("Hash", 2, 2);
+        rentalAddress = new Rental("Hash", 2, 2, true);
         dir.addNewRental(rentalAddress);
         //Act
         uint numElements = dir.numElements();
@@ -34,9 +33,9 @@ contract TestRentalDirectory {
     function testIncorrectNumberOfRentals() public {
         //Arrange
         RentalDirectory dir = new RentalDirectory();
-        address rentalAddress = new Rental("Hash", 1, 1);
+        address rentalAddress = new Rental("Hash", 1, 1, true);
         dir.addNewRental(rentalAddress);
-        rentalAddress = new Rental("Hash", 2, 2);
+        rentalAddress = new Rental("Hash", 2, 2, true);
         dir.addNewRental(rentalAddress);
         //Act
         uint numElements = dir.numElements();
@@ -64,19 +63,18 @@ contract TestRentalDirectory {
         //Arrange
         RentalDirectory dir = new RentalDirectory();
 
-        address rentalAddress1 = new Rental("Hash", 1, 1);
+        Rental rentalAddress1 = new Rental("Hash", 1, 1, true);
         dir.addNewRental(rentalAddress1);
-        Rental rentalAddress2 = new Rental("Hash", 2, 2);
+        Rental rentalAddress2 = new Rental("Hash", 2, 2, true);
         dir.addNewRental(rentalAddress2);
 
         dir.addNewRental(rentalAddress1);
         uint numRentals = dir.addNewRental(rentalAddress2);
-        Assert.equal(numRentals, 2, "Correct number of rentals added");
-
+        
         //Act
         dir.clearRentals();
         //Assert
         uint numElements = dir.numElements();
-        Assert.equal(numElements, 0, "Rentals successfull cleared");
+        Assert.equal(numElements, 0, "Rentals successfully cleared");
     }
 }
