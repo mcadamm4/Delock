@@ -167,11 +167,6 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
 
                 Intent myIntent;
                 switch(menuItem.getItemId()) {
-                    case R.id.nav_identity:{
-//                      myIntent = new Intent(this, SettingsActivity.class);
-//                      startActivity(myIntent);
-                        break;
-                    }
                     case R.id.nav_add_item: {
                         myIntent = new Intent(this, AddItemActivity.class);
                         startActivity(myIntent);
