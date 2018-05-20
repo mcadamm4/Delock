@@ -1,4 +1,4 @@
-### Structure
+### Note:
 ---
 #### apk
 Contains packaged apk, this can be installed to an
