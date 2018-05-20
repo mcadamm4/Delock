@@ -43,7 +43,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             title = view.findViewById(R.id.title);
             cost = view.findViewById(R.id.cost);
             thumbnail = view.findViewById(R.id.thumbnail);
-            overflow = view.findViewById(R.id.overflow);
+//            overflow = view.findViewById(R.id.overflow);
             cardView = view.findViewById(R.id.card_view);
         }
     }
@@ -73,7 +73,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             holder.cost.setText(String.valueOf(item.itemPrice));
             holder.thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-            holder.overflow.setOnClickListener(view -> showPopupMenu(holder.overflow, position));
+//            holder.overflow.setOnClickListener(view -> showPopupMenu(holder.overflow, position));
 
             Intent intent = new Intent(mContext, ItemActivity.class);
             intent.putExtra("Item", item);

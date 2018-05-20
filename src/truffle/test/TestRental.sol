@@ -15,11 +15,6 @@ contract TestRental {
         rental = new Rental("Hash", inputDeposit, inputPrice, inputAvailable);
     }
 
-    function testInitialBalanceUsingDeployedContract() {
-        // perform an action which sends value to myContract, then assert.
-        /* rental.send(); */
-    }
-
     function testRentalConstructor() public {
         uint depositAmount = rental.depositAmount();
         uint pricePerHour = rental.pricePerHour();

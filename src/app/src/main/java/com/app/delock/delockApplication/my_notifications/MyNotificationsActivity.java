@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,8 +46,6 @@ import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
 public class MyNotificationsActivity extends AppCompatActivity {
-    TextView textView;
-    ImageView imageView;
     private DrawerLayout mDrawerLayout;
     private String address;
     LottieAnimationView lottieAnimation;
@@ -56,6 +55,9 @@ public class MyNotificationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notifications);
 
+        String[] StringArray = {"Item1 has been rented", "Item2 has been returned"};
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_my_notifications, StringArray);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -63,10 +65,6 @@ public class MyNotificationsActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
-        imageView = findViewById(R.id.imageView);
-
-        //Retrieve information from ethereum
-        new AsyncInfo().execute();
 
         //WALLET ADDRESS
         SharedPreferences sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREFS, 0);
@@ -176,90 +174,5 @@ public class MyNotificationsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @SuppressLint("StaticFieldLeak")
-    private class AsyncInfo extends AsyncTask<Void, Void, String[]>
-    {
-        private Web3j web3;
-        private Web3ClientVersion web3ClientVersion = null;
-        private EthBlockNumber Web3BlockNumber = null;
-        private EthGasPrice Web3GasPrice = null;
-
-        @Override
-        protected void onPreExecute() {
-            /* this method will be running on UI thread */
-            super.onPreExecute();
-            lottieAnimation = findViewById(R.id.animation_view);
-            lottieAnimation.setAnimation(R.raw.loading, LottieAnimationView.CacheStrategy.Strong);
-//            myContract.setDeployedAddress("3", "0x0351fd78c0ecb443c6671b66a730372034b4faf9");
-        }
-        @Override
-        protected String[] doInBackground(Void... params) {
-            //this method will be running on background thread so don't update UI frome here
-            //do your long running http tasks here,you dont want to pass argument and u can access the parent class' variable url over here
-            web3 = Web3jFactory.build(new HttpService(Constants.INFURA_URL));
-            String clientVersion = getClientVersion();
-            BigInteger gasPrice = getGasPrice();
-            BigInteger blockNumber = getBlockNumber();
-            Boolean valid = false;
-//            try {
-//                valid = myContract.isValid();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-            return new String[]{clientVersion, gasPrice.toString(), blockNumber.toString(), valid.toString()};
-        }
-
-        @Override
-        protected void onPostExecute(String[] result) {
-            super.onPostExecute(result);
-            //this method will be running on UI thread
-            String response = ("Version:\n\t" + result[0] + "\n\nGas Price:\n\t" + result[1] +  "\n\nBlock:\n\t" + result[2]  +  "\n\nValid Contract:\n\t" + result[3]);
-            textView = (TextView) findViewById(R.id.item_description);
-            textView.setText(response);
-            lottieAnimation.setVisibility(View.INVISIBLE);
-        }
-
-        private String getClientVersion() {
-            try {
-                web3ClientVersion = web3.web3ClientVersion().sendAsync().get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-            assert web3ClientVersion != null;
-            return web3ClientVersion.getWeb3ClientVersion();
-        }
-        private BigInteger getGasPrice() {
-            try {
-                Web3GasPrice = web3.ethGasPrice().sendAsync().get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-            assert Web3GasPrice  != null;
-            return Web3GasPrice.getGasPrice();
-        }
-        private BigInteger getBlockNumber() {
-            try {
-                Web3BlockNumber = web3.ethBlockNumber().sendAsync().get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-            assert Web3BlockNumber  != null;
-            return Web3BlockNumber.getBlockNumber();
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-        savedInstanceState.putDouble("myDouble", 1.9);
-        savedInstanceState.putInt("MyInt", 1);
-        savedInstanceState.putString("MyString", "Welcome back to Android");
-        // etc.
     }
 }

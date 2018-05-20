@@ -109,6 +109,8 @@ public class BrowseActivity extends AppCompatActivity implements MaterialSearchB
         });
         searchBar.setHapticFeedbackEnabled(true);
 
+
+// FOR DEV PURPOSES, CLEAR RENTALS IN RENTAL DIRECTORY
         FloatingActionButton clearListings = findViewById(R.id.clearListings);
         clearListings.setOnClickListener((View v) -> {
                     AsyncUtil.execute(new AsyncClearListingsTask(BrowseActivity.this));

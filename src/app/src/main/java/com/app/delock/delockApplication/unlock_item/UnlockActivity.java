@@ -21,7 +21,14 @@ public class UnlockActivity extends NFCReaderSpeakerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_unlock);
+        setContentView(R.layout.activity_lock_new_item);
+
+        Button returnHome = findViewById(R.id.returnHome);
+        returnHome.setOnClickListener(view -> {
+                Intent intent = new Intent(UnlockActivity.this, BrowseActivity.class);
+                startActivity(intent);
+            }
+        );
 
         this.prefs = getSharedPreferences("com.app.delock.delockApplication", 0);
         this.prefs.edit().putString(this.passwordKey, "default_password").apply();

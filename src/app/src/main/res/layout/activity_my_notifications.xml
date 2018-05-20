@@ -40,20 +40,6 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/navigation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading" />
-
             <include
                 android:id="@+id/include3"
                 layout="@layout/content_my_notifications"

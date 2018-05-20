@@ -217,9 +217,6 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
         rentItemButton = findViewById(R.id.rentItemButton);
         rentItemButton.setOnClickListener(view -> {
             AsyncUtil.execute(new AsyncRentItemTask());
-
-            Intent intent1 = new Intent(ItemActivity.this, UnlockActivity.class);
-            startActivity(intent1);
         });
     }
 
@@ -227,8 +224,6 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
         returnItemButton = findViewById(R.id.returnItemButton);
         returnItemButton.setOnClickListener(view -> {
             AsyncUtil.execute(new AsyncReturnItemTask());
-//            Intent intent1 = new Intent(ItemActivity.this, LockActivity.class);
-//            startActivity(intent1);
         });
     }
 
@@ -358,14 +353,14 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         protected void onPostExecute(Boolean[] successfulRent) {
             super.onPostExecute(successfulRent);
-            if(!successfulRent[0]) {
-                Toast toast = Toast.makeText(ItemActivity.this, "Renting encountered a problem", Toast.LENGTH_LONG);
-                toast.show();
-            } else {
+            // if(!successfulRent[0]) {
+            //     Toast toast = Toast.makeText(ItemActivity.this, "Renting encountered a problem", Toast.LENGTH_LONG);
+            //     toast.show();
+            // } else {
                 rentItemButton.setVisibility(INVISIBLE);
                 Intent intent = new Intent(ItemActivity.this, UnlockActivity.class);
                 startActivity(intent);
-            }
+            // }
         }
     }
 
@@ -402,7 +397,14 @@ public class ItemActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         protected void onPostExecute(BigInteger successfulReturn) {
             super.onPostExecute(successfulReturn);
-            Toast.makeText(ItemActivity.this, String.valueOf(successfulReturn.intValue()), Toast.LENGTH_LONG).show();
+            // if(!successfulRent[0]) {
+            //     Toast toast = Toast.makeText(ItemActivity.this, "Returning encountered a problem", Toast.LENGTH_LONG);
+            //     toast.show();
+            // } else {
+            returnItemButton.setVisibility(INVISIBLE);
+            Intent intent = new Intent(ItemActivity.this, UnlockActivity.class);
+            startActivity(intent);
+            // }
         }
     }
 

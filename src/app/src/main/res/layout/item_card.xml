@@ -47,15 +47,15 @@ android:layout_height="wrap_content">
             android:paddingRight="@dimen/item_title_padding"
             android:textSize="@dimen/item_cost" />
 
-        <ImageView
-            android:id="@+id/overflow"
-            android:layout_width="@dimen/ic_item_overflow_width"
-            android:layout_height="@dimen/ic_item_overflow_height"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/thumbnail"
-            android:layout_marginTop="@dimen/ic_item_overflow_margin_top"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_dots" />
+        <!--<ImageView-->
+            <!--android:id="@+id/overflow"-->
+            <!--android:layout_width="@dimen/ic_item_overflow_width"-->
+            <!--android:layout_height="@dimen/ic_item_overflow_height"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_below="@id/thumbnail"-->
+            <!--android:layout_marginTop="@dimen/ic_item_overflow_margin_top"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@mipmap/ic_dots" />-->
 
     </RelativeLayout>
 
