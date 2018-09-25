@@ -12,3 +12,11 @@ However, it is important to look back at past events such as during the early ye
 # Architecture Overview Diagram
 
 ![alt text](https://github.com/mcadamm4/Delock/blob/master/images/Arch_Overview.png "Logo Title Text 1")
+
+# UI
+
+![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_listings.jpeg "Logo Title Text 2")
+
+![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_item.jpeg "Logo Title Text 3")
+
+![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_image.jpeg "Logo Title Text 4")
