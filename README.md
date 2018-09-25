@@ -15,8 +15,8 @@ However, it is important to look back at past events such as during the early ye
 
 # UI
 
-![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_listings.jpeg "Logo Title Text 2")
+![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_listings.jpg "Logo Title Text 2")
 
-![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_item.jpeg "Logo Title Text 3")
+![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_item.jpg "Logo Title Text 3")
 
-![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_image.jpeg "Logo Title Text 4")
+![alt text](https://github.com/mcadamm4/Delock/blob/master/images/ui_image.jpg "Logo Title Text 4")
