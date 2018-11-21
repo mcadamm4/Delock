@@ -1,4 +1,4 @@
-##DELOCK
+## DELOCK
 
 [![CodeFactor](https://www.codefactor.io/repository/github/mcadamm4/delock/badge)](https://www.codefactor.io/repository/github/mcadamm4/delock)
 
