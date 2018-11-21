@@ -1,3 +1,7 @@
+##DELOCK
+
+[![CodeFactor](https://www.codefactor.io/repository/github/mcadamm4/delock/badge)](https://www.codefactor.io/repository/github/mcadamm4/delock)
+
 # Overview of Delock
 
 Delock is a decentralized rental application for Android, the goal of Delock is to provide a trustless, secure and transparent platform where individuals or businesses can rent their property.
