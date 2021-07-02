@@ -11,7 +11,7 @@ In recent years, decentralized technologies and their potential benefits have be
 
 Crypto-currencies like Bitcoin and Ether have garnered a lot of attention lately with people adamant that they cannot fail and vice-versa that they are destined too. The underlying technology of these coins, the blockchain has also been front and center of late, the amount of blockchain projects on GitHub and ICO's has risen exponentially in the last few years, most of them have failed or been abandoned by their contributors for whatever reasons.
 
-However, it is important to look back at past events such as during the early years of this century and remember the emergence of social media platforms such as MySpace and Friendster.  No doubt there was much speculation over whether social media would take off, and in the end these companies failed. However, their existence paved the way for platforms such as Facebook and Twitter to completely over-run the world and become super-powers in the technology industry. The same may be said of Bitcoin and Ethereum, they are the foundation on which better technology will be built.
+However, it is important to look back at past events such as during the early years of this century and remember the emergence of social media platforms such as MySpace and Friendster.  No doubt there was much speculation over whether social media would take off, and in the end these companies failed. However, their existence paved the way for platforms such as Facebook and Twitter to succeed and become very influential and successful in the technology industry. The same principles can be applied to the decentralized application scene.
 
 
 # Architecture Overview Diagram
